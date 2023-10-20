@@ -1,0 +1,96 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Manage Group</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Manage Group</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+	
+	<div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="{% url 'create_group' %}"><button class="btn btn-primary">Add New</button></a>
+	</div>
+	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+											<th>Id</th>
+							<th>Updated On</th>
+							<th>Created_by</th>
+							<th>Group Name</th>
+                            <th>Agent Name</th>
+							<th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+											<th>Id</th>
+							<th>Updated On</th>
+							<th>Created_by</th>
+							<th>Group Name</th>
+                            <th>Agent Name</th>
+							<th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in group  %}
+						<tr>
+							<td>{{ forloop.counter }}</td>
+							<td>{{i.id}}</td>
+							<td>{{i.updated_on}}</td>
+							<td>{{i.create_by}}</td>
+							<td>{{i.group_name}}</td>
+							<td>{% for member in i.group_member.all %}
+                                {{ member.first_name }} {{member.last_name}}
+                                {% if not forloop.last %},{% endif %}
+                            {% endfor %}</td>
+                            <td><div class="row">
+								<div class="col-md-6"><a href="{% url 'editgroup' i.id %}"><i
+									class='zmdi zmdi-edit'
+									style="font-size: 20px; color:blue;"></i></a></div>
+									<div class="col-md-6"><a href="{% url "delete_group" i.id %}"><i
+										class='zmdi zmdi-delete'
+										style="font-size: 20px; color:red;"></i></a></div>  
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload</title>
+</head>
+<body>
+    <form method="post" action="" enctype="multipart/form-data" id="file-upload-form">
+        {% csrf_token %}
+        <input type="file" name="file" id="file-upload-input" required>
+    </form>
+
+    <script>
+        document.getElementById('file-upload-input').addEventListener('change', function() {
+            document.getElementById('file-upload-form').submit();
+        });
+    </script>
+</body>
+</html>

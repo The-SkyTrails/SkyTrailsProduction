@@ -1,0 +1,456 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Employee</h5>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+                <li><a href="{% url "Employee_all_employee" %}"><span>Employee</span></a></li>
+                <li class="active"><span>Update Employee</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">General Information</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form action="{% url "Employee_employee_update_save" %}" method="POST" enctype="multipart/form-data" >
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Department</label>
+                                                    <input type="text" value="{{employee.users.id}}" name="employee_id"
+                                                        hidden>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="department" id="department">
+                                                            {% for i in department %}
+                                                <option value="{{i.id}}" {% if employee.department.id == i.id  %}selected{% endif %} >{{i.name}}</option>
+
+                                                {% endfor %}
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">First Name</label>
+                                                    <div class="form-group">
+
+                                                        <input type="text" name="firstname" id="firstname"
+                                                            class="form-control border-left-0" placeholder="First Name"
+                                                            value="{{employee.users.first_name}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Last Name</label>
+                                                    <div class="form-group">
+
+                                                        <input type="text" name="lastname" id="lastname"
+                                                            class="form-control border-left-0" placeholder="Last Name"
+                                                            value="{{employee.users.last_name}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Email Address</label>
+                                                    <div class="form-group">
+
+                                                        <input type="text" name="email" id="email"
+                                                            class="form-control border-left-0"
+                                                            placeholder="Email Address" value="{{employee.users.email}}"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Contact No.</label>
+                                                    <div class="form-group">
+
+                                                        <input type="text" name="contact" id="contact"
+                                                            class="form-control border-left-0" placeholder="Contact No"
+                                                            value="{{employee.contact_no}}">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <br>
+                                            <hr><br>
+                                            <h4 class="mb-0 text-white">Personal Information</h4>
+                                            <br>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Country</label>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="country" id="country">
+                                                
+                                                            <option value="Afghanistan" {% if employee.country == "Afghanistan" %}selected{% endif %}>Afghanistan</option>
+                                                            <option value="Albania" {% if employee.country == "Albania" %}selected{% endif %}>Albania</option>
+                                                            <option value="Algeria" {% if employee.country == "Algeria" %}selected{% endif %}>Algeria</option>
+                                                            <option value="American Samoa" {% if employee.country == "American Samoa" %}selected{% endif %}>American Samoa</option>
+                                                            <option value="Andorra" {% if employee.country == "Andorra" %}selected{% endif %}>Andorra</option>
+                                                            <option value="Angola" {% if employee.country == "Angola" %}selected{% endif %}>Angola</option>
+                                                            <option value="Anguilla" {% if employee.country == "Anguilla" %}selected{% endif %}>Anguilla</option>
+                                                            <option value="Antartica" {% if employee.country == "Antartica" %}selected{% endif %}>Antarctica</option>
+                                                            <option value="Antigua and Barbuda" {% if employee.country == "Antigua and Barbuda" %}selected{% endif %}>Antigua and Barbuda</option>
+            
+                                                            <option value="Argentina" {% if employee.country == "Argentina" %}selected{% endif %}>Argentina</option>
+                                                            <option value="Armenia" {% if employee.country == "Armenia" %}selected{% endif %}>Armenia</option>
+                                                            <option value="Aruba" {% if employee.country == "Aruba" %}selected{% endif %}>Aruba</option>
+                                                            <option value="Australia" {% if employee.country == "Australia" %}selected{% endif %}>Australia</option>
+                                                            <option value="Austria" {% if employee.country == "Austria" %}selected{% endif %}>Austria</option>
+                                                            <option value="Azerbaijan" {% if employee.country == "Azerbaijan" %}selected{% endif %}>Azerbaijan</option>
+                                                            <option value="Bahamas" {% if employee.country == "Bahamas" %}selected{% endif %}>Bahamas</option>
+                                                            <option value="Bahrain" {% if employee.country == "Bahrain" %}selected{% endif %}>Bahrain</option>
+                                                            <option value="Bangladesh" {% if employee.country == "Bangladesh" %}selected{% endif %}>Bangladesh</option>
+                                                            <option value="Barbados" {% if employee.country == "Barbados" %}selected{% endif %}>Barbados</option>
+            
+                                                            
+                                                            <option value="Belarus" {% if employee.country == "Belarus" %}selected{% endif %}>Belarus</option>
+                                                            <option value="Belgium" {% if employee.country == "Belgium" %}selected{% endif %}>Belgium</option>
+                                                            <option value="Belize" {% if employee.country == "Belize" %}selected{% endif %}>Belize</option>
+                                                            <option value="Benin" {% if employee.country == "Benin" %}selected{% endif %}>Benin</option>
+                                                            <option value="Bermuda" {% if employee.country == "Bermuda" %}selected{% endif %}>Bermuda</option>
+                                                            <option value="Bhutan" {% if employee.country == "Bhutan" %}selected{% endif %}>Bhutan</option>
+                                                            <option value="Bolivia" {% if employee.country == "Bolivia" %}selected{% endif %}>Bolivia</option>
+                                                            <option value="Bosnia and Herzegowina" {% if employee.country == "Bosnia and Herzegowina" %}selected{% endif %}>Bosnia and Herzegowina</option>
+                                                            <option value="Botswana" {% if employee.country == "Botswana" %}selected{% endif %}>Botswana</option>
+                                                            <option value="Bouvet Island" {% if employee.country == "Bouvet Island" %}selected{% endif %}>Bouvet Island</option>
+                                                            <option value="Brazil" {% if employee.country == "Brazil" %}selected{% endif %}>Brazil</option>
+                                                            <option value="British Indian Ocean Territory" {% if employee.country == "British Indian Ocean Territory" %}selected{% endif %}>British Indian Ocean Territory</option>
+                                                            <option value="Brunei Darussalam" {% if employee.country == "Brunei Darussalam" %}selected{% endif %}>Brunei Darussalam</option>
+            
+                                                            
+                                                            <option value="Bulgaria" {% if employee.country == "Bulgaria" %}selected{% endif %}>Bulgaria</option>
+                                                            <option value="Burkina Faso" {% if employee.country == "Burkina Faso" %}selected{% endif %}>Burkina Faso</option>
+                                                            <option value="Burundi" {% if employee.country == "Burundi" %}selected{% endif %}>Burundi</option>
+                                                            <option value="Cambodia" {% if employee.country == "Cambodia" %}selected{% endif %}>Cambodia</option>
+                                                            <option value="Cameroon" {% if employee.country == "Cameroon" %}selected{% endif %}>Cameroon</option>
+                                                            <option value="Canada" {% if employee.country == "Canada" %}selected{% endif %}>Canada</option>
+                                                            <option value="Cape Verde" {% if employee.country == "LebCape Verdeanon" %}selected{% endif %}>Cape Verde</option>
+                                                            <option value="Cayman Islands" {% if employee.country == "Cayman Islands" %}selected{% endif %}>Cayman Islands</option>
+                                                            <option value="Central African Republic" {% if employee.country == "Central African Republic" %}selected{% endif %}>Central African Republic</option>
+                                                            <option value="Chad" {% if employee.country == "Chad" %}selected{% endif %}>Chad</option>
+                                                            <option value="Chile" {% if employee.country == "Chile" %}selected{% endif %}>Chile</option>
+                                                            <option value="China" {% if employee.country == "China" %}selected{% endif %}>China</option>
+                                                            <option value="Christmas Island" {% if employee.country == "Christmas Island" %}selected{% endif %}>Christmas Island</option>
+                                                            <option value="Cocos Islands" {% if employee.country == "Cocos Islands" %}selected{% endif %}>Cocos (Keeling) Islands</option>
+                                                            <option value="Colombia" {% if employee.country == "Colombia" %}selected{% endif %}>Colombia</option>
+                                                            <option value="Comoros" {% if employee.country == "Comoros" %}selected{% endif %}>Comoros</option>
+                                                            <option value="Congo" {% if employee.country == "Congo" %}selected{% endif %}>Congo</option>
+                                                            <option value="Cook Islands" {% if employee.country == "Cook Islands" %}selected{% endif %}>Cook Islands</option>
+                                                            <option value="Costa Rica" {% if employee.country == "Costa Rica" %}selected{% endif %}>Costa Rica</option>
+                                                            <option value="Cota D'Ivoire" {% if employee.country == "Cota D'Ivoire" %}selected{% endif %}>Cote d'Ivoire</option>
+                                                            <option value="Croatia" {% if employee.country == "Croatia" %}selected{% endif %}>Croatia (Hrvatska)</option>
+                                                            <option value="Cuba" {% if employee.country == "Cuba" %}selected{% endif %}>Cuba</option>
+                                                            <option value="Cyprus" {% if employee.country == "Cyprus" %}selected{% endif %}>Cyprus</option>
+                                                            <option value="Czech Republic" {% if employee.country == "Czech Republic" %}selected{% endif %}>Czech Republic</option>
+                                                            <option value="Denmark" {% if employee.country == "Denmark" %}selected{% endif %}>Denmark</option>
+                                                            <option value="Djibouti" {% if employee.country == "Djibouti" %}selected{% endif %}>Djibouti</option>
+                                                            <option value="Dominica" {% if employee.country == "Dominica" %}selected{% endif %}>Dominica</option>
+                                                            <option value="Dominican Republic" {% if employee.country == "Dominican Republic" %}selected{% endif %}>Dominican Republic</option>
+                                                            <option value="East Timor" {% if employee.country == "East Timor" %}selected{% endif %}>East Timor</option>
+                                                            <option value="Ecuador" {% if employee.country == "LebaEcuadornon" %}selected{% endif %}>Ecuador</option>
+                                                            <option value="Egypt" {% if employee.country == "Egypt" %}selected{% endif %}>Egypt</option>
+                                                            <option value="El Salvador" {% if employee.country == "El Salvador" %}selected{% endif %}>El Salvador</option>
+                                                            <option value="Equatorial Guinea" {% if employee.country == "Equatorial Guinea" %}selected{% endif %}>Equatorial Guinea</option>
+                                                            <option value="Eritrea" {% if employee.country == "Eritrea" %}selected{% endif %}>Eritrea</option>
+                                                            <option value="Estonia" {% if employee.country == "Estonia" %}selected{% endif %}>Estonia</option>
+                                                            <option value="Ethiopia" {% if employee.country == "Ethiopia" %}selected{% endif %}>Ethiopia</option>
+                                                            <option value="Falkland Islands" {% if employee.country == "Falkland Islands" %}selected{% endif %}>Falkland Islands (Malvinas)</option>
+                                                            <option value="Faroe Islands" {% if employee.country == "Faroe Islands" %}selected{% endif %}>Faroe Islands</option>
+                                                            <option value="Fiji" {% if employee.country == "Fiji" %}selected{% endif %}>Fiji</option>
+                                                            <option value="Finland" {% if employee.country == "Finland" %}selected{% endif %}>Finland</option>
+                                                            <option value="France" {% if employee.country == "France" %}selected{% endif %}>France</option>
+                                                            <option value="France Metropolitan" {% if employee.country == "France Metropolitan" %}selected{% endif %}>France, Metropolitan</option>
+                                                            <option value="French Guiana" {% if employee.country == "French Guiana" %}selected{% endif %}>French Guiana</option>
+                                                            <option value="French Polynesia" {% if employee.country == "French Polynesia" %}selected{% endif %}>French Polynesia</option>
+                                                            <option value="French Southern Territories" {% if employee.country == "French Southern Territories" %}selected{% endif %}>French Southern Territories</option>
+                                                            <option value="Gabon" {% if employee.country == "Gabon" %}selected{% endif %}>Gabon</option>
+                                                            <option value="Gambia" {% if employee.country == "Gambia" %}selected{% endif %}>Gambia</option>
+                                                            <option value="Georgia" {% if employee.country == "Georgia" %}selected{% endif %}>Georgia</option>
+                                                            <option value="Germany" {% if employee.country == "Germany" %}selected{% endif %}>Germany</option>
+                                                            <option value="Ghana" {% if employee.country == "Ghana" %}selected{% endif %}>Ghana</option>
+                                                            <option value="Gibraltar" {% if employee.country == "Gibraltar" %}selected{% endif %}>Gibraltar</option>
+                                                            <option value="Greece" {% if employee.country == "Greece" %}selected{% endif %}>Greece</option>
+                                                            <option value="Greenland" {% if employee.country == "Greenland" %}selected{% endif %}>Greenland</option>
+                                                            <option value="Grenada" {% if employee.country == "Grenada" %}selected{% endif %}>Grenada</option>
+                                                            <option value="Guadeloupe" {% if employee.country == "Guadeloupe" %}selected{% endif %}>Guadeloupe</option>
+                                                            <option value="Guam" {% if employee.country == "Guam" %}selected{% endif %}>Guam</option>
+                                                            <option value="Guatemala" {% if employee.country == "Guatemala" %}selected{% endif %}>Guatemala</option>
+                                                            <option value="Guinea" {% if employee.country == "Guinea" %}selected{% endif %}>Guinea</option>
+                                                            <option value="Guinea-Bissau" {% if employee.country == "Guinea-Bissau" %}selected{% endif %}>Guinea-Bissau</option>
+                                                            <option value="Guyana" {% if employee.country == "Guyana" %}selected{% endif %}>Guyana</option>
+                                                            <option value="Haiti" {% if employee.country == "Haiti" %}selected{% endif %}>Haiti</option>
+                                                            <option value="Heard and McDonald Islands" {% if employee.country == "Heard and McDonald Islands" %}selected{% endif %}>Heard and Mc Donald Islands</option>
+                                                            <option value="Holy See" {% if employee.country == "Holy See" %}selected{% endif %}>Holy See (Vatican City State)</option>
+                                                            <option value="Honduras" {% if employee.country == "Honduras" %}selected{% endif %}>Honduras</option>
+                                                            <option value="Hong Kong" {% if employee.country == "Hong Kong" %}selected{% endif %}>Hong Kong</option>
+                                                            <option value="Hungary" {% if employee.country == "Hungary" %}selected{% endif %}>Hungary</option>
+                                                            <option value="Iceland" {% if employee.country == "Iceland" %}selected{% endif %}>Iceland</option>
+                                                            <option value="India" {% if employee.country == "India" %}selected{% endif %}>India</option>
+                                                            <option value="Indonesia" {% if employee.country == "Indonesia" %}selected{% endif %}>Indonesia</option>
+                                                            <option value="Iran" {% if employee.country == "Iran" %}selected{% endif %}>Iran (Islamic Republic of)</option>
+                                                            <option value="Iraq" {% if employee.country == "Iraq" %}selected{% endif %}>Iraq</option>
+                                                            <option value="Ireland" {% if employee.country == "Ireland" %}selected{% endif %}>Ireland</option>
+                                                            <option value="Israel" {% if employee.country == "Israel" %}selected{% endif %}>Israel</option>
+                                                            <option value="Italy" {% if employee.country == "Italy" %}selected{% endif %}>Italy</option>
+                                                            <option value="Jamaica" {% if employee.country == "Jamaica" %}selected{% endif %}>Jamaica</option>
+                                                            <option value="Japan" {% if employee.country == "Japan" %}selected{% endif %}>Japan</option>
+                                                            <option value="Jordan" {% if employee.country == "Jordan" %}selected{% endif %}>Jordan</option>
+                                                            <option value="Kazakhstan" {% if employee.country == "Kazakhstan" %}selected{% endif %}>Kazakhstan</option>
+                                                            <option value="Kenya" {% if employee.country == "Kenya" %}selected{% endif %}>Kenya</option>
+                                                            <option value="Kiribati" {% if employee.country == "Kiribati" %}selected{% endif %}>Kiribati</option>
+                                                            <option value="Democratic People's Republic of Korea" {% if employee.country == "Democratic People's Republic of Korea" %}selected{% endif %}>Korea, Democratic People's Republic of</option>
+                                                            <option value="Korea" {% if employee.country == "Korea" %}selected{% endif %}>Korea, Republic of</option>
+                                                            <option value="Kuwait" {% if employee.country == "Kuwait" %}selected{% endif %}>Kuwait</option>
+                                                            <option value="Kyrgyzstan" {% if employee.country == "Kyrgyzstan" %}selected{% endif %}>Kyrgyzstan</option>
+                                                            <option value="Lao" {% if employee.country == "Lao" %}selected{% endif %}>Lao People's Democratic Republic</option>
+                                                            <option value="Latvia" {% if employee.country == "Latvia" %}selected{% endif %}>Latvia</option>
+                                                            <option value="Lebanon" {% if employee.country == "Lebanon" %}selected{% endif %}>Lebanon</option>
+                                                            <option value="Lesotho" {% if employee.country == "Lesotho" %}selected{% endif %}>Lesotho</option>
+                                                            <option value="Liberia" {% if employee.country == "Liberia" %}selected{% endif %}>Liberia</option>
+                                                            <option value="Libyan Arab Jamahiriya" {% if employee.country == "Libyan Arab Jamahiriya" %}selected{% endif %}>Libyan Arab Jamahiriya</option>
+                                                            <option value="Liechtenstein" {% if employee.country == "Liechtenstein" %}selected{% endif %}>Liechtenstein</option>
+                                                            <option value="Lithuania" {% if employee.country == "Lithuania" %}selected{% endif %}>Lithuania</option>
+                                                            <option value="Luxembourg" {% if employee.country == "Luxembourg" %}selected{% endif %}>Luxembourg</option>
+                                                            <option value="Macau" {% if employee.country == "Macau" %}selected{% endif %}>Macau</option>
+                                                            <option value="Macedonia" {% if employee.country == "Macedonia" %}selected{% endif %}>Macedonia, The Former Yugoslav Republic of</option>
+                                                            <option value="Madagascar" {% if employee.country == "Madagascar" %}selected{% endif %}>Madagascar</option>
+            
+            
+                                                            <option value="Malawi" {% if employee.country == "Malawi" %}selected{% endif %}>Malawi</option>
+                                                            <option value="Malaysia" {% if employee.country == "Malaysia" %}selected{% endif %}>Malaysia</option>
+                                                            <option value="Maldives" {% if employee.country == "Maldives" %}selected{% endif %}>Maldives</option>
+                                                            <option value="Mali" {% if employee.country == "Mali" %}selected{% endif %}>Mali</option>
+                                                            <option value="Malta" {% if employee.country == "Malta" %}selected{% endif %}>Malta</option>
+                                                            <option value="Marshall Islands" {% if employee.country == "Marshall Islands" %}selected{% endif %}>Marshall Islands</option>
+                                                            <option value="Martinique" {% if employee.country == "Martinique" %}selected{% endif %}>Martinique</option>
+                                                            <option value="Mauritania" {% if employee.country == "Mauritania" %}selected{% endif %}>Mauritania</option>
+                                                            <option value="Mauritius" {% if employee.country == "Mauritius" %}selected{% endif %}>Mauritius</option>
+                                                            <option value="Mayotte" {% if employee.country == "Mayotte" %}selected{% endif %}>Mayotte</option>
+                                                            <option value="Mexico" {% if employee.country == "Mexico" %}selected{% endif %}>Mexico</option>
+                                                            <option value="Micronesia" {% if employee.country == "Micronesia" %}selected{% endif %}>Micronesia, Federated States of</option>
+                                                            <option value="Moldova" {% if employee.country == "Moldova" %}selected{% endif %}>Moldova, Republic of</option>
+                                                            <option value="Monaco" {% if employee.country == "Monaco" %}selected{% endif %}>Monaco</option>
+                                                            <option value="Mongolia" {% if employee.country == "Mongolia" %}selected{% endif %}>Mongolia</option>
+                                                            <option value="Montserrat" {% if employee.country == "Montserrat" %}selected{% endif %}>Montserrat</option>
+                                                            <option value="Morocco" {% if employee.country == "Morocco" %}selected{% endif %}>Morocco</option>
+                                                            <option value="Mozambique" {% if employee.country == "Mozambique" %}selected{% endif %}>Mozambique</option>
+                                                            <option value="Myanmar" {% if employee.country == "Myanmar" %}selected{% endif %}>Myanmar</option>
+                                                            <option value="Namibia" {% if employee.country == "Namibia" %}selected{% endif %} >Namibia</option>
+                                                            <option value="Nauru" {% if employee.country == "Nauru" %}selected{% endif %}>Nauru</option>
+                                                            <option value="Nepal" {% if employee.country == "Nepal" %}selected{% endif %}>Nepal</option>
+                                                            <option value="Netherlands" {% if employee.country == "Netherlands" %}selected{% endif %} >Netherlands</option>
+                                                            <option value="Netherlands Antilles" {% if employee.country == "Netherlands Antilles" %}selected{% endif %}>Netherlands Antilles</option>
+                                                            <option value="New Caledonia" {% if employee.country == "New Caledonia" %}selected{% endif %}>New Caledonia</option>
+                                                            <option value="New Zealand" {% if employee.country == "New Zealand" %}selected{% endif %}>New Zealand</option>
+                                                            <option value="Nicaragua" {% if employee.country == "Nicaragua" %}selected{% endif %}>Nicaragua</option>
+                                                            <option value="Niger" {% if employee.country == "Niger" %}selected{% endif %}>Niger</option>
+                                                            <option value="Nigeria" {% if employee.country == "Nigeria" %}selected{% endif %}>Nigeria</option>
+                                                            <option value="Niue" {% if employee.country == "Niue" %}selected{% endif %}>Niue</option>
+                                                            <option value="Norfolk Island" {% if employee.country == "Norfolk Island" %}selected{% endif %}>Norfolk Island</option>
+                                                            <option value="Northern Mariana Islands" {% if employee.country == "Northern Mariana Islands" %}selected{% endif %}>Northern Mariana Islands</option>
+                                                            <option value="Norway" {% if employee.country == "Norway" %}selected{% endif %}>Norway</option>
+                                                            <option value="Oman" {% if employee.country == "Oman" %}selected{% endif %}>Oman</option>
+                                                            <option value="Pakistan" {% if employee.country == "Pakistan" %}selected{% endif %}>Pakistan</option>
+                                                            <option value="Palau" {% if employee.country == "Palau" %}selected{% endif %}>Palau</option>
+                                                            <option value="Panama" {% if employee.country == "Panama" %}selected{% endif %}>Panama</option>
+                                                            <option value="Papua New Guinea" {% if employee.country == "Papua New Guinea" %}selected{% endif %}>Papua New Guinea</option>
+                                                            <option value="Paraguay" {% if employee.country == "Paraguay" %}selected{% endif %}>Paraguay</option>
+                                                            <option value="Peru" {% if employee.country == "Peru" %}selected{% endif %}>Peru</option>
+                                                            <option value="Philippines" {% if employee.country == "Philippines" %}selected{% endif %}>Philippines</option>
+                                                            <option value="Pitcairn" {% if employee.country == "Pitcairn" %}selected{% endif %}>Pitcairn</option>
+                                                            <option value="Poland" {% if employee.country == "Poland" %}selected{% endif %}>Poland</option>
+                                                            <option value="Portugal" {% if employee.country == "Portugal" %}selected{% endif %}>Portugal</option>
+                                                            <option value="Puerto Rico" {% if employee.country == "Puerto Rico" %}selected{% endif %}>Puerto Rico</option>
+                                                            <option value="Qatar" {% if employee.country == "Qatar" %}selected{% endif %}>Qatar</option>
+                                                            <option value="Reunion" {% if employee.country == "LebReunionanon" %}selected{% endif %}>Reunion</option>
+                                                            <option value="Romania" {% if employee.country == "Romania" %}selected{% endif %}>Romania</option>
+                                                            <option value="Russia" {% if employee.country == "Russia" %}selected{% endif %}>Russian Federation</option>
+                                                            <option value="Rwanda" {% if employee.country == "Rwanda" %}selected{% endif %}>Rwanda</option>
+                                                            <option value="Saint Kitts and Nevis" {% if employee.country == "Saint Kitts and Nevis" %}selected{% endif %}>Saint Kitts and Nevis</option> 
+                                                            <option value="Saint LUCIA" {% if employee.country == "Saint LUCIA" %}selected{% endif %}>Saint LUCIA</option>
+                                                            <option value="Saint Vincent" {% if employee.country == "Saint Vincent" %}selected{% endif %}>Saint Vincent and the Grenadines</option>
+                                                            <option value="Samoa" {% if employee.country == "Samoa" %}selected{% endif %}>Samoa</option>
+                                                            <option value="San Marino" {% if employee.country == "San Marino" %}selected{% endif %}>San Marino</option>
+                                                            <option value="Sao Tome and Principe" {% if employee.country == "Sao Tome and Principe" %}selected{% endif %}>Sao Tome and Principe</option> 
+                                                            <option value="Saudi Arabia" {% if employee.country == "Saudi Arabia" %}selected{% endif %}>Saudi Arabia</option>
+                                                            <option value="Senegal" {% if employee.country == "Senegal" %}selected{% endif %}>Senegal</option>
+                                                            <option value="Seychelles" {% if employee.country == "Seychelles" %}selected{% endif %}>Seychelles</option>
+                                                            <option value="Sierra" {% if employee.country == "Sierra" %}selected{% endif %}>Sierra Leone</option>
+                                                            <option value="Singapore" {% if employee.country == "Singapore" %}selected{% endif %}>Singapore</option>
+                                                            <option value="Slovakia" {% if employee.country == "Slovakia" %}selected{% endif %}>Slovakia (Slovak Republic)</option>
+                                                            <option value="Slovenia" {% if employee.country == "Slovenia" %}selected{% endif %}>Slovenia</option>
+                                                            <option value="Solomon Islands" {% if employee.country == "Solomon Islands" %}selected{% endif %}>Solomon Islands</option>
+                                                            <option value="Somalia" {% if employee.country == "Somalia" %}selected{% endif %}>Somalia</option>
+                                                            <option value="South Africa" {% if employee.country == "South Africa" %}selected{% endif %}>South Africa</option>
+                                                            <option value="South Georgia" {% if employee.country == "South Georgia" %}selected{% endif %}>South Georgia and the South Sandwich Islands</option>
+                                                            <option value="Span" {% if employee.country == "Span" %}selected{% endif %}>Spain</option>
+                                                            <option value="SriLanka" {% if employee.country == "SriLanka" %}selected{% endif %}>Sri Lanka</option>
+                                                            <option value="St. Helena" {% if employee.country == "St. Helena" %}selected{% endif %}>St. Helena</option>
+                                                            <option value="St. Pierre and Miguelon" {% if employee.country == "St. Pierre and Miguelon" %}selected{% endif %}>St. Pierre and Miquelon</option>
+                                                            <option value="Sudan" {% if employee.country == "Sudan" %}selected{% endif %}>Sudan</option>
+            
+            
+                                                            <option value="Suriname" {% if employee.country == "Suriname" %}selected{% endif %}>Suriname</option>
+                                                            <option value="Svalbard" {% if employee.country == "Svalbard" %}selected{% endif %}>Svalbard and Jan Mayen Islands</option>
+                                                            <option value="Swaziland" {% if employee.country == "Swaziland" %}selected{% endif %}>Swaziland</option>
+                                                            <option value="Sweden" {% if employee.country == "Sweden" %}selected{% endif %}>Sweden</option>
+                                                            <option value="Switzerland" {% if employee.country == "Switzerland" %}selected{% endif %}>Switzerland</option>
+                                                            <option value="Syria" {% if employee.country == "Syria" %}selected{% endif %}>Syrian Arab Republic</option>
+                                                            <option value="Taiwan" {% if employee.country == "Taiwan" %}selected{% endif %}>Taiwan, Province of China</option>
+                                                            <option value="Tajikistan" {% if employee.country == "Tajikistan" %}selected{% endif %}>Tajikistan</option>
+                                                            <option value="Tanzania" {% if employee.country == "Tanzania" %}selected{% endif %}>Tanzania, United Republic of</option>
+                                                            <option value="Thailand" {% if employee.country == "Thailand" %}selected{% endif %}>Thailand</option>
+                                                            <option value="Togo" {% if employee.country == "Togo" %}selected{% endif %}>Togo</option>
+                                                            <option value="Tokelau" {% if employee.country == "Tokelau" %}selected{% endif %}>Tokelau</option>
+                                                            <option value="Tonga" {% if employee.country == "Tonga" %}selected{% endif %}>Tonga</option>
+                                                            <option value="Trinidad and Tobago" {% if employee.country == "Trinidad and Tobago" %}selected{% endif %}>Trinidad and Tobago</option>
+                                                            <option value="Tunisia" {% if employee.country == "Tunisia" %}selected{% endif %}>Tunisia</option>
+                                                            <option value="Turkey" {% if employee.country == "Turkey" %}selected{% endif %}>Turkey</option>
+                                                            <option value="Turkmenistan" {% if employee.country == "Turkmenistan" %}selected{% endif %}>Turkmenistan</option>
+                                                            <option value="Turks and Caicos" {% if employee.country == "Turks and Caicos" %}selected{% endif %}>Turks and Caicos Islands</option>
+                                                            <option value="Tuvalu" {% if employee.country == "Tuvalu" %}selected{% endif %}>Tuvalu</option>
+                                                            <option value="Uganda" {% if employee.country == "Uganda" %}selected{% endif %}>Uganda</option>
+                                                            <option value="Ukraine" {% if employee.country == "Ukraine" %}selected{% endif %}>Ukraine</option>
+                                                            <option value="United Arab Emirates" {% if employee.country == "United Arab Emirates" %}selected{% endif %}>United Arab Emirates</option>
+                                                            <option value="United Kingdom" {% if employee.country == "United Kingdom" %}selected{% endif %}>United Kingdom</option>
+                                                            <option value="United States" {% if employee.country == "United States" %}selected{% endif %}>United States</option>
+                                                            <option value="United States Minor Outlying Islands" {% if employee.country == "United States Minor Outlying Islands" %}selected{% endif %}>United States Minor Outlying Islands</option>
+                                                            <option value="Uruguay" {% if employee.country == "Uruguay" %}selected{% endif %}>Uruguay</option>
+                                                            <option value="Uzbekistan" {% if employee.country == "Uzbekistan" %}selected{% endif %}>Uzbekistan</option>
+                                                            <option value="Vanuatu" {% if employee.country == "Vanuatu" %}selected{% endif %}>Vanuatu</option>
+                                                            <option value="Venezuela" {% if employee.country == "Venezuela" %}selected{% endif %}>Venezuela</option>
+                                                            <option value="Vietnam" {% if employee.country == "Vietnam" %}selected{% endif %}>Viet Nam</option>
+                                                            <option value="Virgin Islands (British)" {% if employee.country == "Virgin Islands (British)" %}selected{% endif %}>Virgin Islands (British)</option>
+                                                            <option value="Virgin Islands (U.S)" {% if employee.country == "Virgin Islands (U.S)" %}selected{% endif %}>Virgin Islands (U.S.)</option>
+                                                            <option value="Wallis and Futana Islands" {% if employee.country == "Wallis and Futana Islands" %}selected{% endif %}>Wallis and Futuna Islands</option>
+                                                            <option value="Western Sahara" {% if employee.country == "Western Sahara" %}selected{% endif %}>Western Sahara</option>
+                                                            <option value="Yemen" {% if employee.country == "Yemen" %}selected{% endif %}>Yemen</option>
+                                                            <option value="Serbia" {% if employee.country == "Serbia" %}selected{% endif %}>Serbia</option>
+                                                            <option value="Zambia" {% if employee.country == "Zambia" %}selected{% endif %}>Zambia</option>
+                                                            <option value="Zimbabwe" {% if employee.country == "Zimbabwe" %}selected{% endif %}>Zimbabwe</option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">State</label>
+                                                    <div class="form-group">
+
+                                                        <input type="text" name="state" id="state"
+                                                            class="form-control border-left-0" placeholder="Last Name"
+                                                            value="{{employee.state}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">City</label>
+                                                    <div class="form-group">
+
+                                                        <input type="text" name="city" id="city"
+                                                            class="form-control border-left-0" placeholder="City"
+                                                            value="{{employee.City}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Address</label>
+                                                    <textarea class="form-control" name="address" id="address"
+                                                        placeholder="Enter Address" rows="3"
+                                                        cols="3">{{employee.Address}}</textarea>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Zipcode</label>
+                                                    <div class="form-group">
+
+                                                        <input type="text" name="zipcode" id="zipcode"
+                                                            class="form-control border-left-0" placeholder="Zip Code"
+                                                            value="{{employee.zipcode}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Status</label>
+                                                    <div class="radio-list">
+                                                        <div class="radio-inline">
+                                                            <span class="radio radio-info">
+                                                                <input class="form-check-input" type="radio" name="status" id="active" value="True"
+                                            {% if employee.status == True %}checked{% endif %}>
+                                            <label class="form-check-label" for="inlineRadio1">Active</label>
+                                                            </span>
+                                                        </div>
+                                                        <div class="radio-inline">
+                                                            <span class="radio radio-info">
+                                                                <input class="form-check-input" type="radio" name="status" id="inactive" value="False"
+                                            {% if employee.status == False %}checked{% endif %}>
+                                            <label class="form-check-label" for="inlineRadio2">InActive</label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6 col-md-6 col-xs-12">
+                                                    <div class="panel panel-default card-view">
+                                                        <div class="panel-heading">
+                                                            <div class="pull-left">
+                                                                <h6 class="panel-title txt-dark">Promotion Video/Image</h6>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                        <div class="panel-wrapper collapse in">
+                                                            <div class="panel-body">
+                                                                <p class="text-muted">Just add <code>dropify</code> class in
+                                                                    input tag.</p>
+                                                                <div class="mt-40">
+                                                                    <input id="image" name="image" type="file"
+                                                                        accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                                        multiple>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Update</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock main-content %}

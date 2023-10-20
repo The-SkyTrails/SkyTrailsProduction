@@ -1,0 +1,123 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Case Category Document</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Case Category Document</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+
+	{% include 'dashboard/messages.html' %}
+
+	<div class="form-body">
+		<div class="form-row">
+		   <div class="form-group col-md-3">
+			  <div class="form-group">
+				 <select class="form-control" name="visacountry" id="visacountry">
+					<option value="Visa Country">Visa Country</option>
+				 </select>
+			  </div>
+		   </div>
+		   <div class="form-group col-md-3">
+			  <div class="form-group">
+				 <select class="form-control" name="visacategory" id="visacategory">
+					<option value="Visa Category">Visa Category</option>
+				 </select>
+			  </div>
+		   </div>
+		   <div class="form-group col-md-3">
+			  <button type="search" class="btn btn-primary px-5">Proceed</button>
+		   </div>
+		</div>
+	 </div>
+
+	<div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="{% url 'add_CaseCategoryDocument' %}"><button class="btn btn-primary">Add New</button></a>
+	</div>
+	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+											<th>Id</th>
+                           <th>Country Name</th>
+                           <th>Category Name</th>
+                           <th>Sub Category Name</th>
+                           <th>Document Name</th>
+                           <th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+											<th>Id</th>
+                           <th>Country Name</th>
+                           <th>Category Name</th>
+                           <th>Sub Category Name</th>
+                           <th>Document Name</th>
+                           <th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in CaseCategoryDocument  %}
+                        <tr>
+                           <td>{{forloop.counter}}</td>
+						   <td>{{i.id}}</td>
+                           <td>{{i.country}}</td>
+                           <td>{{i.category}}</td>
+                           <td>{{i.subcategory}}</td>
+                           <td>{% for doc in i.document.all %}
+							{{ doc.document_name}}
+							{% if not forloop.last %},{% endif %}
+							{% endfor %}</td>
+							<td>
+									<div class="row">
+										<div class="col-md-4"><a href="{% url 'editCaseCategoryDocument' i.id %}">
+											<i
+									class='zmdi zmdi-edit'
+									style="font-size: 20px; color:blue;"></i>
+										</a></div>
+										<div class="col-md-4"><a href="{% url "delete_casecategorydocument" i.id %}"><i
+											class='zmdi zmdi-delete'
+											style="font-size: 20px; color:red;"></i></a></div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+
+{% endblock main-content %}

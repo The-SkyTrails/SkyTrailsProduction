@@ -1,0 +1,217 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">View Agent/Outsourcing Partner</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>All Agent/Outsourcing Partner</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+
+	<div class="form-body">
+
+		<div class="row">
+			<div class="form-group col-md-3">
+				<div class="form-group">
+					<input type="text" class="form-control datepicker" placeholder="From Date" />
+				</div>
+			</div>
+			<div class="form-group col-md-3">
+				<div class="form-group">
+					<input type="text" class="form-control datepicker" placeholder="To Date" />
+				</div>
+			</div>
+			<div class="form-group col-md-3">
+				<div class="form-group">
+					<select class="form-control" name="type" id="type">
+						<option value="Outsourcing Partner">Outsourcing Partner</option>
+						<option value="Agent">Agent</option>
+						
+					</select>
+				</div>
+			</div>
+			<div class="form-group col-md-3">
+
+				<div class="form-group">
+
+					<input type="text" name="email" id="email" class="form-control border-left-0"
+						placeholder="Email">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-3">
+
+				<div class="form-group">
+
+					<input type="text" name="contact" id="contact" class="form-control border-left-0"
+						placeholder="Mobile Number">
+				</div>
+			</div>
+			<div class="form-group col-md-3">
+
+				<button type="search" class="btn btn-primary px-5">Proceed</button>
+			</div>
+		</div>
+	</div>	
+
+	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+							<th>Action</th>
+                            <th>Registered On</th>
+							<th>Updated On</th>
+							<th>Registered By</th>
+							<th>Image</th>
+							<th>Name</th>
+							<th>Contact Info</th>
+                            <!-- <th>Status</th> -->
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+							<th>Action</th>
+                            <th>Registered On</th>
+							<th>Updated On</th>
+							<th>Registered By</th>
+							<th>Image</th>
+							<th>Name</th>
+							<th>Contact Info</th>
+                            <!-- <th>Status</th> -->
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in agent %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+                            <td><div class="row">
+                                 <div class="col-md-4"><a href="{% url "agent_update" i.id %}">
+                                    <i class='zmdi zmdi-eye' style="font-size: 20px; color:blue;"></i>
+                                </a></div>
+                                {% comment %} <div class="col-md-4"><a href="http://"><i class='zmdi zmdi-edit' style="font-size: 20px; color:blue;"></i></a></div>  {% endcomment %}
+                                {% comment %} <div class="col-md-4"><a href="http://"><i class='zmdi zmdi-comments' style="font-size: 20px; color:blue;"></i></a></div>   {% endcomment %}
+                            </div>
+							<td>{{i.registeron}}</td>
+							<td>{{i.last_updated}}</td>
+							
+							
+							<td>{{i.registerdby}}</td>
+							{% comment %} <td>ee</td> {% endcomment %}
+							{% if i.profile_pic %}
+								<td><img style="width:60px;" src="{{ i.profile_pic.url }}" alt="Profile Picture"></td>
+							{% else %}
+								<!-- You can add a default image here if no profile picture is available -->
+								<td><img style="width:60px;" src="{% static 'assets/images/noimage.png' %}" alt="no image"></td>
+							{% endif %}
+							<td>{{i.users.first_name}} {{i.users.last_name}}</td>
+							<td><a><i class='zmdi zmdi-mail-open' style="font-size: 15px; color:blue;"></i></a>{{i.users.email}}<br><a><i class='zmdi zmdi-phone' style="font-size: 15px; color:blue;"></i></a>{{i.contact_no}} </td>
+							
+							<!-- {% if i.status == "Pending" %}
+							{% comment %} <td><span class="badge badge-pill badge-primary">Pending</span><br><button type="button" class="btn btn-light m-2" data-toggle="modal" data-target="#exampleModal3">Centered Modal</button></td> {% endcomment %}
+							<td><span style="font-size: 15px; width:100px;" class="badge badge-pill badge-primary">Pending</span><br><button type="button" class="btn btn-light m-2" data-toggle="modal" data-target="#exampleModal3{{i.id}}" style="border:none; background-color:transparent; color:green;"><i class='bx bx-edit' style="font-size: 20px;"></i>Update</button></td>
+							{% elif i.status == "InReview" %}
+							{% comment %} <td><span class="badge badge-pill badge-warning">InReview</span><br><button type="button" class="btn btn-light m-2" data-toggle="modal" data-target="#exampleModal3">Centered Modal</button></td> {% endcomment %}
+							<td><span style="font-size: 15px; width:100px;" class="badge badge-pill badge-warning">InReview</span><br><button type="button" class="btn btn-light m-2" data-toggle="modal" data-target="#exampleModal3{{i.id}}" style="border:none; background-color:transparent; color:green;"><i class='bx bx-edit' style="font-size: 20px;"></i>Update</button></td>
+							{% elif i.status == "Approved" %}
+							{% comment %} <td><span class="badge badge-pill badge-success">Approved</span><br><button type="button" class="btn btn-light m-2" data-toggle="modal" data-target="#exampleModal3">Centered Modal</button></td> {% endcomment %}
+							<td><span style="font-size: 15px; width:100px;" class="badge badge-pill badge-success">Approved</span><br><button type="button" class="btn btn-light m-2" data-toggle="modal" data-target="#exampleModal3{{i.id}}" style="border:none; background-color:transparent; color:green;"><i class='bx bx-edit' style="font-size: 20px;"></i>Update</button></td>
+
+							{% else %}
+							<td><span style="font-size: 15px; width:100px;" class="badge badge-pill badge-danger">Reject</span><br><button type="button" class="btn btn-light m-2" data-toggle="modal" data-target="#exampleModal3{{i.id}}" style="border:none; background-color:transparent; color:green;"><i class='bx bx-edit' style="font-size: 20px;"></i>Update</button></td>
+							{% endif %} -->
+						</tr>
+
+						<div class="modal fade" id="exampleModal3{{i.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Assign to Agent</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">	<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body"> 
+										
+										<p>Dated: <span id="currentDate"></span></p>
+										<p>Added by : <span id="currentDate">{{i.registerdby.username}}</span></p>
+										<form action="{% url "agent_status_update" %}" method="POST">
+											{% csrf_token %}
+										<center>
+											<input class="control-label mb-10" type="text" value="{{i.id}}" name="agent_id" hidden>
+											<label class="control-label mb-10"  for="status">Status</label>
+											
+												{% comment %} <input type="text" name="agent_id",value={{"i.id"}} placeholder="ddd"> {% endcomment %}
+												<select class="form-control" name="status" id="status" class="form-control">
+													<option value="Reject" {% if i.status == "Reject" %}selected{% endif %}>Reject</option>
+													<option value="Pending" {% if i.status == "Pending" %}selected{% endif %}>Pending</option>
+													<option value="InReview" {% if i.status == "InReview" %}selected{% endif %}>InReview</option>
+													<option value="Approved" {% if i.status == "Approved" %}selected{% endif %}>Approved</option>
+												</select>
+											
+										</center>
+									
+										
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Save</button>
+										</div>
+								</form>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+
+<script>
+	// Get the current date
+	var currentDate = new Date();
+  
+	// Format the date as "dd/mm/yyyy"
+	var day = String(currentDate.getDate()).padStart(2, '0');
+	var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+	var year = currentDate.getFullYear();
+  
+	var formattedDate = day + '/' + month + '/' + year;
+  
+	// Insert the formatted date into the <span> element
+	document.getElementById('currentDate').textContent = formattedDate;
+  </script>
+<!--end page-wrapper-->
+{% endblock main-content %}

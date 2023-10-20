@@ -1,0 +1,193 @@
+
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+<style>
+    .top {
+        text-align: left;
+        padding: 20px;
+        color: #21325D;
+    }
+
+    .profile-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        /* Hide anything outside the circle */
+    }
+
+    .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure the image covers the entire circle */
+    }
+
+    .profile-name {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .profile-application {
+        font-size: 16px;
+    }
+
+
+    .section a {
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px;
+        color: #21325D;
+    }
+
+    .section:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .form-container {
+        margin: 20px;
+    }
+    .checkbox {
+        margin-left: 50%; /* Adjust the margin as needed */
+    }
+</style>
+
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Enquiry</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+                <li><a href="{% url "Employee_enroll_application" %}"><span>Enrolled Application</span></a></li>
+                <li class="active"><span>Edit Enrolled Application</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+        
+    
+    </div>
+    <div class="top">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="profile-circle">
+                            {% comment %} <img src='{% static ' assets/images/NewLogo.png' %}' alt="" srcset=""> {% endcomment %}
+                            <img src="{% static "assets/images/NewLogo.png" %}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-name">{{enquiry.FirstName}} {{enquiry.LastName}}</div>
+                        <div class="profile-application">Application: {{enquiry.enquiry_number}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="section" >
+                <a href="{% url "Employee_edit_enrolled_application" enquiry_id.id %}">Applicant/Personal Information</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_education_summary" enquiry_id.id %}">Education Summary</a>
+                
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_test_score" enquiry_id.id %}">Test Score</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_background_information" enquiry_id.id %}">Background Information</a>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_documents" enquiry_id.id %}">Documents</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_workexperience" enquiry_id.id %}">Work Experience</a>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Edit Enrolled Application</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form id="main-form" action=""  method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <div id="background-form">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Background Information</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <label class="control-label mb-10">Have you even been to australlia before</label>
+                                                    <div class="form-group">
+                                                        <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                                    class='bx bx-user'></i></span>
+                                                        </div>
+                                                        <input type="text" name="australliabefore" id="australliabefore"
+                                                            class="form-control border-left-0" placeholder="" value="{{bk_info.background_info}}">
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                            
+                                        
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock main-content %}

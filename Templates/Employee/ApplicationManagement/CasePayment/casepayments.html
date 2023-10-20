@@ -1,0 +1,243 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Case Payment</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Case Payment</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'Employee/Base/messages.html' %}
+
+    <div class="form-body">
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <div class="form-group">
+
+
+                    <input type="text" class="form-control datepicker" placeholder="Select Case Assignment From Date" />
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+
+
+
+                    <input type="text" class="form-control datepicker" placeholder="Select Case Assignment To Date" />
+
+                    {% comment %} <input type="date" class="form-control" name="todate" id="todate"
+                        placeholder="To Date"> {% endcomment %}
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="name" id="name" class="form-control border-left-0"
+                        placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="email" id="email" class="form-control border-left-0"
+                        placeholder="Enter Your Email">
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="contact" id="contact" class="form-control border-left-0"
+                        placeholder="Enter Mobile Number">
+                </div>
+            </div>
+            
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="case no" id="case no" class="form-control border-left-0"
+                        placeholder="Case No">
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <select class="form-control" name="country" id="country">
+
+                        <option value="Visa Country">Select Visa Country</option>
+
+
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="cateegory" id="cateegory">
+
+                        <option value="Visa Cateegory">Select Visa Category</option>
+
+
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="subcategory" id="subcategory">
+
+                        <option value="Visa SubCategory">Select Visa SubCategory</option>
+
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <select class="form-control" name="casestatus" id="casestatus">
+
+                        <option value="Select Case Status">Select Case Status</option>
+
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+
+                    <input type="text" class="form-control datepicker" placeholder="Select Payment FollowUp From Date" />
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+
+                    <input type="text" class="form-control datepicker" placeholder="Select Payment FollowUp To Date" />
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+        <div class="form-group col-md-3">
+
+            <button type="search" class="btn btn-primary px-5">Proceed</button>
+        </div>
+        </div>
+    </div>
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>Case Info</th>
+                                    <th>Customer Info</th>
+                                    <th>Fee Detail</th>
+                                    <th>Current Fee Status</th>
+                                    <th>Payment Follow Ups</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>Case Info</th>
+                                    <th>Customer Info</th>
+                                    <th>Fee Detail</th>
+                                    <th>Current Fee Status</th>
+                                    <th>Payment Follow Ups</th>
+										</tr>
+									</tfoot>
+									<tbody>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <p><b>Case Id :</b>&nbsp;123</p>
+                                                <p><b>Current Status :</b>&nbsp;Refuse</p>
+                                                <p style="color:#F03540;">Visa Application Details</p>
+                                                <p><b>Country :</b>&nbsp;India</p>
+                                                <p><b>Category :</b>&nbsp;Business</p>
+                                                <p><b>SubCategory :</b>&nbsp;Visa</p>
+                                                <p><b>Case Reg Date :</b>&nbsp;1-2-23 (12:00)</p>
+                                                <p><b>Assigned Employee :</b>&nbsp;ABC</p>
+                                                <p><b>Assigned Agent :</b>&nbsp;ABC</p>
+                                                <p><b>Assigned Outsourcing Partner :</b>&nbsp;ABC</p>
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <p><b>Name :</b>&nbsp;ABC</p>
+                                                <p><b>Email :</b>&nbsp;abc@gmail.com</p>
+                                                <p><b>Mobile :</b>&nbsp;1234567890</p>
+                                                <p><b>Passport :</b>&nbsp;123</p>
+                                                <p><a href="#" style="color:#F03540;"><u>View Application Details</u></a></p>
+                                                
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <p><a href="#" data-toggle="modal" data-target="#additionalfees"><u>+ Add Additional Fees</u></a></p>
+                                                <p><a href="#" data-toggle="modal" data-target="#addtransactionrecord"><u>+ Add New Transaction Record</u></a></p>
+                                                <p><a href="#"><u>+ View Payment History</u></a></p>
+                                                <p><b>Case Fee :</b>&nbsp;&#8377; 111</p>
+                                                <p><b>CGST(9%) :</b>&nbsp;&#8377; 11</p>
+                                                <p><b>SGST(9%) :</b>&nbsp;&#8377; 11</p>
+                                                <p><b>demo:</b>&nbsp;&#8377; 1</p>
+                                                <p><b>Net Payable Amount:</b></p>
+                                                <p style="color: #F03540">&#8377; 1111</p>
+                                                {% include "Admin/ApplicationManagement/CasePayment/addadditionalfees-modal.html" %}
+                                                {% include "Admin/ApplicationManagement/CasePayment/transactionrecord-modal.html" %}
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <p><b>Received Amount :</b>&nbsp;&#8377; 111</p>
+                                                <p><b>Pending Amount :</b>&nbsp;&#8377; 11</p>
+                                                <p><b>Fee Payment Overall Status :</b>&nbsp;Pending</p>
+                                                <p><b>Next Payment Due Date :</b>&nbsp;11-1-23</p>
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <p><b>FollowUp Date :</b>11-1-23</p>
+                                                <p><a href="#"><u>+ Add Follow-up Notes</u></a></p>
+                                                <p><a href="#"><u>+ View Follow-up Notes</u></a></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                        
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}

@@ -1,0 +1,298 @@
+
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+<style>
+    .top {
+        text-align: left;
+        padding: 20px;
+        color: #21325D;
+    }
+
+    .profile-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        /* Hide anything outside the circle */
+    }
+
+    .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure the image covers the entire circle */
+    }
+
+    .profile-name {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .profile-application {
+        font-size: 16px;
+    }
+
+
+    .section a {
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px;
+        color: #21325D;
+    }
+
+    .section:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .form-container {
+        margin: 20px;
+    }
+    .checkbox {
+        margin-left: 50%; /* Adjust the margin as needed */
+    }
+</style>
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Enquiry</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                <li><a href="{% url "enroll_application" %}"><span>Enrolled Application</span></a></li>
+                <li class="active"><span>Edit Enrolled Application</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+        
+    
+    </div>
+    <div class="top">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="profile-circle">
+                            {% comment %} <img src='{% static ' assets/images/NewLogo.png' %}' alt="" srcset=""> {% endcomment %}
+                            <img src="{% static "assets/images/NewLogo.png" %}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-name">{{enquiry.FirstName}} {{enquiry.LastName}}</div>
+                        <div class="profile-application">Application: {{enquiry.enquiry_number}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="section" >
+                <a href="{% url "edit_enrolled_application" enquiry_id.id %}">Applicant/Personal Information</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "education_summary" enquiry_id.id %}">Education Summary</a>
+                
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "test_score" enquiry_id.id %}">Test Score</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "background_information" enquiry_id.id %}">Background Information</a>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "documents" enquiry_id.id %}">Documents</a>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "workexperience" enquiry_id.id %}">Work Experience</a>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Edit Enrolled Application</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form id="main-form" action=""  method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <div id="test-form">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Test Scores</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label mb-10">Candidate Name</label>
+                                                    <div class="form-group">
+                                                        {% comment %} <select class="form-control" name="candidatename"
+                                                            id="candidatename">
+                                                            <option value="Select">Select</option>
+                                                            <option value="--">--</option>
+                                        
+                                                        </select> {% endcomment %}
+                                                        <input type="text" name="enq_id" id="enq_id"
+                                                        class="form-control border-left-0" placeholder="Enter Score" value="{{enquiry_id.id}}" hidden>
+
+                                                    <input type="text" name="candidatename" id="candidatename"
+                                                        class="form-control border-left-0" placeholder="Enter Score" value="{{enquiry_id.FirstName}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label mb-10">Exam Type</label>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="examtype" id="examtype">
+                                                            <option >Type</option>
+                                                            <option value="IELTS" >IELTS</option>
+                                                            <option value="PTE" >PTE</option>
+                                                            <option value="TOEFL" >TOEFL</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label mb-10">Exam Date</label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="date" name="examdate" id="examdate"
+                                                        class="form-control border-left-0" placeholder="Exam Date" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label mb-10">Reading</label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="text" name="reading" id="reading"
+                                                        class="form-control border-left-0" placeholder="Enter Score" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label mb-10">Listening</label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="text" name="listening" id="listening"
+                                                        class="form-control border-left-0" placeholder="Enter Score" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label mb-10">Speaking</label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="text" name="speaking" id="speaking"
+                                                        class="form-control border-left-0" placeholder="Enter Score">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label mb-10">Writing</label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="text" name="writing" id="writing"
+                                                            class="form-control border-left-0" placeholder="Enter Score">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label class="control-label mb-10">OverallScore</label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="text" name="overallscore" id="overallscore"
+                                                            class="form-control border-left-0" placeholder="Enter Score">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br><br>
+                                            <div class="form-actions mt-10">
+                                                <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                                            </div>
+                                            <br><br>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No.</th>
+                                                    <th>Name</th>
+                                                    {% comment %} <th>Relation</th> {% endcomment %}
+                                                    <th>Exam Type</th>
+                                                    <th>Exam Date</th>
+                                                    <th>Reading</th>
+                                                    <th>Speaking</th>
+                                                    <th>Listening</th>
+                                                    <th>Writing</th>
+                                                    <th>Overall Score</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                    
+                                            </thead>
+                                            <tbody>
+                                                {% for test_score in test_scores  %}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{test_score.enquiry_id.FirstName}}</td>
+                                                    <td>{{test_score.exam_type}}</td>
+                                                    <td>{{test_score.exam_date}}</td>
+                                                    <td>{{test_score.reading}}</td>
+                                                    <td>{{test_score.speaking}}</td>
+                                                    <td>{{test_score.listening}}</td>
+                                                    <td>{{test_score.writing}}</td>
+                                                    <td>{{test_score.overall_score}}</td>
+                                                    <td>
+                                                        <div class="col-md-6"><a href="{% url "edit_test_score" test_score.id %}"><i class='zmdi zmdi-edit'
+                                                                    style="font-size: 20px; color:blue;"></i></a></div>
+
+                                                                    <div class="col-md-6"><a href="{% url "delete_test_score" test_score.id %}"><i class='zmdi zmdi-delete'
+                                                                        style="font-size: 20px; color:blue;"></i></a></div>         
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock main-content %}

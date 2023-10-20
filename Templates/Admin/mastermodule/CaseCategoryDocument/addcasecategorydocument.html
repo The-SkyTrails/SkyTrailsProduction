@@ -1,0 +1,335 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Case Category Document</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                <li><a href="{% url "CaseCategoryDocument_list" %}"><span>All Category</span></a></li>
+                <li class="active"><span>Add Category</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    
+    </div>
+    {% include 'dashboard/messages.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Add Category</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form action="" method ="POST" >
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>General Information</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Country</label>
+                                                        {{form.country}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Category</label>
+                                                        {{form.category}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">SubCategory</label>
+                                                        {{form.subcategory}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <label>Select Document</label>
+                                            <br><br>
+
+                                            <div class="row">
+                                                {% for i in form.document %}
+                                                <div class="col-md-3">
+                                                    {{ i }}
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                <!-- <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            {% comment %} <input class="form-check-input" type="checkbox" value="digitalphoto" id="digitalphoto"> {% endcomment %}
+                                            <input class="form-check-input" type="checkbox" name="digitalphoto" id="digitalphoto">
+                                            <label class="form-check-label" for="digitalphoto">
+                                                 Digital 
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="passportback" id="passportback" name="digitalphoto">
+                                            <label class="form-check-label" for="passportback">Passport Back</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="passportfront" name="passportfront" id="passportfront">
+                                            <label class="form-check-label" for="passportfront">Passport Front</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="pancard" id="pancard" name="pancard">
+                                            <label class="form-check-label" for="pancard">PanCard</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="adharcard" id="adharcard" name="adharcard">
+                                            <label class="form-check-label" for="adharcard">AdhaarCard</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="gapmonth" id="gapmonth" name="gapmonth">
+                                            <label class="form-check-label" for="gapmonth">Gap Months Evidence</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="experience letter" id="experience letter" name="experience_letter">
+                                            <label class="form-check-label" for="experience letter">Experience Letter</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="gapyear" id="gapyear" name="gapyear">
+                                            <label class="form-check-label" for="gapyear">Gap Year Evidence-Optional</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="masterscertificate" id="masterscertificate" name="masterscertificate">
+                                            <label class="form-check-label" for="masterscertificate">Masters Certificate</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="form16" id="form16" name="form16">
+                                            <label class="form-check-label" for="form16">Form 16 if Applicant has Govt. Job</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="spouse" id="spouse" name="form16">
+                                            <label class="form-check-label" for="spouse">Spouse's Bank Balance History for Past 6 month</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="itr" id="itr" name="itr">
+                                            <label class="form-check-label" for="itr">ITR of Spouse For Last 3 Years</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="spouseworking" id="spouseworking" name="spouseworking">
+                                            <label class="form-check-label" for="spouseworking">Spouse's Working Experience</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="spouseenglish" id="spouseenglish" name="spouseenglish">
+                                            <label class="form-check-label" for="spouseenglish">Spouse's English Language Proficiency Test (IELTS/PTE)</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="bankbalance" id="bankbalance" name="bankbalance">
+                                            <label class="form-check-label" for="bankbalance">Bank Balance Certificate</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="itr3years" id="itr3years" name="itr3years">
+                                            <label class="form-check-label" for="itr3years">ITR of Applicant of Last 3 Years</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="evidenceofsalary" id="evidenceofsalary" name="evidenceofsalary">
+                                            <label class="form-check-label" for="evidenceofsalary">Evidence Of Salary</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="assetsdocument" id="assetsdocument" name="assetsdocument">
+                                            <label class="form-check-label" for="assetsdocument">Assets Documents</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="marriagecertificate" id="marriagecertificate" name="marriagecertificate">
+                                            <label class="form-check-label" for="marriagecertificate">Marriage Certificate</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="spousequalification" id="spousequalification" name="spousequalification">
+                                            <label class="form-check-label" for="spousequalification">Spouse Qualification Documents</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="bankbalance6month" id="bankbalance6month" name="bankbalance6month">
+                                            <label class="form-check-label" for="bankbalance6month">Bank Balance History For Past 6 month</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="workexperience" id="workexperience" name="workexperience">
+                                            <label class="form-check-label" for="workexperience">Work Experience</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="applicantsbankbalance" id="applicantsbankbalance" name="applicantsbankbalance">
+                                            <label class="form-check-label" for="applicantsbankbalance">Applicant's Bank Balance Certificate</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="parentbankbalance" id="parentbankbalance" name="parentbankbalance">
+                                            <label class="form-check-label" for="parentbankbalance">Parent's Bank Balance Certificate</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="graduation/diploma" id="graduation/diploma" name="graduation_diploma">
+                                            <label class="form-check-label" for="graduation/diploma">Graduation/Diploma Certificate</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="parentsid" id="parentsid" name="parentsid">
+                                            <label class="form-check-label" for="parentsid">Parent's ID Proof</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="parentsitr" id="parentsitr" name="parentsitr">
+                                            <label class="form-check-label" for="parentsitr">Parent's ITR For Last 3 Years</label>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="englishlanguage" id="englishlanguage" name="englishlanguage">
+                                            <label class="form-check-label" for="englishlanguage">English language proficiency test (IELTS/PTE)</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="studentsbank" id="studentsbank" name="studentsbank">
+                                            <label class="form-check-label" for="studentsbank">Student's Bank Statement</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="parentbank" id="parentbank" name="parentbank">
+                                            <label class="form-check-label" for="parentbank">Parent's Bank statements</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="parentdocument" id="parentdocument" name="parentdocument">
+                                            <label class="form-check-label" for="parentdocument">Parent's Documents</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="passport" id="passport" name="passport">
+                                            <label class="form-check-label" for="passport">Passport</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="idproof" id="idproof" name="idproof">
+                                            <label class="form-check-label" for="idproof">ID Proof</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="certificateteh" id="certificateteh" name="certificate_12th">
+                                            <label class="form-check-label" for="certificateteh">12th Certificate</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="10thcertificate" id="10thcertificate" name="certificate_10th">
+                                            <label class="form-check-label" for="10thcertificate">10th Certificate</label>
+                                        </div>
+                                    </div>
+                                    
+                                </div> -->
+                                
+                                <br><br>
+                                        </div>
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+{% endblock main-content %}

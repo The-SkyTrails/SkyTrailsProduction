@@ -1,0 +1,152 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Courier Document</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                {% comment %} <li><a href="#"><span>form</span></a></li> {% endcomment %}
+                <li class="active"><span>View Courier Document</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Detail Of Courier Document</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-body">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>General Information</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Name</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label>Email</label>
+                                                    <h5>ASDF@gmail.com</h5>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label>Case No</label>
+                                                    <h5>ASDF1234</h5>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <img src="" alt="image" srcset="">
+                                                </div>
+                                            </div>
+                                            <hr class="light-grey-hr"/>
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Document Information</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Document Name</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>From Address</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>From Landmark</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>From City</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>From State</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>From Zipcode</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Courier Name</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Tracking No.</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>To Address Id</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                            </div>
+                                           <br>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>To Address</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>To Landmark</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>To City</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                            </div>
+                                           <br>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>To State</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>To Zipcode</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Status</label>
+                                                    <h5>ASDF</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock main-content %}

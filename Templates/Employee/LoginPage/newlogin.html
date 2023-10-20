@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="{% static "assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css" %}">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+	</head>
+
+	<body>
+
+		<div class="wrapper" style="background-image: url('{% static "assets/images/bg1.jpg" %}');">
+			<div class="inner">
+				<div class="image-holder">
+					<img src="{% static "assets/images/skytrails.gif" %}" alt="">
+					{% comment %} <video controls autoplay>
+						<source src="{% static 'assets/images/login.mp4' %}" type="video/mp4">
+						Your browser does not support the video tag.
+					</video> {% endcomment %}
+				</div>
+				<form action="" method="POST">
+					{% csrf_token %}
+					<div class="center-content">
+						<img src="{% static 'assets/images/SkytrailsLogo.svg' %}" height="100" width="250" alt="">
+						<br>
+						<p class="mt-4" style="font-size:24px;color:#21325D;font-weight:800;">Login To Your Account</p>
+					</div>
+					{% if error_message %}
+<div class="error-message">
+    {{ error_message }}
+</div>
+{% endif %}
+					
+					<br><br>
+
+					<div class="form-wrapper">
+						<input type="text" placeholder="User Name" class="form-control" name="username">
+						<i class="zmdi zmdi-account"></i>
+					</div>
+					
+					
+					
+					<div class="form-wrapper">
+						<input type="password" placeholder="Password" class="form-control" name="password">
+						<i class="zmdi zmdi-lock"></i>
+					</div>
+					
+					<button>Login
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		
+	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

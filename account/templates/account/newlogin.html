@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="{% static "assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css" %}">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+	</head>
+
+	<body>
+
+		
+		<div class="wrapper" style="background-image: url('{% static "assets/images/bg1.jpg" %}');">
+			<div class="inner">
+				<div class="image-holder">
+					<img src="{% static "assets/images/visa.gif" %}" alt="">
+				</div>
+				<form method="post">
+					{% csrf_token %}
+					<div class="center-content">
+						<img src="{% static 'assets/images/SkytrailsLogo.svg' %}" height="100" width="250" alt="">
+						<br>
+						<p class="mt-4" style="font-size:24px;color:#21325D;font-weight:800;">Login To Your Account</p>
+					</div>
+					<br><br>
+					
+					{% if form.non_field_errors %}
+					<div class="non-field-errors">
+						{% for error in form.non_field_errors %}
+						<p class="alert alert-danger my-3" style="color:red;">{{ error }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
+
+					<br><br>
+					
+					
+					<div class="form-wrapper">
+						Email
+						{{ form.username }}
+						<i class="zmdi zmdi-account"></i>
+						<small class='text-danger'>{{ form.username.errors|striptags }}</small>
+					</div>
+		
+					<div class="form-wrapper">
+						{{ form.password.label_tag }}
+						{{ form.password }}
+						<i class="zmdi zmdi-lock"></i>
+						<small class='text-danger'>{{ form.password.errors|striptags }}</small>
+					</div>
+		
+					{% include "dashboard/messages.html" %}
+		
+					<button type="submit">Login
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+					<br>
+					<a href="{% url "employee_login" %}" style="color:red;">For Employee Login</a>
+					
+					<a href="{% url "agent_login" %}" style="float:right;color:red;">For Agent Login</a>
+				</form>
+			</div>
+		</div>
+		
+		
+		
+	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

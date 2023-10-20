@@ -1,0 +1,139 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Courier Document</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Courier Document</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+	<div class="form-body">
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="from_date">From Date</label>
+				<input type="date" class="form-control" id="from_date" name="from_date">
+			</div>
+			<div class="form-group col-md-3">
+				<label for="to_date">To Date</label>
+				<input type="date" class="form-control" id="to_date" name="to_date">
+			</div>
+			<div class="form-group col-md-3">
+				<label for="case_no">Case No</label>
+				<input type="text" class="form-control" id="case_no" name="case_no" placeholder="Case No">
+			</div>
+			<div class="form-group col-md-3">
+				<label for="tracking_no">Tracking No</label>
+				<input type="text" class="form-control" id="tracking_no" name="tracking_no" placeholder="Tracking No">
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<button type="submit" class="btn btn-primary px-5">Proceed</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="#"><button class="btn btn-primary">Add New</button></a>
+	</div>
+	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>View</th>
+							<th>Case No</th>
+							<th>Tracking No</th>
+                            <th>Name</th>
+							<th>Email</th>
+							<th>Document</th>
+                            <th>Last Updated By</th>
+                            <th>Last Updated On</th>
+                            <th>Notes</th>
+                            <th>Status</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>View</th>
+							<th>Case No</th>
+							<th>Tracking No</th>
+                            <th>Name</th>
+							<th>Email</th>
+							<th>Document</th>
+                            <th>Last Updated By</th>
+                            <th>Last Updated On</th>
+                            <th>Notes</th>
+                            <th>Status</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<tr>
+											<td><div class="col-md-4"><a href="">
+												<i class="zmdi zmdi-eye" style="font-size: 20px; color:blue;"></i>
+												</a>
+											 </div></td>
+											<td>1234</td>
+											<td>333</td>
+											<td>aaaa</td>
+											<td>asd@gmail.com</td>
+											<td>Passport</td>
+											<td>admin</td>
+											<td>22-2-2222</td>
+											<td>
+												<button class="btn d-flex align-items-center" data-toggle="modal" data-target="#updatecourierdocumentnotes" >
+										   
+													<div>
+														<i class='zmdi zmdi-edit text-primary' style="font-size: 20px;"></i>
+													</div>
+													<div class="ml-2 text-primary" >
+														Add Note
+														
+													</div>
+												</button>
+												
+												<button class="btn d-flex align-items-center" data-toggle="modal" data-target="#viewcourierdocumentnotes"  >
+													<i class='zmdi zmdi-eye text-primary' style="font-size: 20px;"></i>
+													<span class="ml-2 text-primary">View All Notes</span>
+												</button> 
+												
+										{% include "Admin/General/CourierDocument/viewnotes.html" %}
+											</td>
+											<td>Submitted</td>
+										</tr>
+										{% include "Admin/General/CourierDocument/addnotes.html" %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}

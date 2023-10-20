@@ -1,0 +1,76 @@
+<div class="modal fade" id="assigntoemployee{{i.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <form action="{% url "Employee_assign_employee" %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h5 class="modal-title" id="assigntoemployeeLabel1">Assign to Employee</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" value="{{i.id}}" name="enq_id" hidden>
+                        {% comment %} <span class="sub-text d-flex">Date :
+                            <div class="ml-1" id="currentDateTime"></div>
+                        </span> {% endcomment %}
+
+                        <div class="form-group control-label mb-10">
+                            <div class="form-control-wrap">
+                                <span class="sub-text d-flex">Date : {{ current_datetime }}
+                                    <div class="ml-1" id="currentDateTime3"></div>
+                                </span>
+                                <span class="sub-text d-flex">added by : Admin
+                                    <div class="ml-1"> </div>
+                                </span>
+                            </div>
+                        </div>
+                       
+                        
+                       
+                        <div class="form-group ">
+                            <label class="control-label mb-10">Assign to Employee</label>
+                            
+                            <select class="form-control" name="emp_id" id="" >
+                                {% for emp in employee_queryset %}
+                                <option value="{{emp.id}}">{{emp.users.first_name}} - {{emp.department.name}}</option>
+                                
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+
+{% comment %} 
+
+<script>
+    // Get the current date and time
+    var currentDateTime = new Date();
+    
+    // Define months in an array for formatting
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    // Format the date as "dd/Mon/yyyy"
+    var day = String(currentDateTime.getDate()).padStart(2, '0');
+    var month = months[currentDateTime.getMonth()];
+    var year = currentDateTime.getFullYear();
+    
+    // Format the time as "hh:mm AM/PM"
+    var hours = String(currentDateTime.getHours() % 12 || 12).padStart(2, '0'); // Convert to 12-hour format
+    var minutes = String(currentDateTime.getMinutes()).padStart(2, '0');
+    var ampm = currentDateTime.getHours() >= 12 ? 'PM' : 'AM';
+    
+    var formattedDateTime = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ' ' + ampm;
+    
+    // Insert the formatted date and time into the unique <div> element
+    var currentDateTimeElement = document.getElementById('currentDateTime3');
+    if (currentDateTimeElement) {
+        currentDateTimeElement.textContent = formattedDateTime;
+    }
+ </script> {% endcomment %}

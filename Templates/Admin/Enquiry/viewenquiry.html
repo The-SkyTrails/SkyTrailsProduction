@@ -1,0 +1,567 @@
+{% extends 'dashboard/base.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block main-content %}
+<style>
+    .top {
+        text-align: left;
+        padding: 20px;
+        color: #21325D;
+    }
+
+    .profile-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        /* Hide anything outside the circle */
+    }
+
+    .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure the image covers the entire circle */
+    }
+
+    .profile-name {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .profile-application {
+        font-size: 16px;
+    }
+
+
+    .section {
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px;
+        color: #21325D;
+    }
+
+    .section:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .form-container {
+        margin: 20px;
+    }
+
+    .white-container {
+        background-color: rgb(102 122 221 / 85%);
+        padding: 7px 10px;
+        /* Add padding for spacing */
+        display: inline-block;
+        /* Ensure the container only takes the necessary space */
+    }
+</style>
+<style>
+    /* Add your CSS styles here */
+</style>
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Visa Enquiry</h5>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                {% comment %} <li><a href="#"><span>form</span></a></li> {% endcomment %}
+                <li class="active"><span>View All Enquiry</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+
+    </div>
+    <div class="top">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="profile-circle">
+                            <img src='{% static ' assets/images/NewLogo.png' %}' alt="" srcset="">
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-name">{{enq.FirstName}} {{enq.LastName}}</div>
+                        <div class="profile-application">Enquiry No: {{enq.enquiry_number}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="section" onclick="showForm('general')">Personal Details</div>
+        </div>
+        <div class="col-md-2">
+            <div class="section" onclick="showForm('followup')">Follow Up</div>
+        </div>
+        <div class="col-md-2">
+            <div class="section" onclick="showForm('document')">Add Documents</div>
+        </div>
+    </div>
+    <br>
+    <!--end breadcrumb-->
+    <div class="row">
+        <div class="col-12 col-lg-12">
+            <div class="card border-lg-top-white">
+                <div class="card-body p-5">
+
+                    {% comment %} <form id="main-form" action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %} {% endcomment %}
+                        <div class="form-body">
+                            <div id="general-form">
+                                <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Personal
+                                    Details</h6>
+                                <hr class="light-grey-hr" />
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Email Address</label>
+                                        <h5>{{enq.email}}</< /h5>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Mobile Number</label>
+                                        <h5>{{enq.contact}}</h5>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">First Name</label>
+                                        <h5>{{enq.FirstName}}</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Last Name</label>
+                                        <h5>{{enq.LastName}}</h5>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Date Of Birth</label>
+                                        <h5>{{enq.Dob}}</h5>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Gender</label>
+                                        <h5>{{enq.Gender}}</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Country Of Citizenship</label>
+                                        <h5>{{enq.Country.name}}</h5>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Enquiry
+                                    Management</h6>
+                                <hr class="light-grey-hr" />
+
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Select Visa Country</label>
+                                        <h5>{{enq.Visa_country.country}}</h5>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Select Visa Category</label>
+                                        <h5>{{enq.Visa_category.category}}</h5>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Select Visa SubCategory</label>
+                                        <h5>{{enq.Visa_subcategory.subcategory_name}}</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Visa Type</label>
+                                        <h5>{{enq.Visa_type}}</h5>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Package</label>
+                                        <h5>{{enq.Package.title}}</h5>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Source</label>
+                                        <h5>{{enq.Source}}</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Reference</label>
+                                        <h5>{{enq.Reference}}</h5>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div id="followup-form" class="hidden">
+                                <form method="post" id="follow-up-form">  <!-- Add a form element -->
+                                    {% csrf_token %}
+                                <div class="row">
+                                    <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-file-plus mr-10"></i>Add
+                                        Notes</h6>
+                                    <hr class="light-grey-hr" />
+                                    <div class="col-md-8">
+                                        <div style="display: flex; align-items: center;">
+                                            <label for="date" style="margin-right: 10px;">Date:</label>
+                                            <h5 id="date">{% now "j-m-y" %}</h5>
+                                        </div>
+                                            <br>
+                                            <div style="display: flex; align-items: center;">
+                                                <label for="date" style="margin-right: 10px;">Note Added By:</label>
+                                                <h5 id="date">Admin</h5>
+                                            </div>
+                                            <br><br>
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Title</label>
+                                                {{form.title}}
+                                            </div>
+                                            <br>
+
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Description</label>
+                                                {{form.description}}
+                                            </div>
+                                            <br>
+
+
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Follow Up Status</label>
+                                                {{form.follow_up_status}}
+                                            </div>
+
+
+                                            <label class="control-label mb-10">Priority</label>
+                                            <br>
+                                            <div class="row control-label mb-10">
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="priority"
+                                                            id="high" value="High">
+                                                        <label class="form-check-label" for="inlineRadio1">High</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="priority"
+                                                            id="medium" value="Medium">
+                                                        <label class="form-check-label" for="inlineRadio2">Medium</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="priority"
+                                                            id="low" value="Low">
+                                                        <label class="form-check-label" for="inlineRadio3">Low</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br><br>
+
+                                        
+
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Calender</label>
+                                                {{form.calendar}}
+                                            </div>
+                                            <br>
+
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Time</label>
+                                                {{form.time}}
+                                            </div>
+                                            <br>
+
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Remark</label>
+                                                {{form.remark}}
+                                            </div>
+                                        
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>Notes:</h5>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <button type="submit" class="btn btn-primary px-5">Update</button>
+                                </form>
+                            </div>
+
+
+                            <div id="document-form" class="hidden">
+                                <div class="row">
+                                    {% comment %} <div class="ink">
+                                        <button type="button" class="btn btn-primary mr-2" data-toggle="modal"
+                                            data-target="#additionalDocumentsModal" style="float:right;">
+                                            Add Additional Documents
+                                        </button>
+                                        <h6 class="txt-dark capitalize-font"><i
+                                                class="zmdi zmdi-file-plus mr-10"></i>Upload Document</h6>
+                                    </div>
+
+                                    <br>
+                                    <br>
+                                    <div class="modal fade" id="additionalDocumentsModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="additionalDocumentsModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="additionalDocumentsModalLabel">Add
+                                                        Additional Documents</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="control-label mb-10">
+                                                        <label class="control-label mb-10">Document Name</label>
+                                                        <div class="form-group">
+                                                            <div class="input-group-prepend"> <span
+                                                                    class="input-group-text"><i
+                                                                        class='bx bx-user'></i></span>
+                                                            </div>
+                                                            <input type="text" name="documentname" id="documentname"
+                                                                class="form-control border-left-0"
+                                                                placeholder="Document Name">
+                                                        </div>
+                                                        <label class="control-label mb-10">Enter Comment</label>
+                                                        <div class="input-group">
+                                                            <textarea class="form-control" name="comment" id=""
+                                                                cols="60" rows="10"></textarea>
+                                                        </div>
+
+
+                                                        <br>
+                                                        <br>
+
+                                                        <label class="control-label mb-10">Upload Document</label>
+                                                        <div class="input-group">
+                                                            <input id="image" type="file"
+                                                                accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                                name="files" multiple>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-default"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> {% endcomment %}
+                                    <div id="document-table-container">
+    {% for document_category, documents in grouped_documents.items %}
+        <button class="toggle-table-button" data-category="{{ document_category.id }}">
+            <span>+</span>
+        </button>
+        <span>{{ document_category }}</span>&nbsp;&nbsp;
+        <span class="btn" style="border-radius: 20px; background-color: rgba(0, 128, 0, 0.2); color: green;">
+            {{ documents|length }} Received
+        </span>
+        <div class="document-table hidden" data-category="{{ document_category.id }}">
+            <br><br>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Document Name</th>
+                        <th>File Name</th>
+                        <th>Data Uploaded</th>
+                        <th>Last Uploaded</th>
+                        <th>Uploaded By</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for document in documents %}
+                    {% if document.enquiry_id.id == enq.id %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                {{ document.document_name }}
+                                (Document Max size should be {{ document.document_size }} MB)
+                            </td>
+                            <td>
+                                {{ document.document_file.name|filename }}
+                                <br>
+                                <div class="row">
+                                    <div class="white-container">
+                                        <a href="#" onclick="openImagePopup('{% url 'download_document' document_id=document.id %}')">
+                                            <i class="zmdi zmdi-eye" style="font-size: 20px; color: white;"></i>
+                                        </a>
+                                    </div>
+                                    <div class="white-container">
+                                        <a href="{% url 'download_document' document_id=document.id %}">
+                                            <i class="zmdi zmdi-download" style="font-size: 20px; color: white;"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                            {% if document.document_file %}
+                                <td>Yes</td>
+                            {% else %}
+                                <td>No</td>
+                            {% endif %}
+                            <td>{{ document.last_updated_on }}</td>
+                            <td>{{ document.lastupdated_by }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary mr-2" data-toggle="modal"
+                                    data-target="#uploadDocuments{{ document.id }}">
+                                    Upload Now
+                                </button>
+                                {% include "Admin/Enquiry/upload_document-modal.html" %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                {{ document.document_name }}
+                                (Document Max size should be  MB)
+                            </td>
+                            <td>
+                               
+                                <br>
+                                <div class="row">
+                                    <div class="white-container">
+                                        <a href="#" >
+                                            <i class="zmdi zmdi-eye" style="font-size: 20px; color: white;"></i>
+                                        </a>
+                                    </div>
+                                    <div class="white-container">
+                                        <a href="">
+                                            <i class="zmdi zmdi-download" style="font-size: 20px; color: white;"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                           
+                                <td>No</td>
+                            
+                            <td>{{ document.last_updated_on }}</td>
+                            <td>{{ document.lastupdated_by }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary mr-2" data-toggle="modal"
+                                    data-target="#uploadDocuments{{ document.id }}">
+                                    Upload Now
+                                </button>
+                                {% include "Admin/Enquiry/upload_document-modal.html" %}
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <hr class="light-grey-hr" />
+    {% endfor %}
+</div>
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    {% comment %} </form> {% endcomment %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showForm(section) {
+        console.log('Toggling form for section: ' + section);
+
+        // Hide all forms
+        document.getElementById('general-form').classList.add('hidden');
+        document.getElementById('followup-form').classList.add('hidden');
+        document.getElementById('document-form').classList.add('hidden');
+
+        // Show the selected form
+        document.getElementById(section + '-form').classList.remove('hidden');
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var buttons = document.querySelectorAll('.toggle-table-button');
+        buttons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var category = this.getAttribute('data-category');
+                var table = document.querySelector('.document-table[data-category="' + category + '"]');
+                if (table.classList.contains('hidden')) {
+                    table.classList.remove('hidden');
+                    this.querySelector('span').textContent = '-';
+                } else {
+                    table.classList.add('hidden');
+                    this.querySelector('span').textContent = '+';
+                }
+            });
+        });
+    });
+</script>
+
+{% comment %} <script>
+    // ...
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('follow-up-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            fetch('', {  // Add the URL to your view for saving follow-up data
+                method: 'POST',
+                body: new FormData(form),
+            })
+            .then(function(response) {
+                console.log('Form submitted successfully');
+                // Add any logic for handling success or errors
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+        });
+    });
+</script> {% endcomment %}
+
+
+<script>
+    function openImagePopup(url) {
+        // Define the popup window size and other settings
+        var width = 800;
+        var height = 600;
+        var left = (window.innerWidth - width) / 2;
+        var top = (window.innerHeight - height) / 2;
+
+        // Open the popup window
+        var popupWindow = window.open('', 'Image Popup', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+
+        // Load the URL into the popup window
+        popupWindow.document.write('<html><head><title>Image Popup</title></head><body><img src="' + url + '" alt="Image"></body></html>');
+        
+        // Focus the popup window (optional)
+        popupWindow.focus();
+
+        // Prevent the default click behavior
+        return false;
+    }
+</script>
+
+
+
+{% endblock main-content %}

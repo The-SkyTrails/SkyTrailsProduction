@@ -1,0 +1,53 @@
+
+<div class="modal fade" id="updatecourierdocumentnotes" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="exampleModalLabel1">Add Notes</h5>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <span class="control-label mb-10">Date :
+                                        <div class="ml-1" id="currentDateTime"></div>
+                                    </span>
+                                    <span class="control-label mb-10">Note added by : Admin
+                                        
+                                    </span>
+                                </div>
+                            </div>
+
+                    <div class="form-group"><label for="recipient-name" class="control-label mb-10">Recipient:</label>
+                        <textarea name="notes" rows="4" cols="20" id="ContentPlaceHolder1_txtNotes"
+                                        class="form-control" placeholder="Add Notes"
+                                        onkeypress="checkMaxLength(this, 120);" onpaste="handlePaste(this, 120)"
+                                        oninput="updateCharacterCount(this,120);" maxlength="120"></textarea>
+                                    <span id="ContentPlaceHolder1_rfnotes" style="color:Red;display:none;">Add
+                                        Notes</span>
+                                    <p id="characterCount">Character Limit: 120</p>
+                                    <input type="hidden" name="ctl00$ContentPlaceHolder1$hfEId"
+                                        id="ContentPlaceHolder1_hfEId">
+                    </div>
+                    <div class="form-group">
+                        <label for="status" class="control-label mb-10">Courier Status</label>
+                                    <select name="courierstatus" id="courierstatus" class="form-control">
+                                        <option value="Delivery Attempt">Delivery Attempt</option>
+                                        <option value="Submitted For Delivery">Submitted For Delivery</option>
+                                        <option value="Item Delivered">Item Delivered</option>
+                                        <option value="Item Damaged">Item Damaged</option>
+                                    </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+</div>

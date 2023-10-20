@@ -1,0 +1,144 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Package</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Package</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'Employee/Base/messages.html' %}
+
+    <div class="form-body">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="country" id="country">
+
+                        <option value="Visa Country">Visa Country</option>
+
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <button type="search" class="btn btn-primary px-5">Proceed</button>
+            </div>
+        </div>
+        
+    </div>
+
+	<div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="{% url 'Employee_add_Package' %}"><button class="btn btn-primary">Add New</button></a>
+	</div>
+	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>Image/Video</th>
+                                    <th>Title</th>
+                                    <th>Visa Country</th>
+                                    <th>Visa Category</th>
+                                    <th>Visa Sub Category</th>
+                                    <th>Assigned Group</th>
+                                    <th>No of Visa</th>
+                                    <th>Amount</th>
+                                    <th>Advance Amount</th>
+                                    <th>File Charges</th>
+                                    {% comment %} <th>Status</th> {% endcomment %}
+                                    <th>Last Updated By</th>
+                                    <th>Last Updated On</th>
+                                    <th>Expiry Date</th>
+                                    <th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>Image/Video</th>
+                                    <th>Title</th>
+                                    <th>Visa Country</th>
+                                    <th>Visa Category</th>
+                                    <th>Visa Sub Category</th>
+                                    <th>Assigned Group</th>
+                                    <th>No of Visa</th>
+                                    <th>Amount</th>
+                                    <th>Advance Amount</th>
+                                    <th>File Charges</th>
+                                    {% comment %} <th>Status</th> {% endcomment %}
+                                    <th>Last Updated By</th>
+                                    <th>Last Updated On</th>
+                                    <th>Expiry Date</th>
+                                    <th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in Package  %}
+                                <tr>
+                                    {% if i.file %}
+                                                            <td><img style="width:60px;" src="{{ i.file.url }}" alt="Profile Picture"></td>
+                                                        {% else %}
+                                                            <!-- You can add a default image here if no profile picture is available -->
+                                                            <td><img style="width:60px;" src="{% static 'assets/images/noimage.png' %}" alt="no image"></td>
+                                                        {% endif %}
+                                    <td>{{i.title}}</td>
+                                    <td>{{i.visa_country}}</td>
+                                    <td>{{i.visa_category}}</td>
+                                    <td>{{i.visa_subcategory}}</td>
+                                    <td>{{i.assign_to_group}}</td>
+                                    <td>{{i.number_of_visa}}</td>
+                                    <td>{{i.amount}}</td>
+                                    <td>{{i.advance_amount}}</td>
+                                    <td>{{i.file_charges}}</td>
+                                    {% comment %} <td>{{i.status}}</td> {% endcomment %}
+                                    <td>{{i.last_updated_by}}</td>
+                                    <td>{{i.last_updated_on}}</td>
+                                    <td>{{i.package_expiry_date}}</td>
+								<td>
+									<div class="row">
+										<div class="col-md-4"><a href="{% url 'Employee_editPackage' i.id %}">
+											<i
+									class='zmdi zmdi-edit'
+									style="font-size: 20px; color:blue;"></i>
+										</a></div>
+										
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}

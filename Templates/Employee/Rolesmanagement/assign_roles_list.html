@@ -1,0 +1,93 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Assign Roles List</h5>
+        </div>
+        <!-- Breadcrumb -->
+
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+                {% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+                <li class="active"><span>Assign Roles List</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+
+    </div>
+    {% include 'Employee/Base/messages.html' %}
+    <div class="ml-auto" style="float:right;margin-bottom:20px;">
+        <a href="{% url "Employee_assign_permissions" %}"><button class="btn btn-primary">Add New</button></a>
+    </div>
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Department Name</th>
+                                            <th>Users Name</th>
+                                            <th>Menu Name</th>
+                                            {% comment %} <th>Action</th> {% endcomment %}
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Department Name</th>
+                                            <th>Users Name</th>
+                                            <th>Menu Name</th>
+                                            {% comment %} <th>Action</th> {% endcomment %}
+
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for assign_role in assign_roles %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ assign_role.department }}</td>
+                                            <td>
+                                                <ul>
+                                                    {% for employee in assign_role.employee.all %}
+                                                    <li>{{ employee.users }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    {% for menu in assign_role.menu_name.all %}
+                                                    <li>{{ menu.name }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </td>
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+
+{% endblock main-content %}

@@ -1,0 +1,166 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Employees</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Employees</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+  
+	{% include 'dashboard/messages.html' %}
+
+
+	<div class="form-body">
+      <div class="row">
+         <div class="form-group col-md-3">
+           <div class="form-group">
+             <input type="text" class="form-control datepicker" placeholder="From Date" />
+           </div>
+         </div>
+         <div class="form-group col-md-3">
+           <div class="form-group">
+             <input type="text" class="form-control datepicker" placeholder="To Date" />
+           </div>
+         </div>
+         <div class="form-group col-md-3">
+           <div class="form-group">
+             <input type="text" name="email" id="email" class="form-control border-left-0"
+               placeholder="Email">
+           </div>
+         </div>
+         <div class="form-group col-md-3">
+           <div class="form-group">
+             <input type="text" name="contact" id="contact" class="form-control border-left-0"
+               placeholder="Mobile Number">
+           </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="form-group col-md-3">
+           <div class="form-group">
+             <input type="text" name="name" id="name" class="form-control border-left-0"
+               placeholder="Name">
+           </div>
+         </div>
+         <div class="form-group col-md-3">
+           <button type="search" class="btn btn-primary px-5">Proceed</button>
+         </div>
+      </div>
+    </div>
+    <div class="row" style="float:right;margin-bottom:10px;">
+      
+    
+      <div class="col-md-6">
+        
+          <button class="btn btn-primary" data-toggle="modal" data-target="#import">Import</button>
+        
+      </div>
+      {% include "Admin/Employee/import.html"%}
+    </div>
+    
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+                           <th>Action</th>
+                           <th>Updated On</th>
+                           <th>Image</th>
+                           <th>Name</th>
+                           <th>State</th>
+                           <th>City</th>
+                           <th>Country</th>
+                           <th>Status</th>
+                           <th>Department</th>
+                           <th>Branch</th>
+                           <th>Group</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+                           <th>Action</th>
+                           <th>Updated On</th>
+                           <th>Image</th>
+                           <th>Name</th>
+                           <th>State</th>
+                           <th>City</th>
+                           <th>Country</th>
+                           <th>Status</th>
+                           <th>Department</th>
+                           <th>Branch</th>
+                           <th>Group</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in employee %}
+                        <tr>
+                           <td>{{forloop.counter}}</td>
+                           <td>
+                              <div class="row">
+                                 <div class="col-md-4"><a href="{% url "view_employee" i.id %}">
+                                    <i class='zmdi zmdi-eye' style="font-size: 20px; color:blue;"></i>
+                                    </a>
+                                 </div>
+                                 <div class="col-md-4"><a href="{% url "employee_update" i.id %}"><i class='zmdi zmdi-edit' style="font-size: 20px; color:blue;"></i></a></div>
+                                 <div class="col-md-4"><a href="http://"><i class='zmdi zmdi-comments' style="font-size: 20px; color:blue;"></i></a></div>
+                              </div>
+                           </td>
+                           <td>Created:{{i.created}}</td>
+                           {% if i.file %}
+                           <td><img src="{{i.file.url}}" alt="Image" height="40" width="60"></td>
+                           {% else %}
+                           <!-- You can add a default image here if no profile picture is available -->
+                           <td><img style="width:60px;" src="{% static 'assets/images/noimage.png' %}" alt="no image"></td>
+                           {% endif %}
+                           <td>{{i.users.first_name}} {{i.users.last_name}} <br> 
+                            <a><i class='zmdi zmdi-phone' style="font-size: 15px; color:blue;"></i></a> {{i.contact_no}}</td>
+                           <td>{{i.state}}</td>
+                           <td>{{i.City}}</td>
+                           <td>{{i.country}}</td>
+                           {% if i.status == True %}
+                           <td>Active</td>
+                           {% else %}
+                           <td>Inactive</td>
+                           {% endif %}
+                           <td>{{i.department.name}}</td>
+                           <td>{{i.branch}}</td>
+                           <td>{{i.group}}</td>
+                        </tr>
+                        {% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}
+
+

@@ -1,0 +1,72 @@
+<div class="modal fade bs-example-modal-lg" id="viewallnotes{{i.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="viewallnotesLabel1">Add All Notes</h5>
+            </div>
+            
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                    <div class="form-group">
+                        <div class="control-label mb-10">
+                            <span class="sub-text d-flex">Enquiry No : {{i.enquiry_number}}
+                                <div class="ml-1" id="currentDateTime"></div>
+                            </span>
+                            <span class="sub-text d-flex">Client Name : {{i.FirstName}} {{i.LastName}}
+                                {% comment %} <div class="ml-1">Admin </div> {% endcomment %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <br>
+
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="table-responsive">
+                                <table id="datable_2" class="table table-hover table-bordered display mb-30" >
+                                    <thead>
+                                        <tr>
+                                        <th>S.No.</th>
+                                        <th>Created Date</th>
+                                        <th>Created By</th>
+                                        <th>IP Address</th>
+                                        <th>Description</th>
+                                        <th>Attachment</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        {% for note in i.notes_set.all %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{note.created_date}}</td>
+                                        <td>{{note.created_by}}</td>
+                                        <td>{{note.ip_address}}</td>
+                                        <td>{{note.notes}}</td>
+                                        {% comment %} <td><a href="{{note.file}}">{{note.file}}</a></td> {% endcomment %}
+                                        {% if note.file %}
+                                        <td><a href="{{ note.file.url }}">{{ note.file.name }}</a></td>
+                                    {% else %}
+                                        <td>No attachment</td>
+                                    {% endif %}
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>	
+                    </div>	
+                </div>	
+
+                
+            </div>
+            
+        </div>
+    </div>
+</div>

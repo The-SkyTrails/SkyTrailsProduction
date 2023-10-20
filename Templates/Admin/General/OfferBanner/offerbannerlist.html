@@ -1,0 +1,113 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Offer Banner</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Offer Banner</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+
+	<div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="{% url 'add_OfferBanner' %}"><button class="btn btn-primary">Add New</button></a>
+	</div>
+	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+							<th>Title</th>
+							<th>Image</th>
+							<th>URL</th>
+                            <th>Publish Date</th>
+							<th>Expiry Date</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+							<th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+							<th>Title</th>
+							<th>Image</th>
+							<th>URL</th>
+                            <th>Publish Date</th>
+							<th>Expiry Date</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+							<th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in OfferBanner  %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{i.title}}</td>
+							{% if i.image %}
+                                                            <td><img style="width:60px;" src="{{ i.image.url }}" alt="Profile Picture"></td>
+                                                        {% else %}
+                                                            <!-- You can add a default image here if no profile picture is available -->
+                                                            <td><img style="width:60px;" src="{% static 'assets/images/noimage.png' %}" alt="no image"></td>
+                                                        {% endif %}
+                            
+							<td>{{i.url}}</td>
+                            <td>{{i.fromdate}}</td>
+							<td>{{i.todate}}</td>
+                            {% if i.status == True %}
+							<td>Expired</td>
+							{% else %}
+							<td></td>
+							{% endif %}
+                            <td>{{i.last_updated_on}}</td>
+								<td>
+									<div class="row">
+										<div class="col-md-4"><a href="{% url 'editOfferBanner' i.id %}">
+											<i
+									class='zmdi zmdi-edit'
+									style="font-size: 20px; color:blue;"></i>
+										</a></div>
+										<div class="col-md-4"><a href="{% url "delete_offerbanner" i.id %}"><i
+											class='zmdi zmdi-delete'
+											style="font-size: 20px; color:red;"></i></a></div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+
+{% endblock main-content %}

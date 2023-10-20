@@ -1,0 +1,160 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Package</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+                <li><a href="{% url "Employee_Package_list" %}"><span>All Package</span></a></li>
+                <li class="active"><span>Update Package</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    
+    </div>
+    {% include 'Employee/Base/messages.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Update Package</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form action="" method ="POST">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>General Information</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Select Visa Country</label>
+                                                        {{form.visa_country}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Select Visa Category</label>
+                                                        {{form.visa_category}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Select Visa SubCategory</label>
+                                                        {{form.visa_subcategory}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Title</label>
+                                                        {{form.title}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Description</label>
+                                                        {{form.description}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Assign To Group</label>
+                                                        {{form.assign_to_group}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Number of Visa</label>
+                                                        {{form.number_of_visa}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Amount</label>
+                                                        {{form.amount}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Advance Amount</label>
+                                                        {{form.advance_amount}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">File Charges</label>
+                                                        {{form.file_charges}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Package Expiry Date</label>
+                                                        {{form.package_expiry_date}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6 col-xs-12">
+                                                    <div class="panel panel-default card-view">
+                                                        <div class="panel-heading">
+                                                            <div class="pull-left">
+                                                                <h6 class="panel-title txt-dark">Promotion Video/Image</h6>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                        <div class="panel-wrapper collapse in">
+                                                            <div class="panel-body">
+                                                                <p class="text-muted">Just add <code>dropify</code> class in input tag.</p>
+                                                                <div class="mt-40">
+                                                                    {{form.image}}
+                                                                </div>	
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Update</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock main-content %}

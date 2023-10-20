@@ -1,0 +1,433 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<style>
+    /* Add your CSS styles here */
+    .card {
+        border: 1px solid grey;
+        margin-bottom: 20px;
+        margin-top: 50px; /* Adjust this value to control the space between the button and the card */
+    }
+
+    .table-responsive {
+        width: 100%;
+        border-collapse: collapse;
+        display: table;
+    }
+
+    .table-responsive th,
+    .table-responsive td {
+        border: 1px solid grey;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .input-comment {
+        width: 100%;
+        border: 1px solid #526484;
+        padding: 4px;
+    }
+
+    .btn {
+        border: 1px solid #526484;
+        padding: 4px 12px;
+    }
+    .download_btn {
+        position: static;
+        margin-top: 20px;
+        margin-bottom: 70px;
+    }
+    .down {
+        position: absolute;
+        right: 30px;
+        border-radius: 8px;
+        background-color:rgba(102, 122, 221, 0.85);
+    }
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+        .table-responsive {
+            display: block; /* Change to block display on smaller screens */
+        }
+    }
+</style>
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">User Document</h5>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+                <li><a href="#"><span>User Document</span></a></li>
+                <li class="active"><span>Add User Document</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+
+    </div>
+    {% include 'Employee/Base/messages.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Add User Document</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <h6 class="txt-dark capitalize-font"><i
+                                                    class="zmdi zmdi-account mr-10"></i>Add Details</h6>
+                                            <hr class="light-grey-hr" />
+                                            <div class="row">
+
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label mb-10" for="case_no">Name / Case ID</label>
+                                                    <input type="text" class="form-control" id="case_no" name="case_no"
+                                                        placeholder="Name/Case Id">
+                                                </div>
+                                                
+            
+                                            </div>
+                                    </form>
+                                    <div class="download_btn">
+                                        <button class="btn down">Download All Document</button>
+                                    </div>
+                                    <div class="card border-lg-top-white">
+                                        <div class="card-body p-5">
+                                            <table class="table-responsive">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h4>Salary Slip</h4>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Evidence Of Salary <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h4>Others</h4>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Work Experience <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h4>Bank Documents</h4>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Applicant's Bank Balance Certificate <br>(Document Max size should be 10 MB)
+                                                        </td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Parent's Bank Balance Certificate <br>(Document Max size should be 10 MB)
+                                                        </td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Student's Bank Statement <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>Parent's Bank statements <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h4>Educational Certificate</h4>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Graduation/Diploma Certificate <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>12th Certificate <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>10th Certificate <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h4>Identification Certificate</h4>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Parent's ID Proof <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Parent's Documents <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Passport <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>ID Proof <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h4>Tax Documents</h4>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Parent's ITR For Last 3 Years <br>(Document Max size should be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                        <td>
+                                                            <input type="file" id="file-upload" style="display: none;">
+                                                            <button class="btn btn-primary"
+                                                                onclick="document.getElementById('file-upload').click();">Upload
+                                                                Now</button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h4>Language Test Certificates</h4>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>English language proficiency test (IELTS/PTE) <br>(Document Max size should
+                                                            be 10 MB)</td>
+                                                        <td><textarea class="form-control input-comment" name="comment" id="comment"
+                                                                placeholder="Enter Comment" rows="3" cols="15"></textarea></td>
+                                                                <td>
+                                                                    <form id="upload-form" enctype="multipart/form-data">
+                                                                        <input type="file" id="file-upload" style="display: none;">
+                                                                        <button class="btn btn-primary" type="button" onclick="handleUploadClick()">Upload Now</button>
+                                                                    </form>
+                                                                </td>
+                                                        <td>
+                                                            <button class="btn btn-primary">View</button>
+                                                            <button class="btn btn-primary">Download</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                
+                                            <!--end row-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function handleUploadClick() {
+        // Trigger the file input click event
+        document.getElementById('file-upload').click();
+    }
+    
+    // Prevent form submission
+    document.getElementById('upload-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Handle the file upload logic here (e.g., AJAX request to upload the file).
+    });
+</script>    
+{% endblock main-content %}

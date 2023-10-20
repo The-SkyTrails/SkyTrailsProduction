@@ -1,0 +1,171 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Employee</h5>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                <li><a href="{% url "all_employee" %}"><span>Employee</span></a></li>
+                <li class="active"><span>View Employee</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">General Information</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        
+                                                        <label class="control-label mb-10">First Name</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{employee.users.first_name}}</h5>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Last Name</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{employee.users.last_name}}</h5>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Email</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{employee.users.email}}</h5>
+                                                    </div>
+                                                </div> 
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Phone</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{employee.contact_no}}</h5>
+                                                    </div>
+                                                </div>    
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Department</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{employee.department.name}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                {% comment %} <img src="{{employee.file.url}}" height="200px"
+                                                    width="200px" alt="" srcset=""> {% endcomment %}
+                                                    {% if employee.file %}
+                                                        <!-- If a file is uploaded, display it -->
+                                                        <img src="{{ employee.file.url }}" height="200px" width="200px" alt="" srcset="">
+                                                    {% else %}
+                                                        <!-- If no file is uploaded, display a default/static image -->
+                                                        <img src="{% static 'assets/images/noimage.png' %}" height="200px" width="200px" alt="Default Image">
+                                                    {% endif %}
+                                            </div>
+                                        </div>
+
+                                            <br>
+                                            <hr><br>
+                                            <h4 class="mb-0 text-white">Address Details</h4>
+                                            <hr>
+                                            <br>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Country</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{employee.country}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Province/State</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{employee.state}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">City/Town</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{employee.state}}</h5>
+                                                    </div>
+                                                </div>
+                                            
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Address</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{employee.Address}}</h5>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label mb-10">Zipcode</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5>{{employee.zipcode}}</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

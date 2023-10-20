@@ -1,0 +1,1000 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+<style>
+    .top {
+        text-align: left;
+        padding: 20px;
+        color: #21325D;
+    }
+
+    .profile-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        /* Hide anything outside the circle */
+    }
+
+    .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure the image covers the entire circle */
+    }
+
+    .profile-name {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .profile-application {
+        font-size: 16px;
+    }
+
+
+    .section {
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px;
+        color: #21325D;
+    }
+
+    .section:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .form-container {
+        margin: 20px;
+    }
+</style>
+
+
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Agent</h5>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                {% comment %} <li><a href="#"><span>form</span></a></li> {% endcomment %}
+                <li class="active"><span>Update Agent</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+
+    </div>
+    <!--breadcrumb-->
+    <div class="top">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="profile-circle">
+                            <img src='{% static ' assets/images/NewLogo.png' %}' alt="" srcset="">
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-name">{{agent.users.first_name}} {{agent.users.last_name}}</div>
+                        {% comment %} <div class="profile-application">Application: Web Developer</div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+     <div class="row">
+        
+        <div class="col-md-2">
+            
+            <div class="section"><a href="">Personal Details</a></div>
+        </div>
+        <div class="col-md-2">
+            <div class="section"><a href="{% url "outsourceagent_agreement"  agent.id%}">Add Agreement</a></div>
+        </div>
+        <div class="col-md-2">
+            <div class="section"><a href="{% url "outsourceagent_kyc" agent.id %}">KYC Details</a></div>
+        </div>
+        
+    </div> 
+   
+    
+    <br><br>
+    <!--end breadcrumb-->
+    <div class="row">
+        <div class="col-12 col-lg-12">
+            <div class="card border-lg-top-white">
+                <div class="card-body p-5">
+
+                    <form id="main-form" action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-body">
+                            <div id="general-form">
+                                <div class="card-title d-flex align-items-center">
+                                    <div><i class='bx bxs-user mr-1 font-24 text-white'></i>
+                                    </div>
+                                    <h4 class="mb-0 text-white">General Information</h4>
+                                </div>
+                                <hr class="light-grey-hr" />
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">First Name</label>
+                                        <div class="form-group">
+
+                                            <input type="text" name="firstname" id="firstname"
+                                                class="form-control border-left-0" placeholder="First Name" value="{{agent.users.first_name}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Last Name</label>
+                                        <div class="form-group">
+
+                                            <input type="text" name="lastname" id="lastname"
+                                                class="form-control border-left-0" placeholder="Last Name" value="{{agent.users.last_name}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Date Of Birth</label>
+                                        <div class="form-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-calendar'></i></span>
+                                            </div>
+                                            <input type="date" name="dob" id="dob" class="form-control border-left-0"
+                                                placeholder="Date Of Birth" value="{{ agent.dob|date:'Y-m-d' }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label mb-10">Gender</label>
+                                            <div class="radio-list">
+                                                <div class="radio-inline pl-0">
+                                                    <span class="radio radio-info">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="Male" value="Male" {% if agent.gender == "Male" %} checked {% endif %}>
+                                                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                                                    </span>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <span class="radio radio-info">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="Female" value="Female" {% if agent.gender == "Female" %} checked {% endif %}>
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio2">Female</label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label mb-10">Maritial Status</label>
+                                            <div class="radio-list">
+                                                <div class="radio-inline pl-0">
+                                                    <span class="radio radio-info">
+                                                        <input class="form-check-input" type="radio" name="maritial"
+                                                            id="single" value="Single"
+                                                            {% if agent.marital_status == "Single" %} checked {% endif %}>
+                                                            <label class="form-check-label"
+                                                            for="single">Single</label>
+                                                    </span>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <span class="radio radio-info">
+                                                        <input class="form-check-input" type="radio" name="maritial"
+                                                            id="married" value="Married"
+                                                            {% if agent.marital_status == "Married" %} checked {% endif %}>
+                                                        <label class="form-check-label"
+                                                            for="married">Married</label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% comment %} <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label mb-10">Status</label>
+                                            <div class="radio-list">
+                                                <div class="radio-inline pl-0">
+                                                    <span class="radio radio-info">
+                                                        <input class="form-check-input" type="radio" name="status"
+                                                            id="active" value="True">
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio1">Active</label>
+                                                    </span>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <span class="radio radio-info">
+                                                        <input class="form-check-input" type="radio" name="status"
+                                                            id="inactive" value="False">
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio2">InActive</label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> {% endcomment %}
+                                </div>
+                                <div class="row">
+                                <div class="col-sm-6 col-md-6 col-xs-12">
+                                    <div class="panel panel-default card-view">
+                                        <div class="panel-heading">
+                                            <div class="pull-left">
+                                                <h6 class="panel-title txt-dark">Original Photograph</h6>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-wrapper collapse in">
+                                            <div class="panel-body">
+                                                <p class="text-muted">Just add <code>dropify</code> class in input tag.
+                                                </p>
+                                                <div class="mt-40">
+                                                    <input id="image" name="original_pic" type="file"
+                                                        accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                        multiple>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <br>
+                                <div class="card-title d-flex align-items-center">
+                                    <div><i class='bx bxs-user mr-1 font-24 text-white'></i>
+                                    </div>
+                                    <h4 class="mb-0 text-white">Business Details</h4>
+                                </div>
+                                <hr class="light-grey-hr" />
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Name Of Organization</label>
+                                        <div class="form-group">
+
+                                            <input type="text" name="organization" id="organization"
+                                                class="form-control border-left-0"
+                                                placeholder="Enter Organization Name" value="{{agent.organization_name}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Business Type</label>
+                                        <div class="form-group">
+
+                                            <input type="text" name="business_type" id="business"
+                                                class="form-control border-left-0" placeholder="Enter Business Type" value="{{agent.business_type}}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Registration Number</label>
+                                        <div class="form-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-calendar'></i></span>
+                                            </div>
+                                            <input type="text" name="registration" id="registration"
+                                                class="form-control border-left-0"
+                                                placeholder="Enter Registration Number" value="{{agent.registration_number}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Address</label>
+                                        <textarea class="form-control" name="address" id="address"
+                                            placeholder="Enter Address" rows="2" cols="3">{{agent.Address}}</textarea>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Country</label>
+                                        <div class="form-group">
+                                            {% comment %} <select class="form-control" name="country" id="country">
+
+                                                <option value="Afghanistan" {% if Afghanistan == %}{% endif %}>Afghanistan</option>
+                                                <option value="Albania">Albania</option>
+                                                <option value="Algeria">Algeria</option>
+                                                <option value="American Samoa">American Samoa</option>
+                                                <option value="Andorra">Andorra</option>
+                                                <option value="Angola">Angola</option>
+                                                <option value="Anguilla">Anguilla</option>
+                                                <option value="Antartica">Antarctica</option>
+                                                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                                <option value="Argentina">Argentina</option>
+                                                <option value="Armenia">Armenia</option>
+                                                <option value="Aruba">Aruba</option>
+                                                <option value="Australia">Australia</option>
+                                                <option value="Austria">Austria</option>
+                                                <option value="Azerbaijan">Azerbaijan</option>
+                                                <option value="Bahamas">Bahamas</option>
+                                                <option value="Bahrain">Bahrain</option>
+                                                <option value="Bangladesh">Bangladesh</option>
+                                                <option value="Barbados">Barbados</option>
+                                                <option value="Belarus">Belarus</option>
+                                                <option value="Belgium">Belgium</option>
+                                                <option value="Belize">Belize</option>
+                                                <option value="Benin">Benin</option>
+                                                <option value="Bermuda">Bermuda</option>
+                                                <option value="Bhutan">Bhutan</option>
+                                                <option value="Bolivia">Bolivia</option>
+                                                <option value="Bosnia and Herzegowina">Bosnia and Herzegowina
+                                                </option>
+                                                <option value="Botswana">Botswana</option>
+                                                <option value="Bouvet Island">Bouvet Island</option>
+                                                <option value="Brazil">Brazil</option>
+                                                <option value="British Indian Ocean Territory">British Indian
+                                                    Ocean Territory</option>
+                                                <option value="Brunei Darussalam">Brunei Darussalam</option>
+                                                <option value="Bulgaria">Bulgaria</option>
+                                                <option value="Burkina Faso">Burkina Faso</option>
+                                                <option value="Burundi">Burundi</option>
+                                                <option value="Cambodia">Cambodia</option>
+                                                <option value="Cameroon">Cameroon</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Cape Verde">Cape Verde</option>
+                                                <option value="Cayman Islands">Cayman Islands</option>
+                                                <option value="Central African Republic">Central African
+                                                    Republic</option>
+                                                <option value="Chad">Chad</option>
+                                                <option value="Chile">Chile</option>
+                                                <option value="China">China</option>
+                                                <option value="Christmas Island">Christmas Island</option>
+                                                <option value="Cocos Islands">Cocos (Keeling) Islands</option>
+                                                <option value="Colombia">Colombia</option>
+                                                <option value="Comoros">Comoros</option>
+                                                <option value="Congo">Congo</option>
+                                                <option value="Congo">Congo, the Democratic Republic of the
+                                                </option>
+                                                <option value="Cook Islands">Cook Islands</option>
+                                                <option value="Costa Rica">Costa Rica</option>
+                                                <option value="Cota D'Ivoire">Cote d'Ivoire</option>
+                                                <option value="Croatia">Croatia (Hrvatska)</option>
+                                                <option value="Cuba">Cuba</option>
+                                                <option value="Cyprus">Cyprus</option>
+                                                <option value="Czech Republic">Czech Republic</option>
+                                                <option value="Denmark">Denmark</option>
+                                                <option value="Djibouti">Djibouti</option>
+                                                <option value="Dominica">Dominica</option>
+                                                <option value="Dominican Republic">Dominican Republic</option>
+                                                <option value="East Timor">East Timor</option>
+                                                <option value="Ecuador">Ecuador</option>
+                                                <option value="Egypt">Egypt</option>
+                                                <option value="El Salvador">El Salvador</option>
+                                                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                                                <option value="Eritrea">Eritrea</option>
+                                                <option value="Estonia">Estonia</option>
+                                                <option value="Ethiopia">Ethiopia</option>
+                                                <option value="Falkland Islands">Falkland Islands (Malvinas)
+                                                </option>
+                                                <option value="Faroe Islands">Faroe Islands</option>
+                                                <option value="Fiji">Fiji</option>
+                                                <option value="Finland">Finland</option>
+                                                <option value="France">France</option>
+                                                <option value="France Metropolitan">France, Metropolitan
+                                                </option>
+                                                <option value="French Guiana">French Guiana</option>
+                                                <option value="French Polynesia">French Polynesia</option>
+                                                <option value="French Southern Territories">French Southern
+                                                    Territories</option>
+                                                <option value="Gabon">Gabon</option>
+                                                <option value="Gambia">Gambia</option>
+                                                <option value="Georgia">Georgia</option>
+                                                <option value="Germany">Germany</option>
+                                                <option value="Ghana">Ghana</option>
+                                                <option value="Gibraltar">Gibraltar</option>
+                                                <option value="Greece">Greece</option>
+                                                <option value="Greenland">Greenland</option>
+                                                <option value="Grenada">Grenada</option>
+                                                <option value="Guadeloupe">Guadeloupe</option>
+                                                <option value="Guam">Guam</option>
+                                                <option value="Guatemala">Guatemala</option>
+                                                <option value="Guinea">Guinea</option>
+                                                <option value="Guinea-Bissau">Guinea-Bissau</option>
+                                                <option value="Guyana">Guyana</option>
+                                                <option value="Haiti">Haiti</option>
+                                                <option value="Heard and McDonald Islands">Heard and Mc Donald
+                                                    Islands</option>
+                                                <option value="Holy See">Holy See (Vatican City State)</option>
+                                                <option value="Honduras">Honduras</option>
+                                                <option value="Hong Kong">Hong Kong</option>
+                                                <option value="Hungary">Hungary</option>
+                                                <option value="Iceland">Iceland</option>
+                                                <option value="India">India</option>
+                                                <option value="Indonesia">Indonesia</option>
+                                                <option value="Iran">Iran (Islamic Republic of)</option>
+                                                <option value="Iraq">Iraq</option>
+                                                <option value="Ireland">Ireland</option>
+                                                <option value="Israel">Israel</option>
+                                                <option value="Italy">Italy</option>
+                                                <option value="Jamaica">Jamaica</option>
+                                                <option value="Japan">Japan</option>
+                                                <option value="Jordan">Jordan</option>
+                                                <option value="Kazakhstan">Kazakhstan</option>
+                                                <option value="Kenya">Kenya</option>
+                                                <option value="Kiribati">Kiribati</option>
+                                                <option value="Democratic People's Republic of Korea">Korea,
+                                                    Democratic People's Republic of</option>
+                                                <option value="Korea">Korea, Republic of</option>
+                                                <option value="Kuwait">Kuwait</option>
+                                                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                                <option value="Lao">Lao People's Democratic Republic</option>
+                                                <option value="Latvia">Latvia</option>
+                                                <option value="Lebanon" selected>Lebanon</option>
+                                                <option value="Lesotho">Lesotho</option>
+                                                <option value="Liberia">Liberia</option>
+                                                <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya
+                                                </option>
+                                                <option value="Liechtenstein">Liechtenstein</option>
+                                                <option value="Lithuania">Lithuania</option>
+                                                <option value="Luxembourg">Luxembourg</option>
+                                                <option value="Macau">Macau</option>
+                                                <option value="Macedonia">Macedonia, The Former Yugoslav
+                                                    Republic of</option>
+                                                <option value="Madagascar">Madagascar</option>
+                                                <option value="Malawi">Malawi</option>
+                                                <option value="Malaysia">Malaysia</option>
+                                                <option value="Maldives">Maldives</option>
+                                                <option value="Mali">Mali</option>
+                                                <option value="Malta">Malta</option>
+                                                <option value="Marshall Islands">Marshall Islands</option>
+                                                <option value="Martinique">Martinique</option>
+                                                <option value="Mauritania">Mauritania</option>
+                                                <option value="Mauritius">Mauritius</option>
+                                                <option value="Mayotte">Mayotte</option>
+                                                <option value="Mexico">Mexico</option>
+                                                <option value="Micronesia">Micronesia, Federated States of
+                                                </option>
+                                                <option value="Moldova">Moldova, Republic of</option>
+                                                <option value="Monaco">Monaco</option>
+                                                <option value="Mongolia">Mongolia</option>
+                                                <option value="Montserrat">Montserrat</option>
+                                                <option value="Morocco">Morocco</option>
+                                                <option value="Mozambique">Mozambique</option>
+                                                <option value="Myanmar">Myanmar</option>
+                                                <option value="Namibia">Namibia</option>
+                                                <option value="Nauru">Nauru</option>
+                                                <option value="Nepal">Nepal</option>
+                                                <option value="Netherlands">Netherlands</option>
+                                                <option value="Netherlands Antilles">Netherlands Antilles
+                                                </option>
+                                                <option value="New Caledonia">New Caledonia</option>
+                                                <option value="New Zealand">New Zealand</option>
+                                                <option value="Nicaragua">Nicaragua</option>
+                                                <option value="Niger">Niger</option>
+                                                <option value="Nigeria">Nigeria</option>
+                                                <option value="Niue">Niue</option>
+                                                <option value="Norfolk Island">Norfolk Island</option>
+                                                <option value="Northern Mariana Islands">Northern Mariana
+                                                    Islands</option>
+                                                <option value="Norway">Norway</option>
+                                                <option value="Oman">Oman</option>
+                                                <option value="Pakistan">Pakistan</option>
+                                                <option value="Palau">Palau</option>
+                                                <option value="Panama">Panama</option>
+                                                <option value="Papua New Guinea">Papua New Guinea</option>
+                                                <option value="Paraguay">Paraguay</option>
+                                                <option value="Peru">Peru</option>
+                                                <option value="Philippines">Philippines</option>
+                                                <option value="Pitcairn">Pitcairn</option>
+                                                <option value="Poland">Poland</option>
+                                                <option value="Portugal">Portugal</option>
+                                                <option value="Puerto Rico">Puerto Rico</option>
+                                                <option value="Qatar">Qatar</option>
+                                                <option value="Reunion">Reunion</option>
+                                                <option value="Romania">Romania</option>
+                                                <option value="Russia">Russian Federation</option>
+                                                <option value="Rwanda">Rwanda</option>
+                                                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis
+                                                </option>
+                                                <option value="Saint LUCIA">Saint LUCIA</option>
+                                                <option value="Saint Vincent">Saint Vincent and the Grenadines
+                                                </option>
+                                                <option value="Samoa">Samoa</option>
+                                                <option value="San Marino">San Marino</option>
+                                                <option value="Sao Tome and Principe">Sao Tome and Principe
+                                                </option>
+                                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                                <option value="Senegal">Senegal</option>
+                                                <option value="Seychelles">Seychelles</option>
+                                                <option value="Sierra">Sierra Leone</option>
+                                                <option value="Singapore">Singapore</option>
+                                                <option value="Slovakia">Slovakia (Slovak Republic)</option>
+                                                <option value="Slovenia">Slovenia</option>
+                                                <option value="Solomon Islands">Solomon Islands</option>
+                                                <option value="Somalia">Somalia</option>
+                                                <option value="South Africa">South Africa</option>
+                                                <option value="South Georgia">South Georgia and the South
+                                                    Sandwich Islands</option>
+                                                <option value="Span">Spain</option>
+                                                <option value="SriLanka">Sri Lanka</option>
+                                                <option value="St. Helena">St. Helena</option>
+                                                <option value="St. Pierre and Miguelon">St. Pierre and Miquelon
+                                                </option>
+                                                <option value="Sudan">Sudan</option>
+                                                <option value="Suriname">Suriname</option>
+                                                <option value="Svalbard">Svalbard and Jan Mayen Islands</option>
+                                                <option value="Swaziland">Swaziland</option>
+                                                <option value="Sweden">Sweden</option>
+                                                <option value="Switzerland">Switzerland</option>
+                                                <option value="Syria">Syrian Arab Republic</option>
+                                                <option value="Taiwan">Taiwan, Province of China</option>
+                                                <option value="Tajikistan">Tajikistan</option>
+                                                <option value="Tanzania">Tanzania, United Republic of</option>
+                                                <option value="Thailand">Thailand</option>
+                                                <option value="Togo">Togo</option>
+                                                <option value="Tokelau">Tokelau</option>
+                                                <option value="Tonga">Tonga</option>
+                                                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                                                <option value="Tunisia">Tunisia</option>
+                                                <option value="Turkey">Turkey</option>
+                                                <option value="Turkmenistan">Turkmenistan</option>
+                                                <option value="Turks and Caicos">Turks and Caicos Islands
+                                                </option>
+                                                <option value="Tuvalu">Tuvalu</option>
+                                                <option value="Uganda">Uganda</option>
+                                                <option value="Ukraine">Ukraine</option>
+                                                <option value="United Arab Emirates">United Arab Emirates
+                                                </option>
+                                                <option value="United Kingdom">United Kingdom</option>
+                                                <option value="United States">United States</option>
+                                                <option value="United States Minor Outlying Islands">United
+                                                    States Minor Outlying Islands</option>
+                                                <option value="Uruguay">Uruguay</option>
+                                                <option value="Uzbekistan">Uzbekistan</option>
+                                                <option value="Vanuatu">Vanuatu</option>
+                                                <option value="Venezuela">Venezuela</option>
+                                                <option value="Vietnam">Viet Nam</option>
+                                                <option value="Virgin Islands (British)">Virgin Islands
+                                                    (British)</option>
+                                                <option value="Virgin Islands (U.S)">Virgin Islands (U.S.)
+                                                </option>
+                                                <option value="Wallis and Futana Islands">Wallis and Futuna
+                                                    Islands</option>
+                                                <option value="Western Sahara">Western Sahara</option>
+                                                <option value="Yemen">Yemen</option>
+                                                <option value="Serbia">Serbia</option>
+                                                <option value="Zambia">Zambia</option>
+                                                <option value="Zimbabwe">Zimbabwe</option>
+
+                                            </select> {% endcomment %}
+                                            <select class="form-control" name="country" id="country">
+    
+                                                <option value="Afghanistan" {% if agent.country == "Afghanistan" %}selected{% endif %}>Afghanistan</option>
+                                                <option value="Albania" {% if agent.country == "Albania" %}selected{% endif %}>Albania</option>
+                                                <option value="Algeria" {% if agent.country == "Algeria" %}selected{% endif %}>Algeria</option>
+
+
+                                                <option value="American Samoa" {% if agent.country == "American Samoa" %}selected{% endif %}>American Samoa</option>
+                                                <option value="Andorra" {% if agent.country == "Andorra" %}selected{% endif %}>Andorra</option>
+
+                                                <option value="Angola" {% if agent.country == "Angola" %}selected{% endif %}>Angola</option>
+                                                <option value="Anguilla" {% if agent.country == "Anguilla" %}selected{% endif %}>Anguilla</option>
+                                                <option value="Antartica" {% if agent.country == "Antartica" %}selected{% endif %}>Antarctica</option>
+                                                <option value="Antigua and Barbuda" {% if agent.country == "Antigua and Barbuda" %}selected{% endif %}>Antigua and Barbuda</option>
+                                                <option value="Argentina" {% if agent.country == "Argentina" %}selected{% endif %}>Argentina</option>
+
+
+                                                <option value="Armenia" {% if agent.country == "Armenia" %}selected{% endif %}>Armenia</option>
+                                                <option value="Aruba" {% if agent.country == "Aruba" %}selected{% endif %}>Aruba</option>
+                                                <option value="Australia" {% if agent.country == "Australia" %}selected{% endif %}> Australia</option>
+
+
+                                                <option value="Austria" {% if agent.country == "Australia" %}selected{% endif %}>Austria</option>
+                                                <option value="Azerbaijan" {% if agent.country == "Azerbaijan" %}selected{% endif %}>Azerbaijan</option>
+                                                <option value="Bahamas" {% if agent.country == "Bahamas" %}selected{% endif %}>Bahamas</option>
+                                                <option value="Bahrain"> {% if agent.country == "Bahrain" %}selected{% endif %}Bahrain</option>
+
+
+                                                <option value="Bangladesh" {% if agent.country == "Bangladesh" %}selected{% endif %}>Bangladesh</option>
+                                                <option value="Barbados" {% if agent.country == "Barbados" %}selected{% endif %}>Barbados</option>
+                                                <option value="Belarus" {% if agent.country == "Belarus" %}selected{% endif %}>Belarus</option>
+                                                <option value="Belgium" {% if agent.country == "Belgium" %}selected{% endif %}>Belgium</option>
+
+
+                                                <option value="Belize" {% if agent.country == "Belize" %}selected{% endif %}>Belize</option>
+                                                <option value="Benin" {% if agent.country == "Benin" %}selected{% endif %}>Benin</option>
+                                                <option value="Bermuda" {% if agent.country == "Bermuda" %}selected{% endif %}>Bermuda</option>
+                                                <option value="Bhutan" {% if agent.country == "Bhutan" %}selected{% endif %}>Bhutan</option>
+                                                <option value="Bolivia" {% if agent.country == "Bolivia" %}selected{% endif %}>Bolivia</option>
+                                                <option value="Bosnia and Herzegowina" {% if agent.country == "Bosnia and Herzegowina" %}selected{% endif %}>Bosnia and Herzegowina
+                                                </option>
+
+
+                                                <option value="Botswana" {% if agent.country == "Botswana" %}selected{% endif %}>Botswana</option>
+                                                <option value="Bouvet Island" {% if agent.country == "Bouvet Island" %}selected{% endif %}>Bouvet Island</option>
+                                                <option value="Brazil" {% if agent.country == "Brazil" %}selected{% endif %}>Brazil</option>
+                                                <option value="British Indian Ocean Territory" {% if agent.country == "British Indian Ocean Territory" %}selected{% endif %}>British Indian
+                                                    Ocean Territory</option>
+                                                <option value="Brunei Darussalam" {% if agent.country == "Brunei Darussalam" %}selected{% endif %}>Brunei Darussalam</option>
+                                                <option value="Bulgaria" {% if agent.country == "Bulgaria" %}selected{% endif %}>Bulgaria</option>
+                                                <option value="Burkina Faso" {% if agent.country == "Burkina Faso" %}selected{% endif %}>Burkina Faso</option>
+                                                <option value="Burundi" {% if agent.country == "Burundi" %}selected{% endif %}>Burundi</option>
+                                                <option value="Cambodia" {% if agent.country == "Cambodia" %}selected{% endif %}>Cambodia</option>
+                                                <option value="Cameroon" {% if agent.country == "Cameroon" %}selected{% endif %}>Cameroon</option>
+                                                <option value="Canada" {% if agent.country == "Canada" %}selected{% endif %}>Canada</option>
+                                                <option value="Cape Verde" {% if agent.country == "Cape Verde" %}selected{% endif %}>Cape Verde</option>
+                                                <option value="Cayman Islands" {% if agent.country == "Cayman Islands" %}selected{% endif %}>Cayman Islands</option>
+                                                <option value="Central African Republic" {% if agent.country == "Central African Republic" %}selected{% endif %}>Central African
+                                                    Republic</option>
+                                                <option value="Chad" {% if agent.country == "Chad" %}selected{% endif %}>Chad</option>
+
+
+                                                <option value="Chile"{% if agent.country == "Chile" %}selected{% endif %}>Chile</option>
+                                                <option value="China"{% if agent.country == "China" %}selected{% endif %}>China</option>
+                                                <option value="Christmas Island"{% if agent.country == "Christmas Island" %}selected{% endif %}>Christmas Island</option>
+                                                <option value="Cocos Islands"{% if agent.country == "Cocos Islands" %}selected{% endif %}>Cocos (Keeling) Islands</option>
+                                                <option value="Colombia"{% if agent.country == "Colombia" %}selected{% endif %}>Colombia</option>
+                                                <option value="Comoros"{% if agent.country == "Comoros" %}selected{% endif %}>Comoros</option>
+                                                <option value="Congo"{% if agent.country == "Congo" %}selected{% endif %}>Congo</option>
+                                                
+                                                <option value="Cook Islands"{% if agent.country == "Cook Islands" %}selected{% endif %}>Cook Islands</option>
+                                                <option value="Costa Rica"{% if agent.country == "Costa Rica" %}selected{% endif %}>Costa Rica</option>
+                                                <option value="Cota D'Ivoire"{% if agent.country == "Cota D'Ivoire" %}selected{% endif %}>Cote d'Ivoire</option>
+
+
+                                                <option value="Croatia" {% if agent.country == "Croatia" %}selected{% endif %}>Croatia (Hrvatska)</option>
+                                                <option value="Cuba" {% if agent.country == "Cuba" %}selected{% endif %}>Cuba</option>
+                                                <option value="Cyprus" {% if agent.country == "Cyprus" %}selected{% endif %}>Cyprus</option>
+                                                <option value="Czech Republic" {% if agent.country == "Czech Republic" %}selected{% endif %}>Czech Republic</option>
+                                                <option value="Denmark" {% if agent.country == "Denmark" %}selected{% endif %}>Denmark</option>
+                                                <option value="Djibouti" {% if agent.country == "Djibouti" %}selected{% endif %}>Djibouti</option>
+                                                <option value="Dominica" {% if agent.country == "Dominica" %}selected{% endif %}>Dominica</option>
+                                                <option value="Dominican Republic" {% if agent.country == "Dominican Republic" %}selected{% endif %}>Dominican Republic</option>
+                                                <option value="East Timor" {% if agent.country == "East Timor" %}selected{% endif %}>East Timor</option>
+                                                <option value="Ecuador" {% if agent.country == "Ecuador" %}selected{% endif %}>Ecuador</option>
+                                                <option value="Egypt" {% if agent.country == "Egypt" %}selected{% endif %}>Egypt</option>
+                                                <option value="El Salvador" {% if agent.country == "El Salvador" %}selected{% endif %}>El Salvador</option>
+
+                                                
+                                                <option value="Equatorial Guinea" {% if agent.country == "Equatorial Guinea" %}selected{% endif %}>Equatorial Guinea</option>
+                                                <option value="Eritrea" {% if agent.country == "Eritrea" %}selected{% endif %}>Eritrea</option>
+                                                <option value="Estonia" {% if agent.country == "Estonia" %}selected{% endif %}>Estonia</option>
+                                                <option value="Ethiopia" {% if agent.country == "Ethiopia" %}selected{% endif %}>Ethiopia</option>
+                                                <option value="Falkland Islands" {% if agent.country == "Falkland Islands" %}selected{% endif %}>Falkland Islands (Malvinas)
+                                                </option>
+                                                <option value="Faroe Islands" {% if agent.country == "Faroe Islands" %}selected{% endif %}>Faroe Islands</option>
+                                                <option value="Fiji" {% if agent.country == "Fiji" %}selected{% endif %}>Fiji</option>
+                                                <option value="Finland" {% if agent.country == "Finland" %}selected{% endif %}>Finland</option>
+                                                <option value="France" {% if agent.country == "France" %}selected{% endif %}>France</option>
+                                                <option value="France Metropolitan" {% if agent.country == "France Metropolitan" %}selected{% endif %}>France, Metropolitan
+                                                </option>
+                                                <option value="French Guiana" {% if agent.country == "French Guiana" %}selected{% endif %}>French Guiana</option>
+                                                <option value="French Polynesia" {% if agent.country == "French Polynesia" %}selected{% endif %}>French Polynesia</option>
+                                                <option value="French Southern Territories" {% if agent.country == "French Southern Territories" %}selected{% endif %}>French Southern
+                                                    Territories</option>
+                                                <option value="Gabon" {% if agent.country == "Gabon" %}selected{% endif %}>Gabon</option>
+                                                <option value="Gambia" {% if agent.country == "Gambia" %}selected{% endif %}>Gambia</option>
+                                                <option value="Georgia" {% if agent.country == "Georgia" %}selected{% endif %}>Georgia</option>
+                                                <option value="Germany" {% if agent.country == "Germany" %}selected{% endif %}>Germany</option>
+                                                <option value="Ghana" {% if agent.country == "Ghana" %}selected{% endif %}>Ghana</option>
+                                                <option value="Gibraltar" {% if agent.country == "Gibraltar" %}selected{% endif %}>Gibraltar</option>
+                                                <option value="Greece" {% if agent.country == "Greece" %}selected{% endif %}>Greece</option>
+
+
+                                                <option value="Greenland" {% if agent.country == "Greenland" %}selected{% endif %}>Greenland</option>
+                                                <option value="Grenada" {% if agent.country == "Grenada" %}selected{% endif %}>Grenada</option>
+                                                <option value="Guadeloupe" {% if agent.country == "Guadeloupe" %}selected{% endif %}>Guadeloupe</option>
+                                                <option value="Guam" {% if agent.country == "Greece" %}selected{% endif %}>Guam</option>
+                                                <option value="Guatemala" {% if agent.country == "Guatemala" %}selected{% endif %}>Guatemala</option>
+                                                <option value="Guinea" {% if agent.country == "Guinea" %}selected{% endif %}>Guinea</option>
+                                                <option value="Guinea-Bissau" {% if agent.country == "Guinea-Bissau" %}selected{% endif %}>Guinea-Bissau</option>
+                                                <option value="Guyana" {% if agent.country == "Greece" %}selected{% endif %}>Guyana</option>
+                                                <option value="Haiti" {% if agent.country == "Haiti" %}selected{% endif %}>Haiti</option>
+                                                <option value="Heard and McDonald Islands" {% if agent.country == "Heard and McDonald Islands" %}selected{% endif %}>Heard and Mc Donald
+                                                    Islands</option>
+                                                <option value="Holy See" {% if agent.country == "Holy See" %}selected{% endif %}>Holy See (Vatican City State)</option>
+                                                <option value="Honduras" {% if agent.country == "Honduras" %}selected{% endif %}>Honduras</option>
+
+
+                                                <option value="Hong Kong" {% if agent.country == "Hong Kong" %}selected{% endif %}>Hong Kong</option>
+                                                <option value="Hungary" {% if agent.country == "Hungary" %}selected{% endif %}>Hungary</option>
+                                                <option value="Iceland" {% if agent.country == "Iceland" %}selected{% endif %}>Iceland</option>
+                                                <option value="India" {% if agent.country == "India" %}selected{% endif %}>India</option>
+                                                <option value="Indonesia" {% if agent.country == "Indonesia" %}selected{% endif %}>Indonesia</option>
+                                                <option value="Iran" {% if agent.country == "Iran" %}selected{% endif %}>Iran (Islamic Republic of)</option>
+                                                <option value="Iraq" {% if agent.country == "Iraq" %}selected{% endif %}>Iraq</option>
+
+
+                                                <option value="Ireland" {% if agent.country == "Ireland" %}selected{% endif %}>Ireland</option>
+                                                <option value="Israel" {% if agent.country == "Israel" %}selected{% endif %}>Israel</option>
+                                                <option value="Italy" {% if agent.country == "Italy" %}selected{% endif %}>Italy</option>
+                                                <option value="Jamaica" {% if agent.country == "Jamaica" %}selected{% endif %}>Jamaica</option>
+                                                <option value="Japan" {% if agent.country == "Japan" %}selected{% endif %}>Japan</option>
+                                                <option value="Jordan" {% if agent.country == "Jordan" %}selected{% endif %}>Jordan</option>
+                                                <option value="Kazakhstan" {% if agent.country == "Kazakhstan" %}selected{% endif %}>Kazakhstan</option>
+                                                <option value="Kenya" {% if agent.country == "Kenya" %}selected{% endif %}>Kenya</option>
+                                                <option value="Kiribati" {% if agent.country == "Kiribati" %}selected{% endif %}>Kiribati</option>
+                                                <option value="Democratic People's Republic of Korea" {% if agent.country == "Democratic People's Republic of Korea" %}selected{% endif %}>Korea,
+                                                    Democratic People's Republic of</option>
+                                                <option value="Korea" {% if agent.country == "Korea" %}selected{% endif %}>Korea, Republic of</option>
+
+
+                                                <option value="Kuwait" {% if agent.country == "Kuwait" %}selected{% endif %}>Kuwait</option>
+                                                <option value="Kyrgyzstan" {% if agent.country == "Kyrgyzstan" %}selected{% endif %}>Kyrgyzstan</option>
+                                                <option value="Lao" {% if agent.country == "Lao" %}selected{% endif %}>Lao People's Democratic Republic</option>
+                                                <option value="Latvia" {% if agent.country == "Latvia" %}selected{% endif %}>Latvia</option>
+
+
+                                                <option value="Lebanon"  {% if agent.country == "Lebanon" %}selected{% endif %}>Lebanon</option>
+                                                <option value="Liberia" {% if agent.country == "Liberia" %}selected{% endif %}>Liberia</option>
+                                                <option value="Libyan Arab Jamahiriya" {% if agent.country == "Libyan Arab Jamahiriya" %}selected{% endif %}>Libyan Arab Jamahiriya
+                                                </option>
+                                                <option value="Liechtenstein" {% if agent.country == "Liechtenstein" %}selected{% endif %}>Liechtenstein</option>
+                                                <option value="Lithuania" {% if agent.country == "Lithuania" %}selected{% endif %}>Lithuania</option>
+                                                <option value="Luxembourg" {% if agent.country == "Luxembourg" %}selected{% endif %}>Luxembourg</option>
+                                                <option value="Macau" {% if agent.country == "Macau" %}selected{% endif %}>Macau</option>
+                                                <option value="Macedonia" {% if agent.country == "Macedonia" %}selected{% endif %}>Macedonia, The Former Yugoslav
+                                                    Republic of</option>
+                                                    
+                                                <option value="Madagascar" {% if agent.country == "Madagascar" %}selected{% endif %}>Madagascar</option>
+                                                <option value="Malawi" {% if agent.country == "Malawi" %}selected{% endif %}>Malawi</option>
+                                                <option value="Malaysia" {% if agent.country == "Malaysia" %}selected{% endif %}>Malaysia</option>
+                                                <option value="Maldives" {% if agent.country == "Maldives" %}selected{% endif %}>Maldives</option>
+                                                <option value="Mali" {% if agent.country == "Mali" %}selected{% endif %}>Mali</option>
+                                                <option value="Malta" {% if agent.country == "Malta" %}selected{% endif %}>Malta</option>
+                                                <option value="Marshall Islands" {% if agent.country == "Marshall Islands" %}selected{% endif %}>Marshall Islands</option>
+                                                <option value="Martinique" {% if agent.country == "Martinique" %}selected{% endif %}>Martinique</option>
+                                                <option value="Mauritania" {% if agent.country == "Mauritania" %}selected{% endif %}>Mauritania</option>
+                                                <option value="Mauritius" {% if agent.country == "Mauritius" %}selected{% endif %}>Mauritius</option>
+
+
+                                                <option value="Mayotte" {% if agent.country == "Mayotte" %}selected{% endif %}>Mayotte</option>
+                                                <option value="Mexico" {% if agent.country == "Mexico" %}selected{% endif %}>Mexico</option>
+                                                <option value="Micronesia" {% if agent.country == "Micronesia" %}selected{% endif %}>Micronesia, Federated States of
+                                                </option>
+                                                <option value="Moldova" {% if agent.country == "Moldova" %}selected{% endif %}>Moldova, Republic of</option>
+                                                <option value="Monaco" {% if agent.country == "Monaco" %}selected{% endif %}>Monaco</option>
+                                                <option value="Mongolia" {% if agent.country == "Mongolia" %}selected{% endif %}>Mongolia</option>
+                                                <option value="Montserrat" {% if agent.country == "Montserrat" %}selected{% endif %}>Montserrat</option>
+
+
+                                                <option value="Morocco" {% if agent.country == "Morocco" %}selected{% endif %}>Morocco </option>
+                                                <option value="Mozambique" {% if agent.country == "Mozambique" %}selected{% endif %}>Mozambique</option>
+                                                <option value="Myanmar" {% if agent.country == "Myanmar" %}selected{% endif %}>Myanmar</option>
+                                                <option value="Namibia" {% if agent.country == "Namibia" %}selected{% endif %}>Namibia</option>
+                                                <option value="Nauru" {% if agent.country == "Nauru" %}selected{% endif %}>Nauru</option>
+                                                <option value="Nepal" {% if agent.country == "Nepal" %}selected{% endif %}>Nepal</option>
+                                                <option value="Netherlands"{% if agent.country == "Netherlands" %}selected{% endif %}>Netherlands</option>
+
+                                                <option value="Netherlands Antilles" {% if agent.country == "Netherlands Antilles" %}selected{% endif %}>Netherlands Antilles
+                                                </option>
+                                                <option value="New Caledonia" {% if agent.country == "New Caledonia" %}selected{% endif %}>New Caledonia</option>
+                                                <option value="New Zealand" {% if agent.country == "New Zealand" %}selected{% endif %}>New Zealand</option>
+                                                <option value="Nicaragua" {% if agent.country == "Nicaragua" %}selected{% endif %}>Nicaragua</option>
+                                                <option value="Niger" {% if agent.country == "Niger" %}selected{% endif %}>Niger</option>
+                                                <option value="Nigeria" {% if agent.country == "Nigeria" %}selected{% endif %}>Nigeria</option>
+                                                <option value="Niue" {% if agent.country == "Niue" %}selected{% endif %}>Niue</option>
+                                                <option value="Norfolk Island" {% if agent.country == "Norfolk Island" %}selected{% endif %}>Norfolk Island</option>
+                                                <option value="Northern Mariana Islands" {% if agent.country == "Northern Mariana Islands" %}selected{% endif %}>Northern Mariana
+                                                    Islands</option>
+
+
+                                                <option value="Norway" {% if agent.country == "Norway" %}selected{% endif %}>Norway</option>
+                                                <option value="Oman" {% if agent.country == "Oman" %}selected{% endif %}>Oman</option>
+                                                <option value="Pakistan" {% if agent.country == "Pakistan" %}selected{% endif %}>Pakistan</option>
+                                                <option value="Palau" {% if agent.country == "Palau" %}selected{% endif %}>Palau</option>
+                                                <option value="Panama" {% if agent.country == "Panama" %}selected{% endif %}>Panama</option>
+                                                <option value="Papua New Guinea" {% if agent.country == "Papua New Guinea" %}selected{% endif %}>Papua New Guinea</option>
+                                                <option value="Paraguay" {% if agent.country == "Paraguay" %}selected{% endif %}>Paraguay</option>
+                                                <option value="Peru" {% if agent.country == "Peru" %}selected{% endif %}>Peru</option>
+                                                <option value="Philippines" {% if agent.country == "Philippines" %}selected{% endif %}>Philippines</option>
+                                                <option value="Pitcairn" {% if agent.country == "Pitcairn" %}selected{% endif %}>Pitcairn</option>
+                                                <option value="Poland" {% if agent.country == "Poland" %}selected{% endif %}>Poland</option>
+                                                <option value="Portugal" {% if agent.country == "Portugal" %}selected{% endif %}>Portugal</option>
+
+
+                                                <option value="Puerto Rico" {% if agent.country == "Puerto Rico" %}selected{% endif %}>Puerto Rico</option>
+                                                <option value="Qatar" {% if agent.country == "Qatar" %}selected{% endif %}>Qatar</option>
+                                                <option value="Reunion" {% if agent.country == "Reunion" %}selected{% endif %}>Reunion</option>
+                                                <option value="Romania" {% if agent.country == "Romania" %}selected{% endif %}>Romania</option>
+                                                <option value="Russia" {% if agent.country == "Russia" %}selected{% endif %}>Russian Federation</option>
+                                                <option value="Rwanda" {% if agent.country == "Rwanda" %}selected{% endif %}>Rwanda</option>
+
+
+                                                <option value="Saint Kitts and Nevis" {% if agent.country == "Saint Kitts and Nevis" %}selected{% endif %}>Saint Kitts and Nevis
+                                                </option>
+                                                <option value="Saint LUCIA" {% if agent.country == "Saint LUCIA" %}selected{% endif %}>Saint LUCIA</option>
+                                                <option value="Saint Vincent" {% if agent.country == "Saint Vincent" %}selected{% endif %}>Saint Vincent and the Grenadines
+                                                </option>
+                                                <option value="Samoa" {% if agent.country == "Samoa" %}selected{% endif %}>Samoa</option>
+                                                <option value="San Marino" {% if agent.country == "San Marino" %}selected{% endif %}>San Marino</option>
+                                                <option value="Sao Tome and Principe" {% if agent.country == "Sao Tome and Principe" %}selected{% endif %}>Sao Tome and Principe
+                                                </option>
+                                                <option value="Saudi Arabia" {% if agent.country == "Saudi Arabia" %}selected{% endif %}>Saudi Arabia</option>
+                                                <option value="Senegal" {% if agent.country == "Senegal" %}selected{% endif %}>Senegal</option>
+                                                <option value="Seychelles" {% if agent.country == "Seychelles" %}selected{% endif %}>Seychelles</option>
+                                                <option value="Sierra" {% if agent.country == "Sierra" %}selected{% endif %}>Sierra Leone</option>
+                                                <option value="Singapore" {% if agent.country == "Singapore" %}selected{% endif %}>Singapore</option>
+                                                <option value="Slovakia" {% if agent.country == "Slovakia" %}selected{% endif %}>Slovakia (Slovak Republic)</option>
+                                                <option value="Slovenia" {% if agent.country == "Slovenia" %}selected{% endif %}>Slovenia</option>
+                                                <option value="Solomon Islands" {% if agent.country == "Solomon Islands" %}selected{% endif %}>Solomon Islands</option>
+                                                <option value="Somalia" {% if agent.country == "Somalia" %}selected{% endif %}>Somalia</option>
+                                                <option value="South Africa" {% if agent.country == "South Africa" %}selected{% endif %}>South Africa</option>
+                                                <option value="South Georgia" {% if agent.country == "South Georgia" %}selected{% endif %}>South Georgia and the South
+
+                                                    Sandwich Islands</option>
+
+
+                                                <option value="Span" {% if agent.country == "Span" %}selected{% endif %}>Spain</option>
+                                                <option value="SriLanka" {% if agent.country == "SriLanka" %}selected{% endif %}>Sri Lanka</option>
+                                                <option value="St. Helena" {% if agent.country == "St. Helena" %}selected{% endif %}>St. Helena</option>
+                                                <option value="St. Pierre and Miguelon" {% if agent.country == "St. Pierre and Miguelon" %}selected{% endif %}>St. Pierre and Miquelon
+                                                </option>
+                                                <option value="Sudan" {% if agent.country == "Sudan" %}selected{% endif %}>Sudan</option>
+                                                <option value="Suriname" {% if agent.country == "Suriname" %}selected{% endif %}>Suriname</option>
+                                                <option value="Svalbard" {% if agent.country == "Svalbard" %}selected{% endif %}>Svalbard and Jan Mayen Islands</option>
+                                                <option value="Swaziland" {% if agent.country == "Swaziland" %}selected{% endif %}>Swaziland</option>
+                                                <option value="Sweden" {% if agent.country == "Sweden" %}selected{% endif %}>Sweden</option>
+                                                <option value="Switzerland" {% if agent.country == "Switzerland" %}selected{% endif %}>Switzerland</option>
+
+
+                                                <option value="Syria" {% if agent.country == "Syria" %}selected{% endif %}>Syrian Arab Republic</option>
+                                                <option value="Taiwan" {% if agent.country == "Taiwan" %}selected{% endif %}>Taiwan, Province of China</option>
+                                                <option value="Tajikistan" {% if agent.country == "Tajikistan" %}selected{% endif %}>Tajikistan</option>
+                                                <option value="Tanzania" {% if agent.country == "Tanzania" %}selected{% endif %}>Tanzania, United Republic of</option>
+                                                <option value="Thailand" {% if agent.country == "Thailand" %}selected{% endif %}>Thailand</option>
+                                                <option value="Togo" {% if agent.country == "Togo" %}selected{% endif %}>Togo</option>
+                                                <option value="Tokelau" {% if agent.country == "Tokelau" %}selected{% endif %}>Tokelau</option>
+                                                <option value="Tonga" {% if agent.country == "Tonga" %}selected{% endif %}>Tonga</option>
+
+
+                                                <option value="Trinidad and Tobago" {% if agent.country == "Trinidad and Tobago" %}selected{% endif %}>Trinidad and Tobago</option>
+                                                <option value="Tunisia" {% if agent.country == "Tunisia" %}selected{% endif %}>Tunisia</option>
+                                                <option value="Turkey" {% if agent.country == "Turkey" %}selected{% endif %}>Turkey</option>
+                                                <option value="Turkmenistan" {% if agent.country == "Turkmenistan" %}selected{% endif %}>Turkmenistan</option>
+                                                <option value="Turks and Caicos" {% if agent.country == "Turks and Caicos" %}selected{% endif %}>Turks and Caicos Islands
+                                                </option>
+                                                <option value="Tuvalu" {% if agent.country == "Tuvalu" %}selected{% endif %}>Tuvalu</option>
+                                                <option value="Uganda" {% if agent.country == "Uganda" %}selected{% endif %}>Uganda</option>
+                                                <option value="Ukraine" {% if agent.country == "Ukraine" %}selected{% endif %}>Ukraine</option>
+                                                <option value="United Arab Emirates" {% if agent.country == "United Arab Emirates" %}selected{% endif %}>United Arab Emirates
+                                                </option>
+                                                <option value="United Kingdom" {% if agent.country == "United Kingdom" %}selected{% endif %}>United Kingdom</option>
+                                                <option value="United States" {% if agent.country == "United States" %}selected{% endif %}>United States</option>
+                                                <option value="United States Minor Outlying Islands" {% if agent.country == "United States Minor Outlying Islands" %}selected{% endif %}>United
+                                                    States Minor Outlying Islands</option>
+                                                <option value="Uruguay" {% if agent.country == "Uruguay" %}selected{% endif %}>Uruguay</option>
+                                                <option value="Uzbekistan" {% if agent.country == "Uzbekistan" %}selected{% endif %}>Uzbekistan</option>
+                                                <option value="Vanuatu" {% if agent.country == "Vanuatu" %}selected{% endif %}>Vanuatu</option>
+                                                <option value="Venezuela" {% if agent.country == "Venezuela" %}selected{% endif %}>Venezuela</option>
+                                                <option value="Vietnam" {% if agent.country == "Vietnam" %}selected{% endif %}>Viet Nam</option>
+                                                <option value="Virgin Islands (British)" {% if agent.country == "Virgin Islands (British)" %}selected{% endif %}>Virgin Islands
+                                                    (British)</option>
+
+                                                <option value="Virgin Islands (U.S)" {% if agent.country == "Virgin Islands (U.S)" %}selected{% endif %}>Virgin Islands (U.S.)
+                                                </option>
+                                                <option value="Wallis and Futana Islands" {% if agent.country == "Wallis and Futana Islands" %}selected{% endif %}>Wallis and Futuna
+                                                    Islands</option>
+                                                <option value="Western Sahara" {% if agent.country == "Western Sahara" %}selected{% endif %}>Western Sahara</option>
+                                                <option value="Yemen" {% if agent.country == "Yemen" %}selected{% endif %}>Yemen</option>
+                                                <option value="Serbia" {% if agent.country == "Serbia" %}selected{% endif %}>Serbia</option>
+                                                <option value="Zambia" {% if agent.country == "Zambia" %}selected{% endif %}>Zambia</option>
+                                                <option value="Zimbabwe" {% if agent.country == "Zimbabwe" %}selected{% endif %}>Zimbabwe</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Province/State</label>
+                                        <div class="form-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-buildings'></i></span>
+                                            </div>
+                                            <input type="text" name="state" id="state"
+                                                class="form-control border-left-0" placeholder="State Name" value="{{agent.state}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">City/Town</label>
+                                        <div class="form-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-buildings'></i></span>
+                                            </div>
+                                            <input type="text" name="city" id="city" class="form-control border-left-0"
+                                                placeholder="City Name" value="{{agent.City}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Zipcode</label>
+                                        <div class="form-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-buildings'></i></span>
+                                            </div>
+                                            <input type="text" name="zipcode" id="zipcode"
+                                                class="form-control border-left-0" placeholder="Zip Code" value="{{agent.zipcode}}">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br>
+                                <div class="card-title d-flex align-items-center">
+                                    <div><i class='bx bxs-user mr-1 font-24 text-white'></i>
+                                    </div>
+                                    <h4 class="mb-0 text-white">Bank Information</h4>
+                                </div>
+                                <hr class="light-grey-hr" />
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Name Of Account Holder</label>
+                                        <div class="form-group">
+
+                                            <input type="text" name="accountholder" id="accountholder"
+                                                class="form-control border-left-0"
+                                                placeholder="Enter AccountHolder Name" value="{{agent.account_holder}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Bank Name</label>
+                                        <div class="form-group">
+
+                                            <input type="text" name="bankname" id="bankname"
+                                                class="form-control border-left-0" placeholder="Enter Bank Name" value={{agent.bank_name}}>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Branch Name</label>
+                                        <div class="form-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-calendar'></i></span>
+                                            </div>
+                                            <input type="text" name="branchname" id="branchname"
+                                                class="form-control border-left-0" placeholder="Enter Branch Name" value="{{agent.branch_name}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Account Number</label>
+                                        <div class="form-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-buildings'></i></span>
+                                            </div>
+                                            <input type="text" name="account" id="account"
+                                                class="form-control border-left-0" placeholder="Account Number" value="{{agent.account_no}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">IFSC Code</label>
+                                        <div class="form-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-buildings'></i></span>
+                                            </div>
+                                            <input type="text" name="ifsc" id="ifsc" class="form-control border-left-0"
+                                                placeholder="IFSC Code" value="{{agent.ifsc_code}}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <br><br>
+                        <div class="form-actions mt-10">
+                            <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                            <button type="button" class="btn btn-default">Cancel</button>
+                        </div>
+                    </form>
+
+                </div>
+            <div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+{% endblock main-content %}

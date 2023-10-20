@@ -1,0 +1,468 @@
+
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+<style>
+    .top {
+        text-align: left;
+        padding: 20px;
+        color: #21325D;
+    }
+
+    .profile-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        /* Hide anything outside the circle */
+    }
+
+    .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure the image covers the entire circle */
+    }
+
+    .profile-name {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .profile-application {
+        font-size: 16px;
+    }
+
+
+    .section a {
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px;
+        color: #21325D;
+    }
+
+    .section:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .form-container {
+        margin: 20px;
+    }
+    .checkbox {
+        margin-left: 50%; /* Adjust the margin as needed */
+    }
+</style>
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Enquiry</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+                <li><a href="{% url "Employee_enroll_application" %}"><span>Enrolled Application</span></a></li>
+                <li class="active"><span>Edit Enrolled Application</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+        
+    
+    </div>
+    <div class="top">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="profile-circle">
+                            {% comment %} <img src='{% static ' assets/images/NewLogo.png' %}' alt="" srcset=""> {% endcomment %}
+                            <img src="{% static "assets/images/NewLogo.png" %}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-name">{{enquiry.FirstName}} {{enquiry.LastName}}</div>
+                        <div class="profile-application">Application: {{enquiry.enquiry_number}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="section" >
+                <a href="{% url "Employee_edit_enrolled_application" enquiry.id %}">Applicant/Personal Information</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_education_summary" enquiry.id %}">Education Summary</a>
+                
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_test_score" enquiry.id %}">Test Score</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_background_information" enquiry.id %}">Background Information</a>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_documents" enquiry.id %}">Documents</a>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "Employee_workexperience" enquiry.id %}">Work Experience</a>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Edit Enrolled Application</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form id="main-form" action=""  method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <div id="education-form">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Education Summary</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Country Of Education</label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="text" value="{{enquiry.id}}" name="enq_id" hidden> 
+                                                        <input type="text" name="educationcountry" id="educationcountry"
+                                                            class="form-control border-left-0"
+                                                            placeholder="Enter Country Of Education" value="{{education_summary.country_of_education}}" >
+                                                            
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Highest Level Of Education</label>
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="highest_education" id="title">
+                                                            <option value="Select">Select</option>
+                                                            <option value="Grade 1" {% if education_summary.highest_level_education == "Grade 1" %}selected{% endif %}>Grade 1</option>
+                                                            <option value="Grade 2" {% if education_summary.highest_level_education == "Grade 2" %}selected{% endif %}>Grade 2</option>
+                                                            <option value="Grade 3" {% if education_summary.highest_level_education == "Grade 3" %}selected{% endif %}>Grade 3</option>
+                                                            <option value="Grade 4" {% if education_summary.highest_level_education == "Grade 4" %}selected{% endif %}>Grade 4</option>
+                                                            <option value="Grade 5" {% if education_summary.highest_level_education == "Grade 5" %}selected{% endif %}>Grade 5</option>
+                                                            <option value="Grade 6" {% if education_summary.highest_level_education == "Grade 6" %}selected{% endif %}>Grade 6</option>
+                                                            <option value="Grade 7" {% if education_summary.highest_level_education == "Grade 7" %}selected{% endif %}>Grade 7</option>
+                                                            <option value="Grade 8" {% if education_summary.highest_level_education == "Grade 8" %}selected{% endif %}>Grade 8</option>
+                                                            <option value="Grade 9" {% if education_summary.highest_level_education == "Grade 9" %}selected{% endif %}>Grade 9</option>
+                                                            <option value="Grade 10" {% if education_summary.highest_level_education == "Grade 10" %}selected{% endif %}>Grade 10</option>
+                                                            <option value="Grade 11" {% if education_summary.highest_level_education == "Grade 11" %}selected{% endif %}>Grade 11</option>
+                                                            <option value="Grade 12" {% if education_summary.highest_level_education == "Grade 12" %}selected{% endif %}>Grade 12</option>
+                                                            <option value="1 Year Post Secondary Certificate" {% if education_summary.highest_level_education == "1 Year Post Secondary Certificate" %}selected{% endif %}>1 Year Post
+                                                                Secondary Certificate</option>
+                                                            <option value="2 Year Undergraduate Diploma" {% if education_summary.highest_level_education == "2 Year Undergraduate Diploma" %}selected{% endif %}>2 Year
+                                                                Undergraduate Diploma</option>
+                                                            <option value="2 Year Undergraduate Advance Diploma" {% if education_summary.highest_level_education == "2 Year Undergraduate Advance Diploma" %}selected{% endif %}>2 Year
+                                                                Undergraduate Advance Diploma</option>
+                                                            <option value="3 Year Bachelors Degree" {% if education_summary.highest_level_education == "3 Year Bachelors Degree" %}selected{% endif %}>3 Year Bachelors Degree
+                                                            </option>
+                                                            <option value="4 Year Bachelors Degree" {% if education_summary.highest_level_education == "4 Year Bachelors Degree" %}selected{% endif %}>4 Year Bachelors Degree
+                                                            </option>
+                                                            <option value="Postgraduate Certificate/Diploma" {% if education_summary.highest_level_education == "Postgraduate Certificate/Diploma" %}selected{% endif %}>Postgraduate
+                                                                Certificate/Diploma</option>
+                                                            <option value="Masters Degree" {% if education_summary.highest_level_education == "Masters Degree" %}selected{% endif %}>Masters Degree</option>
+                                                            <option value="Doctoral Degree" {% if education_summary.highest_level_education == "Doctoral Degree" %}selected{% endif %}>Doctoral Degree</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Grading Scheme</label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="text" name="gradingscheme" id="gradingscheme"
+                                                            class="form-control border-left-0"
+                                                            placeholder="Enter Grading Scheme" value="{{education_summary.grading_scheme}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label class="control-label mb-10">Grade Average</label>
+                                                    <div class="form-group">
+                                                        
+                                                        <input type="text" name="gradeaverage" id="gradeaverage"
+                                                            class="form-control border-left-0"
+                                                            placeholder="Enter Grade Average" value="{{education_summary.grade_avg}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <div class="form-group">
+                                        
+                                                        <label class="control-label mb-10">Graduated from most recent college</label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="True"
+                                                                id="college" name="recent_college" {% if education_summary.recent_college == True  %}checked{% endif %}>
+                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div id="forms-container">
+                                                <div class="college-attended-form">
+                                                    <div class="card-title d-flex align-items-center">
+                                                        
+                                                        <h4 class="mb-0 text-white">College Attended</h4>
+                                                    </div>
+                                                    <hr />
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Level Of Education</label>
+                                                            <div class="form-group">
+                                                                <select class="form-control" name="level_education" id="title">
+                                                                    <h3>Primary</h3>
+                                                                    <option value="">select</option>
+                                                                    <option value="Grade 1" {% if education_summary.level_education == "Grade 1" %}selected{% endif %}>Grade 1</option>
+                                                                    <option value="Grade 2" {% if education_summary.level_education == "Grade 2" %}selected{% endif %}>Grade 2</option>
+                                                                    <option value="Grade 3" {% if education_summary.level_education == "Grade 3" %}selected{% endif %}>Grade 3</option>
+                                                                    <option value="Grade 4" {% if education_summary.level_education == "Grade 4" %}selected{% endif %}>Grade 4</option>
+                                                                    <option value="Grade 5" {% if education_summary.level_education == "Grade 5" %}selected{% endif %}>Grade 5</option>
+                                                                    <option value="Grade 6" {% if education_summary.level_education == "Grade 6" %}selected{% endif %}>Grade 6</option>
+                                                                    <option value="Grade 7" {% if education_summary.level_education == "Grade 7" %}selected{% endif %}>Grade 7</option>
+                                                                    <option value="Grade 8" {% if education_summary.level_education == "Grade 8" %}selected{% endif %}>Grade 8</option>
+                                                                    <h3>Secondary</h3>
+                                                                    <option value="Grade 9" {% if education_summary.level_education == "Grade 9" %}selected{% endif %}>Grade 9</option>
+                                                                    <option value="Grade 10" {% if education_summary.level_education == "Grade 10" %}selected{% endif %}>Grade 10</option>
+                                                                    <option value="Grade 11" {% if education_summary.level_education == "Grade 11" %}selected{% endif %}>Grade 11</option>
+                                                                    <option value="Grade 12" {% if education_summary.level_education == "Grade 12" %}selected{% endif %}>Grade 12</option>
+                                                                    <h3>Under-Graduate</h3>
+                                                                    <option value="1 Year Post Secondary Certificate" {% if education_summary.level_education == "1 Year Post Secondary Certificate" %}selected{% endif %}>1 Year
+                                                                        Post Secondary Certificate</option>
+                                                                    <option value="2 Year Undergraduate Diploma" {% if education_summary.level_education == "2 Year Undergraduate Diploma" %}selected{% endif %}>2 Year
+                                                                        Undergraduate Diploma</option>
+                                                                    <option value="2 Year Undergraduate Advance Diploma" {% if education_summary.level_education == "2 Year Undergraduate Advance Diploma" %}selected{% endif %}>2
+                                                                        Year Undergraduate Advance Diploma</option>
+                                                                    <option value="3 Year Bachelors Degree" {% if education_summary.level_education == "3 Year Bachelors Degree" %}selected{% endif %}>3 Year Bachelors
+                                                                        Degree</option>
+                                                                    <option value="4 Year Bachelors Degree" {% if education_summary.level_education == "4 Year Bachelors Degree" %}selected{% endif %}>4 Year Bachelors
+                                                                        Degree</option>
+                                                                    <h3>Post-Graduate</h3>
+                                                                    <option value="Postgraduate Certificate/Diploma" {% if education_summary.level_education == "Postgraduate Certificate/Diploma" %}selected{% endif %}>
+                                                                        Postgraduate Certificate/Diploma</option>
+                                                                    <option value="Masters Degree" {% if education_summary.level_education == "Masters Degree" %}selected{% endif %}>Masters Degree</option>
+                                                                    <option value="Doctoral Degree" {% if education_summary.level_education == "Doctoral Degree" %}selected{% endif %}>Doctoral Degree</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Country Of Institution</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="text" name="institutecountry"
+                                                                    id="institutecountry" class="form-control border-left-0"
+                                                                    placeholder="Country Of Institution" value="{{education_summary.country_of_institution}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Name Of Institution</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="text" name="institutename" id="institutename"
+                                                                    class="form-control border-left-0"
+                                                                    placeholder="Name Of Institution" value="{{education_summary.name_of_institution}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Primary Language Of Instruction</label>
+                                                            <div class="form-group">
+                                                               
+                                                                <input type="text" name="instructionlanguage"
+                                                                    id="instructionlanguage"
+                                                                    class="form-control border-left-0"
+                                                                    placeholder="Primary Language Of Instruction" value="{{education_summary.primary_language}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Attended Institution From</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="date" name="institutionfrom"
+                                                                    id="institutionfrom" class="form-control border-left-0"
+                                                                    placeholder="Attended Institution From" value="{{education_summary.institution_from|date:"Y-m-d"}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Attended Institution To</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="date" name="institutionto" id="institutionto"
+                                                                    class="form-control border-left-0"
+                                                                    placeholder="Attended Institution Form" value="{{education_summary.institution_to|date:"Y-m-d"}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Degree Awarded</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="text" name="degreeawarded" id="degreeawarded"
+                                                                    class="form-control border-left-0"
+                                                                    placeholder="Degree Awarded" value="{{education_summary.degree_Awarded}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Degree Awarded On</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="text" name="degreeawardedon"
+                                                                    id="degreeawardedon" class="form-control border-left-0"
+                                                                    placeholder="Degree Awarded On" value="{{education_summary.degree_Awarded_On}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Address</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="text" name="address" id="address"
+                                                                    class="form-control border-left-0"
+                                                                    placeholder="Enter Address" value="{{education_summary.Address}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">City</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="text" name="city" id="city"
+                                                                    class="form-control border-left-0"
+                                                                    placeholder="Enter City" value={{education_summary.city}}>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Province</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="text" name="province" id="province"
+                                                                    class="form-control border-left-0"
+                                                                    placeholder="Enter Province" value="{{education_summary.Province}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="control-label mb-10">Postal/ZipCode</label>
+                                                            <div class="form-group">
+                                                                
+                                                                <input type="text" name="zipcode" id="zipcode"
+                                                                    class="form-control border-left-0"
+                                                                    placeholder="Enter Zipcode" value="{{education_summary.zipcode}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                            
+                                        
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    // Function to create a new college attended form
+    function createCollegeAttendedForm() {
+        const formsContainer = document.getElementById("forms-container");
+
+        // Create a new form div
+        const newForm = document.createElement("div");
+        newForm.className = "college-attended-form";
+
+        // Clone the template form content from the initial form
+        const templateForm = document.querySelector(".college-attended-form");
+        newForm.innerHTML = templateForm.innerHTML;
+
+        // Create an "Update" button for the current form
+        const updateBtn = document.createElement("button");
+        updateBtn.className = "update-btn";
+        updateBtn.textContent = "Update";
+
+        // Add an event listener to the "Update" button to toggle between Add and Update
+        updateBtn.addEventListener("click", function () {
+            if (updateBtn.textContent === "Update") {
+                // Update logic here
+                // You can access the form elements using newForm
+                updateBtn.textContent = "Save"; // Change to "Save" during update
+            } else {
+                // Save logic here
+                // You can access the form elements using newForm
+                updateBtn.textContent = "Update"; // Change back to "Update" after saving
+            }
+        });
+
+        // Add the "Update" button to the current form
+        newForm.appendChild(updateBtn);
+
+        // Add the new form to the container
+        formsContainer.appendChild(newForm);
+
+        // Log a message to check if the "Add" button is working
+        console.log("Add button clicked.");
+    }
+
+    // Add event listener to the "Add" button
+    document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("add-btn")) {
+            createCollegeAttendedForm();
+        }
+    });
+</script>
+
+{% endblock main-content %}
+

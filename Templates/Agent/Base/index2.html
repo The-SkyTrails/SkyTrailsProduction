@@ -1,0 +1,412 @@
+{% extends 'Agent/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<div class="container-fluid pt-25">
+	<!-- Row -->
+	<div class="row">
+		<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+			<div class="panel panel-default card-view pt-0 bg-warning">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box bg-white">
+							<div class="container-fluid">
+								<div class="row ">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim" style="color: white;"> {{agent_count}}</span></span>
+										<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Agent</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<div id="sparkline_4" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default card-view pt-0">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box bg-white">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim">{{leadpending_count}}</span></span>
+										<span class="block"><span class="weight-500 uppercase-font txt-grey font-13">Total Pending Leads</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default card-view pt-0 bg-primary">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box ">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{outsourceagent_count}}</span></span>
+										<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total OutSource Agent</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default card-view pt-0 bg-success" >
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box bg-white">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{employee_count}}</span></span>
+										<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Employee</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default card-view pt-0 bg-dark">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box bg-white">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{leadaccept_count}}</span></span>
+										<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Enrolled Leads</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default card-view pt-0 bg-info">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box bg-white">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{leadreject_count}}</span></span>
+										<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Rejected Leads</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default card-view pt-0 bg-danger">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body pa-0">
+						<div class="sm-data-box bg-white">
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+										<span class="txt-dark block counter"><span class="counter-anim" style="color: white;"> {{leadcaseinitiated_count}}</span></span>
+										<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Case Iniated</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+									</div>
+									<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+										<div id="sparkline_4" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-7 col-xs-12">
+			<div class="panel panel-default card-view panel-refresh relative">
+				<div class="refresh-container">
+					<div class="la-anim-1"></div>
+				</div>
+				<div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="panel-title txt-dark">Employment rate</h6>
+					</div>
+					<div class="pull-right">
+						<a href="#" class="pull-left inline-block refresh mr-15">
+							<i class="zmdi zmdi-replay"></i>
+						</a>
+						
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div id="e_chart_2" class="" style="height:349px;"></div>
+						<div class="label-chatrs text-center">
+							<div class="inline-block mr-15">
+								<span class="clabels inline-block bg-blue mr-5"></span>
+								<span class="clabels-text font-12 inline-block txt-dark capitalize-font">developer</span>
+							</div>
+							<div class="inline-block mr-15">
+								<span class="clabels inline-block bg-purple mr-5"></span>
+								<span class="clabels-text font-12 inline-block txt-dark capitalize-font">designer</span>
+							</div>
+							<div class="inline-block">
+								<span class="clabels inline-block bg-skyblue mr-5"></span>
+								<span class="clabels-text font-12 inline-block txt-dark capitalize-font">manager</span>
+							</div>										
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+			<div class="panel panel-default card-view panel-refresh relative">
+				<div class="refresh-container">
+					<div class="la-anim-1"></div>
+				</div>
+				<div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="panel-title txt-dark">Lead Growth</h6>
+					</div>
+					<div class="pull-right">
+						<a href="#" class="pull-left inline-block refresh mr-15">
+							<i class="zmdi zmdi-replay"></i>
+						</a>
+						
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div id="e_chart_3" class="" style="height:348px;"></div>
+						<div class="label-chatrs">
+							<div class="inline-block mr-15">
+								<span class="clabels inline-block bg-primary mr-5"></span>
+								<span class="clabels-text font-12 inline-block txt-dark capitalize-font">Closed Lead</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="panel-title txt-dark">Lead Status</h6>
+					</div>
+					<div class="pull-right">
+						<a href="{% url "Enquiry_list" %}" class="inline-block">
+							<h6 class="panel-title txt-dark">View All Lead</h6>
+						</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="#" class="inline-block full-screen">
+							<i class="zmdi zmdi-fullscreen"></i>
+						</a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body row pa-0">
+						<div class="table-wrap">
+							<div class="table-responsive">
+							  <table class="table table-hover mb-0">
+								<thead>
+								  <tr>
+									<th>Enquiry No</th>
+									<th>Name</th>
+									<th>Progress</th>
+									<th>Status</th>
+									<th>Last Update</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for i in enquiry %}
+								  <tr>
+									<td>{{i.enquiry_number}}</td>
+									<td>{{i.FirstName}} {{i.LastName}}</td>
+									<td><div class="progress progress-xs mb-0 ">
+										<div class="progress-bar progress-bar-danger" style="width: 35%"></div>
+									  </div></td>
+									{% if i.lead_status == "PreEnrolled" %}
+									<td>
+										<span class="label label-primary">pending</span>
+									</td>
+									{% elif i.lead_status == "Accept" %}
+									<td>
+										<span class="label label-info">Enrolled</span>
+									</td>
+									{% elif i.lead_status == "Reject" %}
+									<td>
+										<span class="label label-danger">Reject</span>
+									</td>
+									{% else %}
+									<td>
+										<span class="label label-success">Done</span>
+									</td>
+									{% endif %}
+									<td>{{i.last_updated_on}}</td>
+									
+								  </tr>
+								  {% endfor %}
+								</tbody>
+							  </table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="panel-title txt-dark">New Lead</h6>
+					</div>
+					<div class="pull-right">
+						<a href="{% url "Enquiry_list" %}" class="inline-block">
+							<h6 class="panel-title txt-dark">View All Lead</h6>
+						</a>
+						&nbsp;&nbsp;&nbsp;
+						<a href="#" class="inline-block full-screen">
+							<i class="zmdi zmdi-fullscreen"></i>
+						</a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body row pa-0">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table class="table display product-overview border-none" id="support_table">
+									<thead>
+										<tr>
+											<th>Enquiry ID</th>
+											<th>Name</th>
+											<th>Visa Country</th>
+											<th>Visa Category</th>
+											<th>Visa SubCategory</th>
+											<th>Status</th>
+											
+										</tr>
+									</thead>
+									<tbody>
+										{% for i in new_lead %}
+										<tr>
+											<td>{{i.enquiry_number}}</td>
+											<td>{{i.FirstName}} {{i.LastName}}</td>
+											<td>{{i.Visa_country}}</td>
+											<td>{{i.Visa_category}}</td>
+											<td>{{i.Visa_subcategory}}</td>
+											<td>
+												<span class="label label-primary">New Lead</span>
+											</td>
+											
+										</tr>
+										{% endfor %}
+										
+									</tbody>
+								</table>
+							</div>
+						</div>	
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+
+		<div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-heading">
+					<div class="pull-left">
+						<h6 class="panel-title txt-dark">Latest Package</h6>
+					</div>
+					<div class="pull-right">
+						<a href="{% url "Package_list" %}">
+							<h6 class="panel-title txt-dark">View All Packages</h6>
+						</a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body row pa-0">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table class="table display product-overview border-none" id="employee_table">
+									<thead>
+										<tr>
+											<th>Image</th>
+											<th>Name</th>
+											<th>Visa Country</th>
+											<th>Visa Category</th>
+											<th>Visa SubCategory</th>
+											<th>Amount</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for i in package  %}
+										<tr>
+											{% if i.image %}
+                                                            <td><img style="width:60px;" src="{{ i.image.url }}" alt="Profile Picture"></td>
+                                                        {% else %}
+                                                            <!-- You can add a default image here if no profile picture is available -->
+                                                            <td><img style="width:60px;" src="{% static 'assets/images/noimage.png' %}" alt="no image"></td>
+                                                        {% endif %}
+											<td>{{i.title}}</td>
+											<td>{{i.visa_country}}</td>
+											<td>{{i.visa_category}}</td>
+											<td>{{i.visa_subcategory}}</td>
+											<td>&#8377; {{i.amount}}</td>
+										</tr>
+										{% endfor %}
+										
+									</tbody>
+								</table>
+							</div>
+						</div>	
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="calendar-wrap">
+						  <div id="calendar_small" class="small-calendar"></div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+
+{% endblock main-content %} 

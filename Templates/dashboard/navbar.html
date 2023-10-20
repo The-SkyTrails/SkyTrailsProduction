@@ -1,0 +1,187 @@
+{% load static %}
+
+
+<div class="fixed-sidebar-left">
+    <ul class="nav navbar-nav side-nav nicescroll-bar">
+        {% comment %} <li class="navigation-header">
+            <span>Main</span> 
+            <i class="zmdi zmdi-more"></i>
+        </li> {% endcomment %}
+        <li>
+            <a href="{% url "travel_dashboards" %}"><div class="pull-left"><i class="zmdi zmdi-book mr-20"></i><span class="right-nav-text">Dashboard</span></div><div class="clearfix"></div></a>
+        </li>
+        <li>
+            <a href="{% url "add_enquiry" %}"><div class="pull-left"><i class="zmdi zmdi-cast mr-20"></i><span class="right-nav-text">Add Lead</span></div><div class="clearfix"></div></a>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#app_dr"><div class="pull-left"><i class="zmdi zmdi-assignment mr-20"></i><span class="right-nav-text">Enquiry</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="app_dr" class="collapse collapse-level-1">
+                <li>
+                    <a href="{% url 'FrontWebsiteEnquiry_list' %}">Front-Website Enquiry</a>
+                </li>
+                <li>
+                    <a href="{% url 'Enquiry_list' %}">Visa Enquiries</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#contact_dr"><div class="pull-left"><i class="zmdi zmdi-card-travel mr-20"></i><span class="right-nav-text">Application <span style="margin-left:35px;">Management</span></span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="contact_dr" class="collapse collapse-level-1">
+                <li>
+                    <a href="{% url "enroll_application" %}">Enrolled Applications</a>
+                </li>
+                <li>
+                    <a href="{% url "client_list" %}">Visa Cases</a>
+                </li>
+                <li>
+                    <a href="#">User Documents</a>
+                </li>
+                <li>
+                    <a href="#">Case Payments</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#email_dr"><div class="pull-left"><i class="zmdi zmdi-accounts-add mr-20"></i><span class="right-nav-text">Employee <span style="margin-left:35px;">Management</span></span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="email_dr" class="collapse collapse-level-1">
+                <li>
+                    <a href="{% url 'add_employee' %}">Add Employee</a>
+                </li>
+                <li>
+                    <a href="{% url 'all_employee' %}">View Employees</a>
+                </li>
+            </ul>
+        </li>
+        
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#dropdown_dr_lv1"><div class="pull-left"><i class="zmdi zmdi-folder-person mr-20"></i><span class="right-nav-text">Master Module</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="dropdown_dr_lv1" class="collapse collapse-level-1">
+                <li> <a href="{% url 'visa_countrylist' %}" ></i>Manage Visa Countries</a>
+                </li>
+                <li> <a href="{% url 'category_list' %}" ></i>Visa Category</a>
+                </li>
+                <li> <a href="{% url 'subcategory_list' %}" ></i>Pricing</a>
+                </li>
+                <li> <a href="{% url 'document_list' %}" ></i>Manage Documents</a>
+                </li>
+                <li> <a href="{% url 'CaseCategoryDocument_list' %}" ></i>Case Category Document</a>
+                </li>
+                <li> <a href="{% url "branchlist" %}" ></i>Branch Management</a>
+                </li>
+                <li> <a href="{% url 'viewcourieraddress_list' %}" ></i>Manage Courier Details</a>
+                </li>
+                <li> <a href="{% url 'casestatuslist' %}" ></i>Case Status</a>
+                </li>
+                <li> <a href="{% url 'followuppaymentstatus' %}" ></i>Follow Up Payment Status</a>
+                </li>
+                <li> <a href="{% url 'followupstatus' %}" ></i>Follow Up Status</a>
+                </li>
+                <li> <a href="{% url 'followuptype' %}" ></i>Follow Up Type</a>
+                </li>
+                <li> <a href="{% url 'DocumentCategorylist' %}" ></i>Document Category</a>
+                </li>
+                <li> <a href="{% url 'currencyMaster' %}" ></i>Manage Currency</a>
+                </li>
+                <li> <a href="{% url "Group_list" %}" ></i>Manage Groups</a>
+                </li>
+                <li> <a href="#" ></i>Email Templates</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#pages_dr"><div class="pull-left"><i class="zmdi zmdi-layers mr-20"></i><span class="right-nav-text">Roles Management</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="pages_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url "Department_list" %}" ></i>Role</a>
+                </li>
+                <li> <a href="{% url "add_menu" %}"></i>Add Menu</a>
+                </li>
+                <li> <a href="{% url "Menu_list" %}"></i>Menu List</a>
+                </li>
+                <li> <a href="{% url "assign_permissions" %}" ></i>Assign Roles</a>
+                </li>
+                <li> <a href="{% url "assignrolelist" %}" ></i>Assign Role List</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#maps_dr"><div class="pull-left"><i class="zmdi zmdi-info-outline mr-20"></i><span class="right-nav-text">General</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="maps_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url "loginlog" %}" target="" ></i>Login Logs</a>
+                </li>
+                <li> <a href="{% url 'SuccessStories_list' %}" ></i>Manage Success Stories</a>
+                </li>
+                <li> <a href="#" ></i>Feedback</a>
+                </li>
+                <li> <a href="#" ></i>Support</a>
+                </li>
+                <li> <a href="{% url 'News_list' %}" ></i>Manage News</a>
+                </li>
+                <li> <a href="#" ></i>Agent Requests</a>
+                </li>
+                <li> <a href="{% url 'OfferBanner_list' %}" ></i>Offer Banners</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#icon_dr"><div class="pull-left"><i class="zmdi zmdi-accounts-outline mr-20"></i><span class="right-nav-text">Agent Management </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="icon_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url 'add_agent' %}" ></i>Add Agent/Outsourcing Partner</a>
+                </li>
+                <li> <a href="{% url "all_agent" %}" ></i>All Agents</a>
+                </li>
+                <li> <a href="{% url "all_outsource_agent" %}" ></i>All Outsourcing Agents</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#table_dr"><div class="pull-left"><i class="zmdi zmdi-money-box mr-20"></i><span class="right-nav-text">Commission <span style="margin-left:35px;">Management</span> </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="table_dr" class="collapse collapse-level-1">
+                <li> <a href="#" ></i>Manage Commission</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#chart_dr"><div class="pull-left"><i class="zmdi zmdi-volume-up mr-20"></i><span class="right-nav-text">Follow ups </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="chart_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url 'enquiryfollowup' %}" ></i>My Follow ups</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#form_dr"><div class="pull-left"><i class="zmdi zmdi-mall mr-20"></i><span class="right-nav-text">Products </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="form_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url 'add_Package' %}" ></i>Add Product</a>
+                </li>
+                <li> <a href="{% url 'Package_list' %}" ></i>View Products</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#"><div class="pull-left"><i class="zmdi zmdi-comments mr-20"></i><span class="right-nav-text">Chat</span></div><div class="clearfix"></div></a>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#ui_dr"><div class="pull-left"><i class="zmdi zmdi-settings mr-20"></i><span class="right-nav-text">Settings </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="ui_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url "ChangePassword" %}"  ></i>Change Password</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-collection-item mr-20"></i><span class="right-nav-text">FAQ</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="ecom_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url "faqlist" %}" ></i>FAQ List</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-card-alert mr-20"></i><span class="right-nav-text">Appointments </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+            <ul id="dashboard_dr" class="collapse collapse-level-1">
+                <li> <a href="{% url "all_appointment" %}" ></i>View Appointments</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+

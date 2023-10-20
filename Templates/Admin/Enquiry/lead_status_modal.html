@@ -1,0 +1,70 @@
+<div class="modal fade" id="lead_status_modal{{i.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        <form action="{% url "lead_enquiry" %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% comment %} {% csrf_token %} {% endcomment %}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Lead Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">	<span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" value="{{i.id}}" name="enq_id" hidden>
+                {% comment %} <span class="sub-text d-flex">Date :
+                    <div class="ml-1" id="currentDateTime"></div>
+                </span> {% endcomment %}
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="form-group">
+                            <div class="control-label mb-10">
+                                <span class="sub-text d-flex">Date :
+                                    <div class="ml-1" id="currentDateTime3">{{ current_datetime }}</div>
+                                </span>
+                                <span class="sub-text d-flex">added by : Admin
+                                    
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-12">
+                       
+                    <div class="form-group control-label mb-10">
+                        <label>Update Lead Status</label>
+                        
+                        <select name="lead_status" id="" class="form-control">
+                                
+                            <option value="">Select Status</option>
+                            {% comment %} {% if i.lead_status == "Active" %} {% endcomment %}
+                            <option value="PreEnrolled">PreEnrolled</option>
+                            {% comment %} {% elif i.lead_status == "PreEnrolled" %} {% endcomment %}
+                            <option value="Enrolled">Enrolled</option>
+                            {% comment %} {% elif i.lead_status == "Enrolled" %} {% endcomment %}
+                            <option value="Inprocess">Inprocess</option>
+                            {% comment %} {% elif i.lead_status == "Inprocess" %} {% endcomment %}
+                            <option value="Ready To Submit">Ready To Submit</option>
+                            {% comment %} {% elif i.lead_status == "Ready To Submit" %} {% endcomment %}
+                            <option value="Appointment">Appointment</option>
+                            {% comment %} {% elif i.lead_status == "Appointment" %} {% endcomment %}
+                            <option value="Ready To Collection">Ready To Collection</option>
+                            {% comment %} {% elif i.lead_status == "Ready To Collection" %} {% endcomment %}
+                            <option value="Result">Result</option>
+                            {% comment %} {% elif i.lead_status == "Result" %} {% endcomment %}
+                            <option value="Delivery">Delivery</option>
+                            {% comment %} {% endif %} {% endcomment %}
+                           
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>

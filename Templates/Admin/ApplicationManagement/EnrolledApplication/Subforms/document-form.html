@@ -1,0 +1,317 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+<style>
+    .top {
+        text-align: left;
+        padding: 20px;
+        color: #21325D;
+    }
+
+    .profile-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        /* Hide anything outside the circle */
+    }
+
+    .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure the image covers the entire circle */
+    }
+
+    .profile-name {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .profile-application {
+        font-size: 16px;
+    }
+
+
+    .section a {
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px;
+        color: #21325D;
+    }
+
+    .section:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .form-container {
+        margin: 20px;
+    }
+
+    .checkbox {
+        margin-left: 50%;
+        /* Adjust the margin as needed */
+    }
+    .white-container {
+        background-color: rgb(102 122 221 / 85%);
+        padding: 7px 10px; /* Add padding for spacing */
+        display: inline-block; /* Ensure the container only takes the necessary space */
+    }
+    
+</style>
+
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Enquiry</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                <li><a href="{% url "enroll_application" %}"><span>Enrolled Application</span></a></li>
+                <li class="active"><span>Edit Enrolled Application</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+        
+    
+    </div>
+    <div class="top">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="profile-circle">
+                            {% comment %} <img src='{% static ' assets/images/NewLogo.png' %}' alt="" srcset=""> {% endcomment %}
+                            <img src="{% static "assets/images/NewLogo.png" %}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-name">{{enquiry.FirstName}} {{enquiry.LastName}}</div>
+                        <div class="profile-application">Application: {{enquiry.enquiry_number}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="section" >
+                <a href="{% url "edit_enrolled_application" enquiry_id.id %}">Applicant/Personal Information</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "education_summary" enquiry_id.id %}">Education Summary</a>
+                
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "test_score" enquiry_id.id %}">Test Score</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "background_information" enquiry_id.id %}">Background Information</a>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "documents" enquiry_id.id %}">Documents</a>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="section">
+                <a href="{% url "workexperience" enquiry_id.id %}">Work Experience</a>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Edit Enrolled Application</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form id="main-form" action=""  method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <div id="document-form">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Upload Documents</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <button type="button" class="btn btn-primary mr-2" data-toggle="modal"
+                                                    data-target="#additionalDocumentsModal">
+                                                    Add Additional Documents
+                                            </button>
+                                            
+                                            <div class="modal fade" id="additionalDocumentsModal" tabindex="-1"
+                                                    role="dialog" aria-labelledby="additionalDocumentsModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog ">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                <h5 class="modal-title" id="additionalDocumentsLabel1">Add Additional Document</h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                
+                                                                    <label class="control-label mb-10">Document Name</label>
+                                                                    <div class="form-group">
+                                                                        
+                                                                        <input type="text" name="documentname"
+                                                                            id="documentname"
+                                                                            class="form-control border-left-0"
+                                                                            placeholder="Document Name">
+                                                                    </div>
+                                                                    <label class="control-label mb-10">Enter Comment</label>
+                                                                    <div class="form-group">
+                                                                        <textarea class="form-control" name="comment"
+                                                                            id="" cols="60" rows="10"></textarea>
+                                                                    </div>
+
+
+                                                                    <br>
+                                                                    <br>
+
+                                                                    <label class="control-label mb-10">Upload Document</label>
+                                                                    <div class="form-group">
+                                                                        <input id="image" type="file"
+                                                                            accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                                            name="files" multiple>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <hr class="light-grey-hr"/>
+                                            <button id="toggle-table-button">
+                                                <span>+</span>
+                                            </button>
+                                            <span>Additional Documents</span>&nbsp;&nbsp;
+                                            <span class="btn " style="border-radius: 20px; background-color: rgba(0, 128, 0, 0.2); color: green;">07 Received</span>
+                                            <br><br>
+                                            <table id="document-table" class="table table-bordered hidden">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Document Name</th>
+                                                        <th>File Name</th>
+                                                        <th>Data Uploaded</th>
+                                                        <th>Last Uploaded</th>
+                                                        <th>Uploaded By</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for i in documents %}
+                                                    <tr>
+                                                        <td>{{forloop.counter}}</td>
+                                                        <td>{{i.document_name}}</td>
+                                                        <td>
+                                                            {{ i.upload_documents.name|cut:"media/Documents/" }}
+                                                          <br>
+                                                            <div class="row">
+                                                                    <div class="white-container">
+                                                                        {% comment %} <a href="http://"><i class="zmdi zmdi-eye" style="font-size: 20px; color: white;"></i></a> {% endcomment %}
+                                                                        {% if i.upload_documents %}
+                                                                        {{ i.upload_documents.name|cut:"Documents/" }}
+                                                                        <br>
+                                                                        <div class="row">
+                                                                            <div class="white-container">
+                                                                                <a href="{{ i.upload_documents.url }}" target="_blank"><i class="zmdi zmdi-eye" style="font-size: 20px; color: white;"></i></a>
+                                                                            </div>
+                                                                            <div class="white-container">
+                                                                                <a href="{{ i.upload_documents.url }}" download><i class="zmdi zmdi-download" style="font-size: 20px; color: white;"></i></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    {% else %}
+                                                                        No file uploaded
+                                                                    {% endif %}
+                                                                    </div>
+                                                                
+                                                                    <div class="white-container">
+                                                                        <a href="http://"><i class="zmdi zmdi-download" style="font-size: 20px; color: white;"></i></a>
+                                                                    </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>XYZ</td>
+                                                        <td>XYZ</td>
+                                                        <td>XYZ</td>
+                                                        <td>
+                                                        <div class="white-container">
+                                                            <a href="http://"><i class="zmdi zmdi-edit" style="font-size: 20px; color: white;"></i></a>
+                                                        </div>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                            
+                                        
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    document.getElementById('toggle-table-button').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent form submission
+        var table = document.getElementById('document-table');
+        var button = document.getElementById('toggle-table-button');
+
+        if (table.classList.contains('hidden')) {
+            table.classList.remove('hidden');
+            button.innerText = '-';
+        } else {
+            table.classList.add('hidden');
+            button.innerText = '+';
+        }
+    });
+</script>
+
+{% endblock main-content %}

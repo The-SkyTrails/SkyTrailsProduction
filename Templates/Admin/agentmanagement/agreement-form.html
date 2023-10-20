@@ -1,0 +1,225 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+<style>
+    .top {
+        text-align: left;
+        padding: 20px;
+        color: #21325D;
+    }
+
+    .profile-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        /* Hide anything outside the circle */
+    }
+
+    .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure the image covers the entire circle */
+    }
+
+    .profile-name {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .profile-application {
+        font-size: 16px;
+    }
+
+
+    .section {
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px;
+        color: #21325D;
+    }
+
+    .section:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .form-container {
+        margin: 20px;
+    }
+</style>
+
+
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Agent</h5>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                {% comment %} <li><a href="#"><span>form</span></a></li> {% endcomment %}
+                <li class="active"><span>Update Agent</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+
+    </div>
+    <!--breadcrumb-->
+    <div class="top">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="profile-circle">
+                            <img src='{% static ' assets/images/NewLogo.png' %}' alt="" srcset="">
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="profile-name">{{agent.users.first_name}} {{agent.users.last_name}}</div>
+                        {% comment %} <div class="profile-application">Application: Web Developer</div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="section"><a href="{% url "agent_update" agent.id %}">Personal Details</a></div>
+        </div>
+        <div class="col-md-2">
+            <div class="section"><a href="{% url "agent_agreement" agent.id %}">Add Agreement</a></div>
+        </div>
+        <div class="col-md-2">
+            <div class="section"><a href="{% url "agent_kyc" agent.id %}">KYC Details</a></div>
+        </div>
+    </div>
+    <br><br>
+    <!--end breadcrumb-->
+    <div class="row">
+        <div class="col-12 col-lg-12">
+            <div class="card border-lg-top-white">
+                <div class="card-body p-5">
+
+                    <form id="main-form" action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-body">
+                            <div id="agreement-form">
+                                <div class="card-title d-flex align-items-center">
+                                    <div><i class='bx bxs-user mr-1 font-24 text-white'></i>
+                                    </div>
+                                    <h4 class="mb-0 text-white">Agreement Details</h4>
+                                </div>
+                                <hr class="light-grey-hr" />
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label mb-10">Agreement Name</label>
+                                        <div class="form-group">
+
+                                            <input type="text" name="agreementname" id="agreementname"
+                                                class="form-control border-left-0" placeholder="Agreement Name">
+
+                                            <input type="text" name="agent_id" 
+                                                class="form-control border-left-0" placeholder="Agreement Name" value="{{agent.id}}" style="display:none;">
+
+                                                <input type="text" name="outsource_id" 
+                                                class="form-control border-left-0" placeholder="Agreement Name" value="{{outsource.id}}" style="display:none;">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="panel panel-default card-view">
+                                                <div class="panel-heading">
+                                                    <div class="pull-left">
+                                                        <h6 class="panel-title txt-dark">Upload Agreement</h6>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="panel-wrapper collapse in">
+                                                    <div class="panel-body">
+                                                        <p class="text-muted">Just add <code>dropify</code> class in input tag.
+                                                        </p>
+                                                        <div class="mt-40">
+                                                            <input id="agreement_file" name="agreement_file" type="file"
+                                                                accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
+                                                                multiple>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="table-responsive">
+                                            <table id="example2" class="table table-striped table-bordered"
+                                                style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Agreement Name</th>
+                                                        <th>Agreement File</th>
+                                                        <!-- <th>Action</th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    {% for i in agrmnt %}
+
+                                                    <tr>
+                                                        <td>{{forloop.counter}}</td>
+                                                        <td>{{i.agreement_name}}</td>
+                                                        {% if i.agreement_file %}
+                                                            <td><img style="width:60px;" src="{{ i.agreement_file.url }}" alt="Profile Picture"></td>
+                                                        {% else %}
+                                                            <!-- You can add a default image here if no profile picture is available -->
+                                                            <td><img style="width:60px;" src="{% static 'assets/images/noimage.png' %}" alt="no image"></td>
+                                                        {% endif %}
+                                                        
+                                                        
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Agreement Name</th>
+                                                        <!-- <th>Action</th> -->
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <br><br>
+                        <div class="form-actions mt-10">
+                            <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                            <button type="button" class="btn btn-default">Cancel</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

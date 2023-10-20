@@ -1,0 +1,538 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+	<div class="container-fluid pt-25">
+		<!-- Row -->
+		<div class="row">
+			<div class="col-lg-3 col-md-6 col-sm-5 col-xs-12">
+				<div class="panel panel-default card-view pt-0 bg-warning">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box bg-white">
+								<div class="container-fluid">
+									<div class="row ">
+										<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span class="counter-anim" style="color: white;"> {{agent_count}}</span></span>
+											<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Agent</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+										</div>
+										<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+											<div id="sparkline_4" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default card-view pt-0">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box bg-white">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span class="counter-anim">{{leadpending_count}}</span></span>
+											<span class="block"><span class="weight-500 uppercase-font txt-grey font-13">Total Pending Leads</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+										</div>
+										<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+											<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default card-view pt-0 bg-primary">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box ">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{outsourceagent_count}}</span></span>
+											<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total OutSource Agent</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+										</div>
+										<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+											<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default card-view pt-0 bg-success" >
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box bg-white">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{employee_count}}</span></span>
+											<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Employee</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+										</div>
+										<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+											<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default card-view pt-0 bg-dark">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box bg-white">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{leadaccept_count}}</span></span>
+											<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Enrolled Leads</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+										</div>
+										<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+											<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default card-view pt-0 bg-info">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box bg-white">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span class="counter-anim" style="color: white;">{{leadreject_count}}</span></span>
+											<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Rejected Leads</span><i class="zmdi zmdi-caret-up txt-success font-21 ml-5 vertical-align-middle"></i></span>
+										</div>
+										<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+											<div id="sparkline_5" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default card-view pt-0 bg-danger">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box bg-white">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xs-6 text-left pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span class="counter-anim" style="color: white;"> {{leadcaseinitiated_count}}</span></span>
+											<span class="block"><span class="weight-500 uppercase-font font-13" style="color: white;">Total Case Iniated</span><i class="zmdi zmdi-caret-down txt-danger font-21 ml-5 vertical-align-middle"></i></span>
+										</div>
+										<div class="col-xs-6 text-left  pl-0 pr-0 pt-25 data-wrap-right">
+											<div id="sparkline_4" style="width: 100px; overflow: hidden; margin: 0px auto;"></div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-7 col-xs-12">
+				<div class="panel panel-default card-view panel-refresh relative">
+					<div class="refresh-container">
+						<div class="la-anim-1"></div>
+					</div>
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark">Leads Country</h6>
+						</div>
+						<div class="pull-right">
+							<a href="#" class="pull-left inline-block refresh mr-15">
+								<i class="zmdi zmdi-replay"></i>
+							</a>
+							
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							{% comment %} <canvas id="myChart" class="" ></canvas> {% endcomment %}
+							<canvas id="myChart"></canvas>
+							{% comment %} <div class="label-chatrs text-center">
+								<div class="inline-block mr-15">
+									<span class="clabels inline-block bg-blue mr-5"></span>
+									<span class="clabels-text font-12 inline-block txt-dark capitalize-font">developer</span>
+								</div>
+								<div class="inline-block mr-15">
+									<span class="clabels inline-block bg-purple mr-5"></span>
+									<span class="clabels-text font-12 inline-block txt-dark capitalize-font">designer</span>
+								</div>
+								<div class="inline-block">
+									<span class="clabels inline-block bg-skyblue mr-5"></span>
+									<span class="clabels-text font-12 inline-block txt-dark capitalize-font">manager</span>
+								</div>										
+							</div> {% endcomment %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+				<div class="panel panel-default card-view panel-refresh relative">
+					<div class="refresh-container">
+						<div class="la-anim-1"></div>
+					</div>
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark">Monthly Leads</h6>
+						</div>
+						<div class="pull-right">
+							<a href="#" class="pull-left inline-block refresh mr-15">
+								<i class="zmdi zmdi-replay"></i>
+							</a>
+							
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							{% comment %} <div id="e_chart_3" class="" style="height:348px;"></div> {% endcomment %}
+							<canvas id="myChart2"></canvas>
+							<div class="label-chatrs">
+								<div class="inline-block mr-15">
+									{% comment %} <span class="clabels inline-block bg-primary mr-5"></span> {% endcomment %}
+									{% comment %} <span class="clabels-text font-12 inline-block txt-dark capitalize-font">Closed Lead</span> {% endcomment %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark">Lead Status</h6>
+						</div>
+						<div class="pull-right">
+							<a href="{% url "Enquiry_list" %}" class="inline-block">
+								<h6 class="panel-title txt-dark">View All Lead</h6>
+							</a>
+							&nbsp;&nbsp;&nbsp;
+							<a href="#" class="inline-block full-screen">
+								<i class="zmdi zmdi-fullscreen"></i>
+							</a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body row pa-0">
+							<div class="table-wrap">
+								<div class="table-responsive">
+								  <table class="table table-hover mb-0">
+									<thead>
+									  <tr>
+										<th>Enquiry No</th>
+										<th>Name</th>
+										<th>Progress</th>
+										<th>Status</th>
+										<th>Last Update</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for i in enquiry %}
+								  <tr>
+									<td>{{i.enquiry_number}}</td>
+									<td>{{i.FirstName}} {{i.LastName}}</td>
+									<td><div class="progress progress-xs mb-0 ">
+										<div class="progress-bar progress-bar-danger" style="width: 35%"></div>
+									  </div></td>
+									{% if i.lead_status == "PreEnrolled" %}
+									<td>
+										<span class="label label-primary">PreEnrolled</span>
+									</td>
+									{% elif i.lead_status == "Active" %}
+									<td>
+										<span class="label label-info">Active</span>
+									</td>
+									{% elif i.lead_status == "Enrolled" %}
+									<td>
+										<span class="label label-success">Enrolled</span>
+									</td>
+									{% elif i.lead_status == "Inprocess" %}
+									<td>
+										<span class="label label-success">Inprocess</span>
+									</td>
+									{% elif i.lead_status == "Ready To Submit" %}
+									<td>
+										<span class="label label-success">Ready To Submit</span>
+									</td>
+									{% elif i.lead_status == "Appointment" %}
+									<td>
+										<span class="label label-success">Appointment</span>
+									</td>
+									{% elif i.lead_status == "Ready To Collection" %}
+									<td>
+										<span class="label label-success">Ready To Collection</span>
+									</td>
+									{% elif i.lead_status == "Result" %}
+									<td>
+										<span class="label label-danger">Result</span>
+									</td>
+									{% elif i.lead_status == "Case Initiated" %}
+									<td>
+										<span class="label label-danger">Case Initiated</span>
+									</td>
+									{% elif i.lead_status == "Delivery" %}
+									<td>
+										<span class="label label-success">Delivery</span>
+									</td>
+									
+									{% endif %}
+									<td>{{i.last_updated_on}}</td>
+									
+								  </tr>
+								  {% endfor %}
+										
+									</tbody>
+								  </table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<!-- Row -->
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark">New Lead</h6>
+						</div>
+						<div class="pull-right">
+							<a href="{% url "Enquiry_list" %}" class="inline-block">
+								<h6 class="panel-title txt-dark">View All Lead</h6>
+							</a>
+							&nbsp;&nbsp;&nbsp;
+							<a href="#" class="inline-block full-screen">
+								<i class="zmdi zmdi-fullscreen"></i>
+							</a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body row pa-0">
+							<div class="table-wrap">
+								<div class="table-responsive">
+									<table class="table display product-overview border-none" id="support_table">
+										<thead>
+											<tr>
+												<th>Enquiry ID</th>
+												<th>Name</th>
+												<th>Visa Country</th>
+												<th>Visa Category</th>
+												<th>Visa SubCategory</th>
+												<th>Status</th>
+												
+											</tr>
+										</thead>
+										<tbody>
+											{% for i in new_lead %}
+											<tr>
+												<td>{{i.enquiry_number}}</td>
+												<td>{{i.FirstName}} {{i.LastName}}</td>
+												<td>{{i.Visa_country}}</td>
+												<td>{{i.Visa_category}}</td>
+												<td>{{i.Visa_subcategory}}</td>
+												<td>
+													<span class="label label-primary">New Lead</span>
+												</td>
+												
+											</tr>
+											{% endfor %}
+											
+										</tbody>
+									</table>
+								</div>
+							</div>	
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+
+			<div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark">Latest Package</h6>
+						</div>
+						<div class="pull-right">
+							<a href="{% url "Package_list" %}">
+								<h6 class="panel-title txt-dark">View All Packages</h6>
+							</a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body row pa-0">
+							<div class="table-wrap">
+								<div class="table-responsive">
+									<table class="table display product-overview border-none" id="employee_table">
+										<thead>
+											<tr>
+												<th>Image</th>
+												<th>Name</th>
+												<th>Visa Country</th>
+												<th>Visa Category</th>
+												<th>Visa SubCategory</th>
+												<th>Amount</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for i in package  %}
+											<tr>
+												{% if i.file %}
+                                                            <td><img style="width:60px;" src="{{ i.file.url }}" alt="Profile Picture"></td>
+                                                        {% else %}
+                                                            <!-- You can add a default image here if no profile picture is available -->
+                                                            <td><img style="width:60px;" src="{% static 'assets/images/noimage.png' %}" alt="no image"></td>
+                                                        {% endif %}
+												<td>{{i.title}}</td>
+												<td>{{i.visa_country}}</td>
+												<td>{{i.visa_category}}</td>
+												<td>{{i.visa_subcategory}}</td>
+												<td>&#8377; {{i.amount}}</td>
+											</tr>
+											{% endfor %}
+											
+										</tbody>
+									</table>
+								</div>
+							</div>	
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+				<div class="panel panel-default card-view">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="calendar-wrap">
+							  <div id="calendar_small" class="small-calendar"></div>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+	
+
+	
+	{% comment %} <canvas id="myChart" height="10" width="25"></canvas> {% endcomment %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% comment %} <script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+	type: 'bar',
+	data: {
+	  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+	  datasets: [{
+		label: 'No. of leads',
+		data: [12, 19, 3, 5, 2, 3],
+		borderWidth: 1
+	  }]
+	},
+	options: {
+	  scales: {
+		y: {
+		  beginAtZero: true
+		}
+	  }
+	}
+  });
+</script> {% endcomment %}
+
+
+<script>
+	const ctx = document.getElementById('myChart');
+
+	new Chart(ctx, {
+	  type: 'pie',
+	  data: {
+		labels: {{ labels|safe }},
+		datasets: [
+		  {
+			label: 'No. of leads',
+			data: {{ data|safe }},
+			backgroundColor: [
+			  'red', // Background color for 'Red'
+			  'blue', // Background color for 'Blue'
+			  'yellow', // Background color for 'Yellow'
+			  'green', // Background color for 'Green'
+			  'purple', // Background color for 'Purple'
+			  'orange' // Background color for 'Orange'
+			],
+			borderWidth: 1
+		  }
+		]
+	  },
+	  options: {
+		scales: {
+		  y: {
+			beginAtZero: true
+		  }
+		}
+	  }
+	});
+  </script>
+
+<script>
+	const monthly = document.getElementById('myChart2');
+	console.log({{ monthly_labels | safe }});
+
+	new Chart(monthly, {
+	  type: 'bar',
+	  data: {
+		labels: {{ monthly_labels | safe }},
+		
+		datasets: [
+		  {
+			label: '# Monthly Leads',
+			
+			data: {{ monthly_count | safe }},
+			backgroundColor: [
+			  'red', // Background color for 'Red'
+			  'blue', // Background color for 'Blue'
+			  'yellow', // Background color for 'Yellow'
+			  'green', // Background color for 'Green'
+			  'purple', // Background color for 'Purple'
+			  'orange', // Background color for 'Orange'
+			  'black' // Background color for 'Orange'
+			],
+			borderWidth: 1
+		  }
+		]
+	  },
+	  options: {
+		scales: {
+		  y: {
+			beginAtZero: true
+		  }
+		}
+	  }
+	});
+  </script>
+{% endblock main-content %} 

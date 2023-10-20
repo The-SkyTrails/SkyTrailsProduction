@@ -1,0 +1,312 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Manage Question</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                <li><a href="#"><span>Manage Question</span></a></li>
+                <li class="active"><span>Add Question</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    
+    </div>
+    {% include 'dashboard/messages.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Add Question</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form action="" method ="POST">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>General Information</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Select Visa Country</label>
+                                                        <select class="form-control" name="country" id="country">
+                                                            <option value="----">----</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Select Visa Category</label>
+                                                        <select class="form-control" name="category" id="category">
+                                                            <option value="----">----</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Select Visa SubCategory</label>
+                                                        <select class="form-control" name="subcategory" id="subcategory">
+                                                            <option value="----">----</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="control-label mb-10">Enter Questions</label>
+                                                <textarea class="form-control" name="question" id="question" placeholder="Enter Question" rows="3" cols="3"></textarea>
+                                            </div>
+                                        
+                                        </div>
+                                        
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Question Type</label>
+                                                <div class="radio-list">
+                                                <div class="radio-inline">
+                                                    <span class="radio radio-info">
+                                                    <input class="form-check-input" type="radio" name="questionType" id="radioButtonOption" value="radiobutton">
+                                                    <label class="form-check-label" for="radioButtonOption">Radio Button</label>
+                                                </span>
+                                                </div>
+
+                                                
+                                                <div class="radio-inline">
+                                                    <span class="radio radio-info">
+                                                    <input class="form-check-input" type="radio" name="questionType" id="textbox" value="textbox">
+                                                    <label class="form-check-label" for="textbox">Text Box</label>
+                                                </span>
+                                                </div>
+
+                                                <div class="radio-inline">
+                                                    <span class="radio radio-info">
+                                                    <input class="form-check-input" type="radio" name="questionType" id="checkboxListOption" value="checkboxlist">
+                                                    <label class="form-check-label" for="checkboxListOption">Checkbox List</label>
+                                                </span>
+                                                </div>
+
+                                                
+                                                <div class="radio-inline">
+                                                    <span class="radio radio-info">
+                                                    <input class="form-check-input" type="radio" name="questionType" id="dropdownListOption" value="dropdownlist">
+                                                    <label class="form-check-label" for="dropdownListOption">Dropdown List</label>
+                                                </span>
+                                                </div>
+
+                                                
+                                                <div class="radio-inline">
+                                                    <span class="radio radio-info">
+                                                    <input class="form-check-input" type="radio" name="questionType" id="multitextbox" value="multitextbox">
+                                                    <label class="form-check-label" for="multitextbox">Multi Text Box</label>
+                                                </span>
+                                                </div>
+
+                                                </div>
+                                            </div>
+        
+        
+                                      
+                                        <br>
+                                        <hr>
+                                        <br>
+                                        
+                                        <div id="radioButtonInputField" style="display: none;">
+                                            <div class="form-group">
+                                                
+                                                <div>
+                                                    <input type="text" class="form-control mb-2" id="radioOption" placeholder="Option">
+                                                    <br>
+                                                    <button class="btn btn-primary" id="addRadioOption">+</button>
+                                                </div>
+                                            </div>
+                                            <div id="radioOptionList"></div>
+                                        </div>
+        
+                                        <div id="checkboxListInputField" style="display: none;">
+                                            <div class="form-group">
+                                                
+                                                <div>
+                                                    <input type="text" class="form-control mb-2" id="checkboxOption" placeholder="Option">
+                                                    <br>
+                                                    <button class="btn btn-primary" id="addCheckboxOption">+</button>
+                                                </div>
+                                            </div>
+                                            <div id="checkboxOptionList"></div>
+                                        </div>
+        
+                                        <div id="dropdownListInputField" style="display: none;">
+                                            <div class="form-group">
+                                                <div>
+                                                    <input type="text" class="form-control mb-2" id="dropdownOption" placeholder="Option">
+                                                    <br>
+                                                    <button class="btn btn-primary" id="addDropdownOption">+</button>
+                                                </div>
+                                            </div>
+                                            <div id="dropdownOptionList"></div>
+                                        </div> 
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const radioButtonOption = document.getElementById('radioButtonOption');
+    const radioButtonInputField = document.getElementById('radioButtonInputField');
+    const radioOptionInput = document.getElementById('radioOption');
+    const addRadioOptionButton = document.getElementById('addRadioOption');
+    const radioOptionList = document.getElementById('radioOptionList');
+
+    radioButtonOption.addEventListener('change', function() {
+        if (radioButtonOption.checked) {
+            radioButtonInputField.style.display = 'block';
+        } else {
+            radioButtonInputField.style.display = 'none';
+        }
+    });
+
+    addRadioOptionButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+    
+        const optionValue = radioOptionInput.value.trim();
+        if (optionValue) {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'mb-2';
+            optionDiv.innerHTML = `
+                <div class="input-group">
+                    <input type="text" class="form-control" value="${optionValue}" readonly>
+                    <div class="input-group-append">
+                        <button class="btn btn-danger remove-option" type="button">Remove</button>
+                    </div>
+                </div>
+            `;
+            radioOptionList.appendChild(optionDiv);
+            radioOptionInput.value = '';
+        }
+    });
+    
+
+    radioOptionList.addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-option')) {
+            event.target.closest('.mb-2').remove();
+        }
+    });
+
+    
+        const checkboxListOption = document.getElementById('checkboxListOption');
+        const checkboxListInputField = document.getElementById('checkboxListInputField');
+        const checkboxOptionInput = document.getElementById('checkboxOption');
+        const addCheckboxOptionButton = document.getElementById('addCheckboxOption');
+        const checkboxOptionList = document.getElementById('checkboxOptionList');
+    
+        checkboxListOption.addEventListener('change', function() {
+            if (checkboxListOption.checked) {
+                checkboxListInputField.style.display = 'block';
+            } else {
+                checkboxListInputField.style.display = 'none';
+            }
+        });
+    
+        addCheckboxOptionButton.addEventListener('click', function() {
+            const optionValue = checkboxOptionInput.value.trim();
+            if (optionValue) {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'mb-2';
+                optionDiv.innerHTML = `
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="${optionValue}" readonly>
+                        <br>
+                        <div class="input-group-append">
+                            <button class="btn btn-danger remove-option" type="button">Remove</button>
+                        </div>
+                    </div>
+                `;
+                checkboxOptionList.appendChild(optionDiv);
+                checkboxOptionInput.value = '';
+            }
+        });
+    
+        checkboxOptionList.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-option')) {
+                event.target.closest('.mb-2').remove();
+            }
+        });
+
+
+            const dropdownListOption = document.getElementById('dropdownListOption');
+            const dropdownListInputField = document.getElementById('dropdownListInputField');
+            const dropdownOptionInput = document.getElementById('dropdownOption');
+            const addDropdownOptionButton = document.getElementById('addDropdownOption');
+            const dropdownOptionList = document.getElementById('dropdownOptionList');
+        
+            dropdownListOption.addEventListener('change', function() {
+                if (dropdownListOption.checked) {
+                    dropdownListInputField.style.display = 'block';
+                } else {
+                    dropdownListInputField.style.display = 'none';
+                }
+            });
+        
+            addDropdownOptionButton.addEventListener('click', function() {
+                const optionValue = dropdownOptionInput.value.trim();
+                if (optionValue) {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'mb-2';
+                    optionDiv.innerHTML = `
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="${optionValue}" readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-danger remove-option" type="button">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                    dropdownOptionList.appendChild(optionDiv);
+                    dropdownOptionInput.value = '';
+                }
+            });
+        
+            dropdownOptionList.addEventListener('click', function(event) {
+                if (event.target.classList.contains('remove-option')) {
+                    event.target.closest('.mb-2').remove();
+                }
+            });
+        
+    
+</script>
+
+
+
+
+{% endblock main-content %}

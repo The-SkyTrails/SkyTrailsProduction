@@ -1,0 +1,229 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Manage News</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="brśeadcrumb">
+                <li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+                <li><a href="{% url "Employee_News_list" %}"><span>Manage News</span></a></li>
+                <li class="active"><span>Update News</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    
+    </div>
+    {% include 'Employee/Base/messages.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Update News</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form action="" method ="POST">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>General Information</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Title</label>
+                                                        {{form.title}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Description</label>
+                                                        {{form.description}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Publish Date</label>
+                                                        {{form.publish_date}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Expiry Date</label>
+                                                        {{form.expiry_date}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">News Type</label>
+                                                        {{form.news_type}}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Status</label>
+                                                        <div class="radio-list">
+                                                            <div class="radio-inline pl-0">
+                                                                <span class="radio radio-info">
+                                                                    <input class="form-check-input" type="radio" name="{{ form.status.name }}" id="{{ form.status.id_for_label_active }}" value="True"
+                                            {% if form.status.value == 1 %} checked {% endif %}>
+                                            <label class="form-check-label" for="inlineRadio1">Active</label>
+                                                            </span>
+                                                            </div>
+                                                            <div class="radio-inline">
+                                                                <span class="radio radio-info">
+                                                                    <input class="form-check-input" type="radio" name="{{ form.status.name }}" id="{{ form.status.id_for_label_inactive }}" value="False"
+                                            {% if form.status.value == 0 %} checked {% endif %}>
+                                            <label class="form-check-label" for="inlineRadio2">InActive</label>
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Update</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+<div class="page-wrapper">
+    <!--page-content-wrapper-->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-md-flex align-items-center mb-3">
+                <div class="breadcrumb-title pr-3">Update News</div>
+                <div class="pl-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 p-0">
+                            <li class="breadcrumb-item"><a href="{% url "travel_dashboards" %}"><i class='bx bx-home-alt'  style="color:#21325D;"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Update News</li>
+                        </ol>
+                    </nav>
+                </div>
+                
+            </div>
+            <!--end breadcrumb-->
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="card border-lg-top-white">
+                        <div class="card-body p-5">
+                            <div class="card-title d-flex align-items-center">
+                                <div><i class='bx bxs-user mr-1 font-24 text-white'></i>
+                                </div>
+                                <h4 class="mb-0 text-white">General Information</h4>
+                            </div>
+                            <hr/>
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                            <div class="form-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>{{form.title.label_tag}}</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            {{form.title}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>{{form.description.label_tag}}</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            {{form.description}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>{{form.publish_date.label_tag}}</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            {{form.publish_date}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>{{form.expiry_date.label_tag}}</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            {{form.expiry_date}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>{{form.news_type.label_tag}}</label>
+                                        <div class="form-group">
+                                            {{form.news_type}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>{{form.status.label_tag}}</label>
+                                        <br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="{{ form.status.name }}" id="{{ form.status.id_for_label_active }}" value="True"
+                                            {% if form.status.value == 1 %} checked {% endif %}>
+                                            <label class="form-check-label" for="inlineRadio1">Active</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="{{ form.status.name }}" id="{{ form.status.id_for_label_inactive }}" value="False"
+                                            {% if form.status.value == 0 %} checked {% endif %}>
+                                            <label class="form-check-label" for="inlineRadio2">InActive</label>
+                                        </div>
+                                </div>
+                            </div>
+                        </form>
+                                <br><br>
+                                <button type="submit" class="btn btn-light px-5">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end row-->
+        </div>
+    </div>
+    <!--end page-content-wrapper-->
+</div>
+
+{% endblock main-content %}

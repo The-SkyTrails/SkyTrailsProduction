@@ -1,0 +1,145 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Pricing</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Pricing List</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+	
+	<div class="form-body">
+		<div class="form-row">
+			<div class="form-group col-md-3">
+
+				<div class="form-group">
+					<select class="form-control" name="country" id="country">
+
+						<option value="Visa Country">Visa Country</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group col-md-3">
+
+				<div class="form-group">
+					<select class="form-control" name="category" id="category">
+
+						<option value="Visa Category">Visa Category</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group col-md-3">
+
+				<div class="form-group">
+					<select class="form-control" name="status" id="status">
+						<option value="Status">Status</option>
+						<option value="Active">Active</option>
+						<option value="InActive">InActive</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group col-md-3">
+
+				<button type="search" class="btn btn-primary px-5">Proceed</button>
+			</div>
+		</div>
+		
+	</div>
+	<div class="ml-auto" style="float:right;margin-bottom:10px;">
+		<a href="{% url 'add_subcategory' %}"><button class="btn btn-primary">Add New</button></a>
+	</div>
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+											<th>Id</th>
+							<th>SubCategory Name</th>
+                            <th>Visa Category</th>
+							<th>Visa Country</th>
+                            <th>Estimated Fee</th>
+							<th>Status</th>
+							<th>Total</th>
+							<th>Last Updated By</th>
+							<th>Last Updated On</th>
+							<th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+											<th>Id</th>
+							<th>SubCategory Name</th>
+                            <th>Visa Category</th>
+							<th>Visa Country</th>
+                            <th>Estimated Fee</th>
+							<th>Status</th>
+							<th>Total</th>
+							<th>Last Updated By</th>
+							<th>Last Updated On</th>
+							<th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in subcategory  %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{i.id}}</td>
+							<td>{{i.subcategory_name.subcategory}}</td>
+							<td>{{i.category_id.category}}</td>
+							<td>{{i.country_id.country}}</td>
+							<td>{{i.estimate_amt}}</td>
+							{% if i.status == True %}
+							<td>Active</td>
+							{% else %}
+							<td>Inactive</td>
+							
+							{% endif %}
+                            <td>{{i.totalAmount}}</td>
+                            <td>{{i.lastupdated_by}}</td>
+                            <td>{{i.last_updated_on}}</td>
+                            <td><div class="row">
+                                
+                                <div class="col-md-6"><a href="{% url 'visa_subcategory_edit' i.id %}"><i
+									class='zmdi zmdi-edit'
+									style="font-size: 20px; color:blue;"></i></a></div>
+									<div class="col-md-6"><a href="{% url "delete_subcategory" i.id %}"><i class='zmdi zmdi-delete'
+										style="font-size: 20px; color:red;"></i></a></div>  
+								</div></td>
+						</tr>
+						{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}

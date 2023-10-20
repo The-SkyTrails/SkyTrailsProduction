@@ -1,0 +1,262 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+<style>
+    .top {
+        text-align: left;
+        padding: 20px;
+        color: #21325D;
+    }
+
+    .profile-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        /* Hide anything outside the circle */
+    }
+
+    .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure the image covers the entire circle */
+    }
+
+    .profile-name {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .profile-application {
+        font-size: 16px;
+    }
+
+
+    .section {
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px;
+        color: #21325D;
+    }
+
+    .section:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .form-container {
+        margin: 20px;
+    }
+    .white-container {
+        background-color: rgb(102 122 221 / 85%);
+        padding: 7px 10px; /* Add padding for spacing */
+        display: inline-block; /* Ensure the container only takes the necessary space */
+    }
+
+    .control-label{
+        color:#21325D;
+    }
+</style>
+<style>
+    /* Add your CSS styles here */
+    
+</style>
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+            <div class="row heading-bg">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h5 class="txt-dark">Visa Enquiry</h5>
+                </div>
+            
+                <!-- Breadcrumb -->
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                        {% comment %} <li><a href="#"><span>form</span></a></li> {% endcomment %}
+                        <li class="active"><span>View FrontWebsite Enquiry</span></li>
+                    </ol>
+                </div>
+                <!-- /Breadcrumb -->
+            
+            </div>
+            <div class="top">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="profile-circle">
+                                    <img src='{% static ' assets/images/NewLogo.png' %}' alt="" srcset="">
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="profile-name">{{enq.name}}</div>
+                                <!-- <div class="profile-application">Enquiry No: {{enq.enquiry_number}}</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <br>
+            <!--end breadcrumb-->
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="card border-lg-top-white">
+                        <div class="card-body p-5">
+
+                            <form id="main-form" action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-body">
+                                    <div id="general-form">
+                                        <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Personal Details</h6>
+                                            <hr class="light-grey-hr"/>
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label mb-10">Email Address</label>
+                                                <h5>{{enq.email}}</</h5>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label mb-10">Mobile Number</label>
+                                                <h5>{{enq.phone}}</h5>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label mb-10">Name</label>
+                                                <h5>{{enq.name}}</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label mb-10">Appointment Date</label>
+                                                <h5>{{enq.appointment_date}}</h5>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label mb-10">Type</label>
+                                                <h5>{{enq.type}}</h5>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label mb-10">Select Visa Country</label>
+                                                <h5>{{enq.country_name}}</h5>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label mb-10">Select Visa Category</label>
+                                                <h5>{{enq.category_name}}</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label mb-10">Message</label>
+                                                <h5>{{enq.message}}</h5>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="control-label mb-10">Image</label>
+                                                <img src="{{i.image.url}}" alt="Image" height="80" width="80">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end row-->
+</div>
+<script>
+    function showForm(section) {
+        console.log('Toggling form for section: ' + section);
+
+        // Hide all forms
+        document.getElementById('general-form').classList.add('hidden');
+        document.getElementById('followup-form').classList.add('hidden');
+        document.getElementById('document-form').classList.add('hidden');
+
+        // Show the selected form
+        document.getElementById(section + '-form').classList.remove('hidden');
+    }
+</script>
+<script>
+    function toggleTable(tableId, buttonId) {
+        var table = document.getElementById(tableId);
+        var button = document.getElementById(buttonId);
+
+        if (table.classList.contains('hidden')) {
+            table.classList.remove('hidden');
+            button.innerText = '-';
+        } else {
+            table.classList.add('hidden');
+            button.innerText = '+';
+        }
+    }
+
+    document.getElementById('toggle-table-button-1').addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleTable('bankdocument-table', 'toggle-table-button-1');
+    });
+
+    document.getElementById('toggle-table-button-2').addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleTable('taxdocument-table', 'toggle-table-button-2');
+    });
+
+    document.getElementById('toggle-table-button-3').addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleTable('othersdocument-table', 'toggle-table-button-3');
+    });
+
+    document.getElementById('toggle-table-button-4').addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleTable('language-table', 'toggle-table-button-4');
+    });
+
+    document.getElementById('toggle-table-button-5').addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleTable('salaryslip-table', 'toggle-table-button-5');
+    });
+
+    document.getElementById('toggle-table-button-6').addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleTable('marriage-table', 'toggle-table-button-6');
+    });
+
+    document.getElementById('toggle-table-button-7').addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleTable('educationaldocument-table', 'toggle-table-button-7');
+    });
+
+    document.getElementById('toggle-table-button-8').addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleTable('identificationdocument-table', 'toggle-table-button-8');
+    });
+
+    document.getElementById('toggle-table-button-9').addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleTable('additionaldocument-table', 'toggle-table-button-9');
+    });
+</script>
+<script>
+    function handleUploadClick() {
+        // Trigger the file input click event
+        document.getElementById('file-upload').click();
+    }
+    
+    // Prevent form submission
+    document.getElementById('upload-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Handle the file upload logic here (e.g., AJAX request to upload the file).
+    });
+</script>    
+{% endblock main-content %}

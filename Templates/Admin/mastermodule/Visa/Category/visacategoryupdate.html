@@ -1,0 +1,250 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Visa Category</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                <li><a href="{% url "category_list" %}"><span>All Category</span></a></li>
+                <li class="active"><span>Update Category</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    
+    </div>
+    {% include 'dashboard/messages.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Update Visa Category</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form action="" method ="POST">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>General Information</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10" for="{{ form.visa_country_id.id_for_label }}">Select Country Name</label>
+                                                        
+                                                            
+                                            {{ form.visa_country_id }}
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10" for="{{ form.category.id_for_label }}">Category Name</label>
+                                                        {{ form.category }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10" for="{{ form.subcategory.id_for_label }}">SubCategory Name</label>
+                                                        {{ form.subcategory }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Status</label>
+                                                        <div class="radio-list">
+                                                            <div class="radio-inline pl-0">
+                                                                <span class="radio radio-info">
+                                                                    <input type="radio" name="{{ form.status.name }}" value="True" id="{{ form.status.id_for_label_active }}"
+                                                    {% if form.status.value == 1 %} checked {% endif %}>
+                                                <label class="form-check-label" for="{{ form.status.id_for_label_active }}">Active</label>
+                                                            </span>
+                                                            </div>
+                                                            <div class="radio-inline">
+                                                                <span class="radio radio-info">
+                                                                    <input type="radio" name="{{ form.status.name }}" value="False" id="{{ form.status.id_for_label_inactive }}"
+                                                    {% if form.status.value == 0 %} checked {% endif %}>
+                                                <label class="form-check-label" for="{{ form.status.id_for_label_inactive }}">Inactive</label>
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Update</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+<div class="page-wrapper">
+    <!--page-content-wrapper-->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-md-flex align-items-center mb-3">
+                <div class="breadcrumb-title pr-3">Update Visa Category</div>
+                <div class="pl-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 p-0">
+                            <li class="breadcrumb-item"><a href="{% url "travel_dashboards" %}"><i class='bx bx-home-alt'  style="color:#21325D;"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Update Category</li>
+                        </ol>
+                    </nav>
+                </div>
+                {% comment %} <div class="ml-auto">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-light">View Employee</button>
+
+                    </div>
+                </div> {% endcomment %}
+            </div>
+            <!--end breadcrumb-->
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="card border-lg-top-white">
+                        <div class="card-body p-5">
+                            <div class="card-title d-flex align-items-center">
+                                <div><i class='bx bxs-user mr-1 font-24 text-white'></i>
+                                </div>
+                                <h4 class="mb-0 text-white">General Information</h4>
+                            </div>
+                            <hr/>
+                            {% comment %} <div class="form-body">
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Country Name</label>
+                                        <div class="form-group">
+                                            
+                                            {{ form.visa_country_id }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Category Name</label>
+                                        
+                                        <div class="input-group">
+                                            
+                                            
+                                                {{ form.category }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label>Status</label>
+                                        <br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="status" id="active" value="active">
+                                            <label class="form-check-label" for="inlineRadio1">Active</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="status" id="inactive" value="inactive">
+                                            <label class="form-check-label" for="inlineRadio2">InActive</label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <br><br>
+
+
+                                <button type="submit" class="btn btn-light px-5">Update</button>
+                            </form>
+                            </div> {% endcomment %}
+                            <div class="form-body">
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="{{ form.visa_country_id.id_for_label }}">Country Name</label>
+                                            {{ form.visa_country_id }}
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="{{ form.category.id_for_label }}">Category Name</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class='bx bx-building'></i></span>
+                                                </div>
+                                                {{ form.category }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% comment %} <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label>Status</label>
+                                            <br>
+                                            <div class="form-check form-check-inline">
+                                                {{ form.status }}
+                                                <label class="form-check-label" for="{{ form.status.id_for_label_active }}">Active</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                {{ form.status }}
+                                                <label class="form-check-label" for="{{ form.status.id_for_label_inactive }}">InActive</label>
+                                            </div>
+                                        </div>
+                                    </div> {% endcomment %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            {{ form.status.label_tag }}
+                                            <br>
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" name="{{ form.status.name }}" value="True" id="{{ form.status.id_for_label_active }}"
+                                                    {% if form.status.value == 1 %} checked {% endif %}>
+                                                <label class="form-check-label" for="{{ form.status.id_for_label_active }}">Active</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" name="{{ form.status.name }}" value="False" id="{{ form.status.id_for_label_inactive }}"
+                                                    {% if form.status.value == 0 %} checked {% endif %}>
+                                                <label class="form-check-label" for="{{ form.status.id_for_label_inactive }}">Inactive</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                            
+                                    <button type="submit" class="btn btn-light px-5">Update</button>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end row-->
+        </div>
+    </div>
+    <!--end page-content-wrapper-->
+</div>
+
+{% endblock main-content %}

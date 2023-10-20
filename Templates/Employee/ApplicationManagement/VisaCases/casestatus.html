@@ -1,0 +1,277 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Case Status</h5>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+                <li class="active"><span>Case Status</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Case Status</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+
+                                                        <label class="control-label mb-10">Name</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq_id.FirstName}} {{enq_id.LastName}}</h5>
+                                                        <button type="button" class="btn btn-primary m-2"
+                                                            data-toggle="modal"
+                                                            data-target="#viewModal3{{enq_id.id}}">View</button>
+
+                                                    </div>
+                                                    <div class="modal fade" id="viewModal3{{enq_id.id}}" tabindex="-1"
+                                                        role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Personal Details</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close"> <span
+                                                                            aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <div class="row">
+                                                                                <div class="col-md-4">
+
+                                                                                    <label class="control-label mb-10">Name</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <h5>{{enq_id.FirstName}}
+                                                                                        {{enq_id.LastName}}</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br>
+                                                                            <div class="row">
+                                                                                <div class="col-md-4">
+
+                                                                                    <label class="control-label mb-10">Email</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <h5>{{enq_id.email}}</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br>
+                                                                            <div class="row">
+                                                                                <div class="col-md-4">
+
+                                                                                    <label class="control-label mb-10">Passport Number</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <h5>{{enq_id.passport_no}}</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <div class="row">
+                                                                                <div class="col-md-4">
+
+                                                                                    <label class="control-label mb-10">DOB</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <h5>{{enq_id.Dob}}</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br>
+                                                                            <div class="row">
+                                                                                <div class="col-md-4">
+
+                                                                                    <label class="control-label mb-10">Mobile</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <h5>{{enq_id.contact}}</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br>
+                                                                            <div class="row">
+                                                                                <div class="col-md-4">
+
+                                                                                    <label class="control-label mb-10">Contact Address</label>
+                                                                                </div>
+                                                                                <div class="col-md-8">
+                                                                                    <h5>{{enq_id.address}}</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Updated On</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq_id.last_updated_on|date:"d/m/Y"}}</h5>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Visa Type</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq_id.Visa_type}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+
+                                                        <label class="control-label mb-10">Current Status</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5 class="text-warning">{{enq_id.case_status.case_status}}</h5>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Case Id</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq_id.case_id}}</h5>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label mb-10">Submitted Date</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5>{{enq_id.registered_on|date:"d/m/Y"}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <form action="" method="POST">
+                                                    {% csrf_token %}
+
+                                                    <label class="control-label mb-10">Update Status</label>
+                                                    <div class="form-group">
+
+                                                        <select class="form-control" name="case_status" id="status">
+
+                                                            <option value="">Select</option>
+                                                            {% for i in case_status %}
+                                                            <option value="{{i.id}}">{{i.case_status}}</option>
+
+
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </form>
+                                            </div>
+
+
+                                        </div>
+                                        <br>
+                                        <hr><br>
+                                        <h4 class="mb-0 text-white">Application Status</h4>
+
+                                        <div class="panel-wrapper collapse in">
+                                            <div class="panel-body">
+                                                <div class="table-wrap">
+                                                    <div class="table-responsive">
+                                                        <table id="datable_2" class="table table-hover table-bordered display mb-30" >
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>S.No.</th>
+                                                                    <th>Type</th>
+                                                                    <th>Updated Date</th>
+                                                                    <th>Updated By</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for app_status in application_status %}
+
+                                                                <tr>
+                                                                    <td>{{forloop.counter}}</td>
+                                                                    <td>{{app_status.enquiry_id.case_status.case_status}}</td>
+                                                                    <td>{{app_status.updated_date}}</td>
+                                                                    <td>{{app_status.updated_by.first_name}}</td>
+
+
+
+                                                                </tr>
+                                                                {% endfor %}
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                    
+                                        </div>
+                                        <hr>
+                                        <br>
+                                        <div class="row">
+                                            <br><br>
+                                            <div class="col-md-9">
+                                                <h5>Send Message</h5>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="submit" class="btn btn-primary">Send Email</button>
+                                                <button type="submit" class="btn btn-primary">Send SMS</button>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <h3 style="color: rgb(204, 65, 65);">No Converation Received</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--end row-->
+                </div>
+            </div>
+            <!--end page-content-wrapper-->
+        </div>
+    </div>
+</div>
+
+        {% endblock main-content %}

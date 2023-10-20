@@ -1,0 +1,123 @@
+
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">View Appointment</h5>
+		</div>
+		<!-- Breadcrumb -->
+		
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>View Appointment</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+	
+
+	{% comment %} <div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="{% url 'add_SuccessStories' %}"><button class="btn btn-primary">Add New</button></a>
+	</div> {% endcomment %}
+
+	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+							<th>Title</th>
+                            <th>Client</th>
+							<th>Motive</th>
+							<th>Date</th>
+							<th>Is paid</th>
+							<th>Amount</th>
+							<th>Paid Amount</th>
+                            <th>Notes</th>
+							<th>Assigned</th>
+							<th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+							<th>Title</th>
+                            <th>Client</th>
+							<th>Motive</th>
+							<th>Date</th>
+							<th>Is Paid</th>
+							<th>Amount</th>
+							<th>Paid Amount</th>
+                            <th>Notes</th>
+							<th>Assigned</th>
+							<th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in appointment %}
+						
+										<tr>
+											<td>{{forloop.counter}}</td>
+											<td>{{i.title}}</td>
+											<td>{{i.enquiry_id.FirstName}} {{i.enquiry_id.LastName}}</td>
+											<td>{{i.motive}}</td>
+											<td>{{i.date}} {{i.time}}</td>
+											<td>
+												{% if i.is_paid == True %}
+												Yes
+												{% else %}
+												No
+												{% endif %}
+											</td>
+											<td>{{i.amount}}</td>
+											<td>{{i.paid_amt}}</td>
+											<td>{{i.notes}}</td>
+											<td>{{i.enquiry_id.assign_to_employee.users.first_name}} {{i.enquiry_id.assign_to_employee.users.last_name}}</td>
+											<td>
+												<div class="row">
+													<div class="col-md-4"><a href="#">
+														<i
+												class='zmdi zmdi-edit'
+												style="font-size: 20px; color:blue;"></i>
+													</a></div>
+													<div class="col-md-4"><a href="{% url "delete_appointment" i.id %}"><i
+														class='zmdi zmdi-delete'
+														style="font-size: 20px; color:red;"></i></a></div>
+												</div>
+											</td>
+										</tr>
+										{% endfor %}
+										
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+ 
+
+<!--end page-wrapper-->
+{% endblock main-content %}

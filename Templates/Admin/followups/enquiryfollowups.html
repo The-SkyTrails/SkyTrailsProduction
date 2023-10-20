@@ -1,0 +1,242 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">My Follow-ups</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>EnquiryFollowUp</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+
+    <div class="form-body">
+
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <div class="form-group">
+
+
+                    <input type="text" class="form-control datepicker" placeholder="Next Follow-up From Date" />
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+
+
+
+                    <input type="text" class="form-control datepicker" placeholder="Next Follow-up To Date" />
+
+
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+
+
+                    <input type="text" class="form-control datepicker" placeholder="Follow-up From Date" />
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+
+
+
+                    <input type="text" class="form-control datepicker" placeholder="Follow-up To Date" />
+
+
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="type" id="type">
+                        <option value="Follow-up Type">Follow-up Type</option>
+                        <option value="Walk In">Walk In</option>
+                        <option value="New Registration">New Registration</option>
+                        <option value="Online Registrations">Online Registrations</option>
+                        <option value="Old Walk In">Old Walk In</option>
+                        <option value="Direct Walk In">Direct Walk In</option>
+                        <option value="CC Walk In">CC Walk In</option>
+                        <option value="Outgoing Call">Outgoing Call</option>
+                        <option value="Incoming Call">Incoming Call</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="type" id="type">
+                        <option value="Status">Status</option>
+                        <option value="Success">Success</option>
+                        <option value="No Response">No Response</option>
+                        <option value="Visited">Visited</option>
+                        <option value="Drop">Drop</option>
+                        <option value="Follow Up">Follow Up</option>
+                        <option value="Appointment">Appointment</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <select class="form-control" name="stage" id="stage">
+                        <option value="Stage">Stage</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="priority" id="priority">
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="enquiry" id="enquiry">
+                        <option value="Enquiry">Enquiry</option>
+                        <option value="Attempted To Contact">Attempted To Contact</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Non Contacted">Non Contacted</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="input-group">
+
+                    <input type="text" name="name" id="name" class="form-control border-left-0"
+                        placeholder="Name">
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group col-md-3">
+
+                <button type="search" class="btn btn-primary px-5">Proceed</button>
+            </div>
+        </div>
+    </div>	
+
+	<div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="{% url "enquiryfollowup" %}"><button class="btn btn-primary px-3 table-switch" data-target="enquiry">Enquiry</button></a>
+        <a href="#"><button class="btn btn-primary px-3 table-switch" data-target="case">Case</button></a>
+        <a href="#"><button class="btn btn-primary px-3 table-switch" data-target="payment">Payment</button></a>
+	</div>
+	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Follow-up Date</th>
+                                    <th>Follow-up Time</th>
+                                    <th>Priority</th>
+                                    <th>FollowUp Status</th>
+                                    <th>Lead Status</th>
+                                    <th>Subject</th>
+                                    <th>Description</th>
+                                    <th>Created By</th>
+                                    <th>Created Date</th>
+                                    <th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Follow-up Date</th>
+                                    <th>Follow-up Time</th>
+                                    <th>Priority</th>
+                                    <th>FollowUp Status</th>
+                                    <th>Lead Status</th>
+                                    <th>Subject</th>
+                                    <th>Description</th>
+                                    <th>Created By</th>
+                                    <th>Created Date</th>
+                                    <th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+									{% for i in enquiryfollowup  %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                                    <td>Enquiry</td>
+                                    <td>{{i.enquiry.FirstName}}</td>
+                                    <td>{{i.calendar}}</td>
+                                    <td>{{i.time}}</td>
+                                    <td>{{i.priority}}</td>
+                                    <th>{{i.follow_up_status}}</th>
+                                    <td>{{i.enquiry.lead_status}}</td>
+                                    <td>{{i.title}}</td>
+                                    <td>{{i.description}}</td>
+                                    <td>{{i.created_by}}</td>
+                                    <td>{{i.created_date}}</td>
+                                    
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4"><a href="{% url "Updateenquiryfollowup" i.id %}">
+                                                <i
+                                        class='zmdi zmdi-edit'
+                                        style="font-size: 20px; color:blue;"></i>
+                                            </a></div>
+                                            <div class="col-md-4"><a href="{% url "delete_followup" i.id %}"><i
+                                                class='zmdi zmdi-delete'
+                                                style="font-size: 20px; color:red;"></i></a></div>
+                                        </div>
+                                    </td>
+
+                        </tr>
+                        {% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}

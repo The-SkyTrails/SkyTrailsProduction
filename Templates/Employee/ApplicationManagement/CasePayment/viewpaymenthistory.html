@@ -1,0 +1,143 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Payment History</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>View Payment History</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'Employee/Base/messages.html' %}
+
+    <div class="form-body">
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <div class="form-group">
+
+
+                    <input type="text" class="form-control datepicker" placeholder="From Date" />
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+
+
+
+                    <input type="text" class="form-control datepicker" placeholder="To Date" />
+
+                    {% comment %} <input type="date" class="form-control" name="todate" id="todate"
+                        placeholder="To Date"> {% endcomment %}
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="name" id="name" class="form-control border-left-0"
+                        placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="case_id" id="case_id" class="form-control border-left-0"
+                        placeholder="Case Id">
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+        <div class="form-group col-md-3">
+
+            <button type="search" class="btn btn-primary px-5">Proceed</button>
+        </div>
+        </div>
+    </div>
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No</th>
+                                    <th>Fee Type</th>
+                                    <th>Name</th>
+                                    <th>Case Id</th>
+                                    <th>Amount</th>
+                                    <th>Reference No</th>
+                                    <th>Receipt</th>
+                                    <th>Last Updated By</th>
+                                    <th>Last updated On</th>
+                                    <th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No</th>
+                                    <th>Fee Type</th>
+                                    <th>Name</th>
+                                    <th>Case Id</th>
+                                    <th>Amount</th>
+                                    <th>Reference No</th>
+                                    <th>Receipt</th>
+                                    <th>Last Updated By</th>
+                                    <th>Last updated On</th>
+                                    <th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>ABC</td>
+                                            <td>ABC</td>
+                                            <td>ABC</td>
+                                            <td>ABC</td>
+                                            <td>ABC</td>
+                                            <td>ABC</td>
+                                            <td>ABC</td>
+                                            <td>ABC</td>
+                                            <td><div class="row">
+                                        
+                                                <div class="col-md-4"><a href="" data-toggle="modal" data-target="#edittransactionrecord"><i class='zmdi zmdi-edit' style="font-size: 20px; color:blue;"></i></a></div>
+                                                <div class="col-md-4"><a href="http://"><i class='zmdi zmdi-download'style="font-size: 20px; color:blue;"></i></a></div> 
+                                                <div class="col-md-4"><a href=""><i class='zmdi zmdi-mail-send' style="font-size: 20px; color:blue;"></i></a></div>
+                                            </div>
+                                            </td> 
+                                            {% include "Admin/ApplicationManagement/CasePayment/edittransactionrecord-modal.html" %}
+                                        </tr>
+                                    </tbody>
+                        
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+
+{% endblock main-content %}

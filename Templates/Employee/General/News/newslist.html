@@ -1,0 +1,107 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Manage News</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Manage News</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'Employee/Base/messages.html' %}
+
+	<div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="{% url 'Employee_add_News' %}"><button class="btn btn-primary">Add New</button></a>
+	</div>
+	<!-- /Title -->
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+							<th>Title</th>
+							<th>Description</th>
+                            <th>Publish Date</th>
+							<th>Expiry Date</th>
+							<th>News Type</th>
+                            <th>Status</th>
+                            <th>Last Updated By</th>
+                            <th>Last Updated On</th>
+							<th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+							<th>Title</th>
+							<th>Description</th>
+                            <th>Publish Date</th>
+							<th>Expiry Date</th>
+							<th>News Type</th>
+                            <th>Status</th>
+                            <th>Last Updated By</th>
+                            <th>Last Updated On</th>
+							<th>Action</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in News  %}
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{i.title}}</td>
+							<td>{{i.description}}</td>
+                            <td>{{i.publish_date}}</td>
+							<td>{{i.expiry_date}}</td>
+							<td>{{i.news_type}}</td>
+                            {% if i.status == True %}
+							<td>Active</td>
+							{% else %}
+							<td>Inactive</td>
+							{% endif %}
+                            <td>{{i.last_updated_by}}</td>
+                            <td>{{i.last_updated_on}}</td>
+								<td>
+									<div class="row">
+										<div class="col-md-4"><a href="{% url 'Employee_editNews' i.id %}">
+											<i
+									class='zmdi zmdi-edit'
+									style="font-size: 20px; color:blue;"></i>
+										</a></div>
+										
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}

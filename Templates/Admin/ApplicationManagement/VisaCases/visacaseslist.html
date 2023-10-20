@@ -1,0 +1,369 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Visa Cases</h5>
+		</div>
+		<!-- Breadcrumb -->
+		
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Visa Cases</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+	<div class="form-body">
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <input type="text" class="form-control datepicker" placeholder="From Date" />
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <input type="text" class="form-control datepicker" placeholder="To Date" />
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <input type="text" name="leadgenerated" id="leadgenerated" class="form-control border-left-0"
+                        placeholder="Lead Generated">
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="email" id="email" class="form-control border-left-0"
+                        placeholder="Client Email">
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="contact" id="contact" class="form-control border-left-0"
+                        placeholder="Client Mobile Number">
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="name" id="name" class="form-control border-left-0"
+                        placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="case no" id="case no" class="form-control border-left-0"
+                        placeholder="Case No">
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <select class="form-control" name="casestatus" id="casestatus">
+
+                        <option value="Select Case Status">Select Case Status</option>
+
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <select class="form-control" name="country" id="country">
+
+                        <option value="Visa Country">Select Visa Country</option>
+
+
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="cateegory" id="cateegory">
+
+                        <option value="Visa Cateegory">Select Visa Category</option>
+
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="subcategory" id="subcategory">
+
+                        <option value="Visa SubCategory">Select Visa SubCategory</option>
+
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="assign to employee" id="assign to employee"
+                        class="form-control border-left-0" placeholder="Assign to Employee">
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="assign to agent" id="assign to agent"
+                        class="form-control border-left-0" placeholder="Assign to Agent ">
+                </div>
+            </div>
+            
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+
+                    <input type="text" name="assign to outsourcing partner" id="assign to outsourcing partner"
+                        class="form-control border-left-0" placeholder="Assign to OutSourcing Partner ">
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="messagestatus" id="messagestatus">
+
+                        <option value="Message Status">Message Status</option>
+                        <option value="All">All</option>
+                        <option value="Unread">Unread</option>
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+
+                <div class="form-group">
+                    <select class="form-control" name="visatype" id="visatype">
+
+                        <option value="Visa Type">Visa Type</option>
+                        <option value="Single">Single</option>
+                        <option value="Couple">Couple</option>
+                        <option value="Family">Family</option>
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            
+        <div class="form-group col-md-3">
+
+            <button type="search" class="btn btn-primary px-5">Proceed</button>
+        </div>
+        </div>
+    </div>
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+                                    <th>Action</th>
+                                    <th>Registered On</th>
+                                    <th>Updated On</th>
+                                    <th>Personal Info</th>
+                                    <th>Case No</th>
+                                    <th>Package Name</th>
+                                    <th>Case Status</th>
+                                    <th>Visa Detail</th>
+                                    <th>Assign to</th>
+                                    <th>Created By</th>
+                                    {% comment %} <th>Updated By</th> {% endcomment %}
+                                    <th>Related Data</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+                                    <th>Action</th>
+                                    <th>Registered On</th>
+                                    <th>Updated On</th>
+                                    <th>Personal Info</th>
+                                    <th>Case No</th>
+                                    <th>Package Name</th>
+                                    <th>Case Status</th>
+                                    <th>Visa Detail</th>
+                                    <th>Assign to</th>
+                                    <th>Created By</th>
+                                    {% comment %} <th>Updated By</th> {% endcomment %}
+                                    <th>Related Data</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in enquiry %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>
+                                        <div class="row">
+                                        <div class="col-md-6"><a href="#"><i class='zmdi zmdi-comments' style="font-size: 20px; color:blue;"></i></a></div>
+                                        <div class="col-md-6">
+                                            <div class="dropdown">
+                                                <a href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="zmdi zmdi-more" style="font-size: 20px; color:blue;"></i>
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <li style="margin-bottom:10px;"><a href="" style="padding-left: 20px;padding-right: 20px;"><i class="zmdi zmdi-edit" style="font-size: 20px; color:blue;"></i> <span style="font-size: 20px;margin-left: 10px;">Edit Applicant Details</span></a></li>
+                                                    <li style="margin-bottom:10px;"><a href="" style="padding-left: 20px;"><i class="zmdi zmdi-case" style="font-size: 20px; color:blue;"></i> <span style="font-size: 20px;  margin-left: 10px;">Update Case Status</span></a></li>
+                                                    <li style="margin-bottom:10px;"><a href="#" data-toggle="modal" data-target="#updatefees" style="padding-left: 20px;"><i class="zmdi zmdi-refresh-alt" style="font-size: 20px; color:blue;"></i> <span style="font-size: 20px; margin-left: 10px;">Update Fees</span></a></li>
+                                                    <li style="margin-bottom:10px;"><a href="#" style="padding-left: 20px;"><i class="zmdi zmdi-square-down" style="font-size: 20px; color:blue;"></i> <span style="font-size: 20px; margin-left: 10px;">Courier Documents</span></a></li>
+                                                </ul>
+                                            </div>
+                                            {% include "Admin/ApplicationManagement/VisaCases/updatefees.html" %}
+                                            <button type="button" class="btn btn-light d-flex align-items-center" data-toggle="modal" data-target="#updateagent{{i.id}}" style="border:none; background-color:transparent;">
+                           
+                                                <div>
+                                                    <i class='bx bx-edit text-warning' style="font-size: 20px;"></i>
+                                                </div>
+                                                <div class="ml-2 text-warning" >
+                                                    Update
+                                                    
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td>{{i.registered_on}}</td>
+                                    <td>{{i.last_updated_on}}</td>
+                                    <td>
+                                        <a class="text-warning" href="{% url "edit_enrolled_application" i.id %}">{{i.Salutation}} {{i.FirstName}} {{i.LastName}}</a>
+                                        <br>
+                                        <a><i class='zmdi zmdi-email-open' style="font-size: 15px; color:blue;"></i></a>{{i.email}}
+                                        <br>
+                                        <a><i class='zmdi zmdi-phone' style="font-size: 15px; color:blue;"></i></a>{{i.contact}}
+                                        <br>
+                                        Dob:{{i.Dob}}
+
+                                    </td>
+                                    <td>{{i.case_id}}</td>
+                                    <td>{{i.Package}}</td>
+                                    <td>{{i.case_status.case_status}}</td>
+                                    <td>
+                                        Country - {{i.Visa_country.country}} <br>
+                                        Category - {{i.Visa_category.category}} <br>
+                                        Sub Category - {{i.Visa_subcategory.subcategory_name}} <br>
+                                        Visa Type - {{i.Visa_type}}
+
+                                    </td>
+                                    <td>
+                                        Employee - {{i.assign_to_employee.users.first_name}} {{i.assign_to_employee.users.last_name}} <br>
+                                        Agent - {{i.assign_to_agent.users.first_name}} {{i.assign_to_agent.users.last_name}} <br>
+                                        OP - {{i.assign_to_outsourcingagent.users.first_name}} {{i.assign_to_outsourcingagent.users.last_name}} <br>
+                                    </td>
+                                    <td>{{i.created_by.first_name}} {{i.created_by.last_name}}</td>
+                                    
+                                    <td><div class="row">
+                                        <div class="col-md-4"><a href=""><i class='zmdi zmdi-account-add' style='color:#12c9c1;font-size: 20px;'  ></i></a></div>
+                                        <div class="col-md-4"><a href=""><i class='zmdi zmdi-account-box-o' style='color:#192081;font-size: 20px;'  ></i></a></div>
+                                        <div class="col-md-4"><a href="http://"><i class='zmdi zmdi-balance-wallet' style='color:#19a021;font-size: 20px;'  ></i></a></div>
+                                    </div></td>
+                                    
+                                </tr>
+                                {% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+
+{% endblock main-content %}
+<style>
+    /* CSS for the dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* CSS for the dropdown menu (hidden by default) */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+}
+
+/* Style the link inside the dropdown menu */
+.dropdown-menu a {
+    color: #333;
+    text-decoration: none;
+    display: flex; /* Make the text and icon flex elements */
+    align-items: center; /* Center the text and icon vertically */
+}
+
+/* Change color on hover */
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.querySelector(".dropdown-toggle");
+        const dropdownMenu = document.querySelector(".dropdown-menu");
+    
+        dropdownToggle.addEventListener("click", function (event) {
+            event.preventDefault();
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+    
+        // Close the dropdown when the user clicks outside of it
+        window.addEventListener("click", function (event) {
+            if (!event.target.matches(".dropdown-toggle")) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    });
+    
+</script>

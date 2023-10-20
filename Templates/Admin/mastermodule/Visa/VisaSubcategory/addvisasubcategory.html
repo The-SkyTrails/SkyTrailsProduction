@@ -1,0 +1,177 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Pricing</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+                <li><a href="{% url "subcategory_list" %}"><span>All Pricing</span></a></li>
+                <li class="active"><span>Pricing</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    
+    </div>
+    {% include 'dashboard/messages.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Add Pricing</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form action="" method ="POST">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>General Information</h6>
+                                            <hr class="light-grey-hr"/>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Select Country</label>
+                                                        
+                                                        <select class="form-control" name="country" id="country">
+                                                            <option value="----">----</option>
+                                                            {% for country in country %}
+                                                            <option value="{{country.id}}">{{country.country}}</option>
+                                                            
+                                                            {% endfor %}
+                                                        </select>
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Select Category Name</label>
+                                                        
+                                                        <select class="form-control" name="category" id="category">
+                                                            <option value="----">----</option>
+                                                            {% for category in category %}
+                                                            <option value="{{category.id}}">{{category.category}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Select SubCategory Name</label>
+                                                        
+                                                        <select class="form-control" name="subcategory" id="subcategory">
+                                                            <option value="----">----</option>
+                                                            {% for subcategory in category %}
+                                                            <option value="{{subcategory.id}}">{{subcategory.subcategory}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Estimated Amount(INR)</label>
+                                                        <input type="text" name="amount" id="amount"
+                                                class="form-control border-left-0" placeholder="0" onblur="updateTotal()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">CGST(%)</label>
+                                                        <input type="text" name="cgst" id="cgst"
+                                                class="form-control border-left-0" placeholder="0" oninput="updateTotal()">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">SGST(%)</label>
+                                                        <input type="text" name="sgst" id="sgst"
+                                                class="form-control border-left-0" placeholder="0" oninput="updateTotal()">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <h3>Total: <span id="total">0</span></h3>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label mb-10">Users</label>
+                                                           
+                                                            <select name="person" id="product-select" class="multiple form-control selectpicker" multiple>
+                                                                
+                                                                {% for user in person %}
+                                                                    <option value="{{ user.id }}">{{ user.first_name }} {{user.last_name}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Status</label>
+                                                        <div class="radio-list">
+                                                            <div class="radio-inline pl-0">
+                                                                <span class="radio radio-info">
+                                                                    <input class="form-check-input" type="radio" name="status" id="active" value="True">
+                                            <label class="form-check-label" for="inlineRadio1">Active</label>
+                                                            </span>
+                                                            </div>
+                                                            <div class="radio-inline">
+                                                                <span class="radio radio-info">
+                                                                    <input class="form-check-input" type="radio" name="status" id="inactive" value="False">
+                                                                    <label class="form-check-label" for="inlineRadio2">InActive</label>
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function updateTotal() {
+        var amount = parseFloat(document.getElementById("amount").value) || 0;
+        var cgst = parseFloat(document.getElementById("cgst").value) || 0;
+        var sgst = parseFloat(document.getElementById("sgst").value) || 0;
+
+        var totalAmount = amount+((amount * (cgst + sgst)) / 100);
+        document.getElementById("total").textContent = totalAmount.toFixed(2);
+    }
+</script>
+
+{% endblock main-content %}

@@ -1,0 +1,153 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">Menu List</h5>
+		</div>
+		<!-- Breadcrumb -->
+		
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>Menu List</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+	<div class="ml-auto" style="float:right;margin-bottom:20px;">
+		<a href="{% url "add_menu" %}"><button class="btn btn-primary">Add New</button></a>
+	</div>
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+                                    {% comment %} <th>Action</th> {% endcomment %}
+                                    {% comment %} <th>Registered On</th> {% endcomment %}
+                                    {% comment %} <th>Updated On</th> {% endcomment %}
+                                    <th>Menu Name</th>
+                                    <th>Action</th>
+                                    
+                                    {% comment %} <th>Updated By</th> {% endcomment %}
+                                    
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+                                    {% comment %} <th>Action</th> {% endcomment %}
+                                    {% comment %} <th>Registered On</th> {% endcomment %}
+                                    {% comment %} <th>Updated On</th> {% endcomment %}
+                                    <th>Menu Name</th>
+                                    <th>Action</th>
+                                    
+                                    {% comment %} <th>Updated By</th> {% endcomment %}
+                                    
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in menu %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    
+                                    <td>{{i.name}}</td>
+
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4"><a
+                                                    href="{% url "edit_menu" i.id %}"><i
+                                                        class='zmdi zmdi-edit'
+                                                        style="font-size: 20px; color:blue;"></i></a></div>
+                                            {% comment %} <div class="col-md-4"><a href="http://"><i class='zmdi zmdi-delete'
+                                                        style="font-size: 20px; color:red;"></i></a></div> {% endcomment %}
+                                        </div>
+                                    </td>
+                                   
+                                 
+                                    
+                                </tr>
+                                {% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+
+{% endblock main-content %}
+<style>
+    /* CSS for the dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* CSS for the dropdown menu (hidden by default) */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+}
+
+/* Style the link inside the dropdown menu */
+.dropdown-menu a {
+    color: #333;
+    text-decoration: none;
+    display: flex; /* Make the text and icon flex elements */
+    align-items: center; /* Center the text and icon vertically */
+}
+
+/* Change color on hover */
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.querySelector(".dropdown-toggle");
+        const dropdownMenu = document.querySelector(".dropdown-menu");
+    
+        dropdownToggle.addEventListener("click", function (event) {
+            event.preventDefault();
+            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+    
+        // Close the dropdown when the user clicks outside of it
+        window.addEventListener("click", function (event) {
+            if (!event.target.matches(".dropdown-toggle")) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    });
+    
+</script>

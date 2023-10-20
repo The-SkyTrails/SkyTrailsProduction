@@ -1,0 +1,490 @@
+{% extends 'Employee/Base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<div class="container-fluid">
+					
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Courier Document</h5>
+        </div>
+    
+        <!-- Breadcrumb -->
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li><a href="{% url "employee_dashboard" %}">Dashboard</a></li>
+                <li><a href="#"><span>All Courier Document</span></a></li>
+                <li class="active"><span>Add Courier Document</span></li>
+            </ol>
+        </div>
+        <!-- /Breadcrumb -->
+    
+    </div>
+    {% include 'Employee/Base/messages.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Add Courier Document</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-wrap">
+                                    <form action="" method ="POST">
+                                        {% csrf_token %}
+                                        <div class="form-body">
+                                            
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="control-label mb-10">Name/Case ID</label>
+                                                        <input type="text" class="form-control" id="case_no" name="case_no" placeholder="Name/Case Id">
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="panel-wrapper collapse in">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-wrap">
+                                                            <form class="form-horizontal" role="form">
+                                                                <div class="form-body">
+                                                                    <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>General Information</h6>
+                                                                    <hr class="light-grey-hr"/>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label col-md-3">Name:</label>
+                                                                                <div class="col-md-9">
+                                                                                    <p class="form-control-static"> John </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/span-->
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label col-md-3">Email:</label>
+                                                                                <div class="col-md-9">
+                                                                                    <p class="form-control-static"> Doe </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/span-->
+                                                                    </div>
+                                                                    <!-- /Row -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label col-md-3">Case No:</label>
+                                                                                <div class="col-md-9">
+                                                                                    <p class="form-control-static"> ASDF1234 </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--/span-->
+                                                                        
+                                                                    </div>
+                                                                    <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Document Information</h6>
+                                                                    <hr class="light-grey-hr"/>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">Document Name</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">From Address</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">From Landmark</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">From City</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">From State</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">From Zipcode</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">Courier Name</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">Tracking No.</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">To Address Id</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">To Address</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">To Landmark</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">To City</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">To State</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mb-10">To Zipcode</label>
+                                                                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10">Status</label>
+                                                                            <div class="radio-list">
+                                                                                <div class="radio-inline pl-0">
+                                                                                    <span class="radio radio-info">
+                                                                                        <input class="form-check-input" type="radio" name="{{ form.status.name }}" id="{{ form.status.id_for_label_active }}" value="True">
+                                                                            <label class="form-check-label" for="inlineRadio1">Active</label>
+                                                                                </span>
+                                                                                </div>
+                                                                                <div class="radio-inline">
+                                                                                    <span class="radio radio-info">
+                                                                                        <input class="form-check-input" type="radio" name="{{ form.status.name }}" id="{{ form.status.id_for_label_inactive }}" value="False">
+                                                                                        <label class="form-check-label" for="inlineRadio2">InActive</label>
+                                                                                </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions mt-10">
+                                            <button type="submit" class="btn btn-success  mr-10"> Save</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+        </div>
+    </div>
+
+</div>
+{% comment %} 
+<div class="page-wrapper">
+    <!--page-content-wrapper-->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-md-flex align-items-center mb-3">
+                <div class="breadcrumb-title pr-3">Add Courier Document</div>
+                <div class="pl-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 p-0">
+                            <li class="breadcrumb-item"><a href="{% url "travel_dashboards" %}"><i
+                                        class='bx bx-home-alt'></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Courier Document</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+            <!--end breadcrumb-->
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="search">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-body">
+                                <div class="form-row">
+                                    
+                                    <div class="form-group col-md-6">
+                                        <label for="case_no">Name/Case ID</label>
+                                        <input type="text" class="form-control" id="case_no" name="case_no" placeholder="Name/Case Id">
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </form>  
+                    </div>
+
+                    <div class="card border-lg-top-white">
+                        <div class="card-body p-5">
+                            <div class="card-title d-flex align-items-center">
+                                <div><i class='bx bxs-user mr-1 font-24 text-white'></i>
+                                </div>
+                                <h4 class="mb-0 text-white">General Information</h4>
+                            </div>
+                            <hr />
+                            <div class="form-body">
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <label>Name</label>
+                                        <h5>ASDF</h5>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Email</label>
+                                        <h5>ASDF@gmail.com</h5>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Case No</label>
+                                        <h5>ASDF1234</h5>
+                                    </div>
+                                   
+                                </div>
+
+                                <hr><br>
+                                <h4 class="mb-0 text-white">Document Information</h4>
+                                <hr>
+                                <br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>Document Name</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="document_name" id="document_name"
+                                                class="form-control border-left-0" placeholder="Document Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>From Address</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="from_address" id="from_address"
+                                                class="form-control border-left-0" placeholder="From Address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>From Landmark</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="from_landmark" id="from_landmark"
+                                                class="form-control border-left-0" placeholder="From Landmark">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>From City</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="from_city" id="from_city"
+                                                class="form-control border-left-0" placeholder="From City">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>From State</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="from_state" id="from_state"
+                                                class="form-control border-left-0" placeholder="From State">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>From Zipcode</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="from_zipcode" id="from_zipcode"
+                                                class="form-control border-left-0" placeholder="From Zipcode">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>Courier Name</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="courier_name" id="courier_name"
+                                                class="form-control border-left-0" placeholder="Courier Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Tracking No.</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="tracking_no" id="tracking_no"
+                                                class="form-control border-left-0" placeholder="Tracking No">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>To Address Id</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="to_address_id" id="to_address_id"
+                                                class="form-control border-left-0" placeholder="To Address Id">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>To Address</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="to_address" id="to_address"
+                                                class="form-control border-left-0" placeholder="To Address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>To Landmark</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="to_landmark" id="to_landmark"
+                                                class="form-control border-left-0" placeholder="To Landmark">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>To City</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="to_city" id="to_city"
+                                                class="form-control border-left-0" placeholder="To City">
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>To State</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="to_state" id="to_state"
+                                                class="form-control border-left-0" placeholder="To State">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>To Zipcode</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"> <span class="input-group-text"><i
+                                                        class='bx bx-user'></i></span>
+                                            </div>
+                                            <input type="text" name="to_zipcode" id="to_zipcode"
+                                                class="form-control border-left-0" placeholder="To Zipcode">
+                                        </div>
+                                    </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Status</label>
+                                            <br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="{{ form.status.name }}" id="{{ form.status.id_for_label_active }}" value="True">
+                                                <label class="form-check-label" for="inlineRadio1">Active</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="{{ form.status.name }}" id="{{ form.status.id_for_label_inactive }}" value="False">
+                                                <label class="form-check-label" for="inlineRadio2">InActive</label>
+                                            </div>
+                                        </div>
+                                </div>
+                                <br><br>
+
+
+                                <button type="submit" class="btn btn-light px-5">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end row-->
+        </div>
+    </div>
+    <!--end page-content-wrapper-->
+</div> {% endcomment %}
+
+{% endblock main-content %}

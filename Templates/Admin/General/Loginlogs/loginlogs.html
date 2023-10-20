@@ -1,0 +1,122 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block main-content %}
+
+
+<div class="container-fluid">
+
+	<!-- Title -->
+	<div class="row heading-bg">
+		<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+			<h5 class="txt-dark">LoginLogs</h5>
+		</div>
+		<!-- Breadcrumb -->
+		<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+			<ol class="breadcrumb">
+				<li><a href="{% url "travel_dashboards" %}">Dashboard</a></li>
+				{% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+				<li class="active"><span>LoginLogs</span></li>
+			</ol>
+		</div>
+		<!-- /Breadcrumb -->
+		
+	</div>
+	{% include 'dashboard/messages.html' %}
+
+	<form action="{% url "search_loginlog" %}" method="POST">
+		{% csrf_token %}
+		<div class="form-body">
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<label for="from_date">From Date</label>
+					<input type="date" class="form-control" id="from_date" name="from_date">
+				</div>
+				<div class="form-group col-md-3">
+					<label for="to_date">To Date</label>
+					<input type="date" class="form-control" id="to_date" name="to_date">
+				</div>
+				<div class="form-group col-md-3">
+					<label for="user_id">User ID</label>
+					<input type="text" class="form-control" id="user_id" name="user_id" placeholder="User ID">
+				</div>
+				<div class="form-group col-md-3">
+					<label for="user_type">Role</label>
+					<select class="form-control" id="user_type" name="user_type">
+						<option value="">Select Role</option>
+						<option value="2">Admin</option>                                    
+						<option value="3">Employee</option>
+						<option value="4">Agent</option>
+						<option value="5">Outsourcing Partner</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					<button type="submit" class="btn btn-primary px-5">Proceed</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!-- Row -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default card-view">
+				<div class="panel-wrapper collapse in">
+					<div class="panel-body">
+						<div class="table-wrap">
+							<div class="table-responsive">
+								<table id="example" class="table table-hover display  pb-30">
+									<thead>
+										<tr>
+											<th>S.No.</th>
+							<th>User Id</th>
+							<th>Platform</th>
+                            <th>Action</th>
+							<th>IP Address</th>
+							<th>Login Date</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>S.No.</th>
+							<th>User Id</th>
+							<th>Platform</th>
+                            <th>Action</th>
+							<th>IP Address</th>
+							<th>Login Date</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										{% for i in loginlog %}
+						
+						<tr>
+							<td>{{forloop.counter}}</td>
+							<td>{{i.user.email}}</td>
+							<td>{{i.platform}}</td>
+							{% if i.user.user_type == '2' %}
+                            <td>logged in Admin</td>
+							{% elif i.user.user_type == '3' %}
+							<td>logged in Employee</td>
+							{% elif i.user.user_type == '4' %}
+							<td>logged in </td>
+							
+							{% endif %}
+							<td>{{i.ip_address}}</td>
+							<td>{{i.login_datetime}}</td>
+						</tr>
+						
+						{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Row -->
+</div>
+
+{% endblock main-content %}

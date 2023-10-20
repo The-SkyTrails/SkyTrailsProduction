@@ -1,0 +1,34 @@
+<div class="modal fade" id="outsourceregistrationModal" tabindex="-1" role="dialog"
+    aria-labelledby="uploadDocumentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="{% url "empoutsourceagent_kyc" outsource.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadDocumentsModalLabel">
+                        Upload Registration Certificate</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="control-label mb-10">
+                        <input type="text" value="{{ agent.id }}" name="agent_id" hidden>
+                        
+
+                        <label class="control-label mb-10">Upload Registration Certificate</label>
+                        <div class="input-group">
+                            <input id="registration_file" type="file"
+                                accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" name="registration_file"
+                                multiple>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
